@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1b1022">
+<title>Schluckrunde</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Lilita+One&display=swap">
+<style>
+/* Layout: one phone-width column, a beer-mat "coaster" for the room code, tally marks for the sip count. Single night-bar look. */
+:root{
+  --ink:#1b1022; --panel:#291832; --panel2:#372142; --line:#4c315a;
+  --foam:#fff3d9; --muted:#bca7c6; --amber:#f6ad1d; --amber-ink:#2b1800;
+  --red:#ff6a7d; --ok:#86dc8f;
+  --display:"Lilita One","Arial Rounded MT Bold",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+html,body{height:100%}
+*,*::before,*::after{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;-webkit-tap-highlight-color:transparent;background:var(--ink);color:var(--foam);font-family:var(--body);font-size:16px;line-height:1.45;
+  background-image:radial-gradient(120% 60% at 50% -10%,rgba(246,173,29,.16),transparent 60%);
+  background-attachment:fixed;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:14px 40px}
+#app{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance;letter-spacing:.01em}
+h1{font-size:clamp(1.7rem,6vw,2.2rem);line-height:1.1}
+h2{font-size:1.25rem}
+p{margin:0}
+.muted{color:var(--muted)}
+.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:.75rem;color:var(--amber);font-weight:700}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:40px}
+.brand{font-family:var(--display);font-size:1.5rem;letter-spacing:.02em}
+.brand span{color:var(--amber)}
+.chip{background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-weight:700;font-size:.9rem;letter-spacing:.08em}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:14px}
+.btn{border:0;border-radius:14px;padding:14px 18px;font-family:var(--display);font-size:1.15rem;letter-spacing:.02em;background:var(--amber);color:var(--amber-ink);
+  box-shadow:0 4px 0 #a86f00;transition:transform .08s,box-shadow .08s}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #a86f00}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none}
+.btn.ghost{background:transparent;color:var(--foam);border:2px solid var(--line);box-shadow:none}
+.btn.ghost:hover{border-color:var(--muted)}
+.btn.big{font-size:1.4rem;padding:18px}
+.btn.small{font-size:.95rem;padding:8px 12px;border-radius:10px}
+.wide{width:100%}
+input[type=text]{width:100%;box-sizing:border-box;background:var(--ink);border:2px solid var(--line);border-radius:12px;color:var(--foam);font:inherit;font-size:1.1rem;padding:12px 14px}
+input::placeholder{color:#7d6a87}
+label{font-size:.85rem;color:var(--muted);font-weight:700}
+.field{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
+.hero{display:flex;flex-direction:column;gap:8px;padding-top:4px}
+.profile{flex-direction:row;align-items:center;gap:16px}
+.av{border-radius:50%;display:block;flex:none}
+.av-btn{position:relative;border:0;background:none;padding:0;border-radius:50%}
+.av-btn .pen{position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);background:var(--foam);color:var(--ink);font-size:.72rem;font-weight:700;border-radius:999px;padding:2px 8px;white-space:nowrap}
+.builder .row{display:flex;flex-direction:column;gap:8px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:2px solid transparent;border-radius:50%;padding:2px;background:none;line-height:0}
+.opt.on{border-color:var(--amber)}
+.sw{width:30px;height:30px;border-radius:50%;display:block}
+.builder-head{display:flex;align-items:center;gap:14px}
+.builder-foot{display:flex;gap:10px}
+.builder-foot .btn{flex:1}
+.actions{display:flex;flex-direction:column;gap:12px}
+.join{display:flex;gap:10px}
+.join input{text-transform:uppercase;letter-spacing:.3em;font-weight:700;text-align:center;font-size:1.3rem}
+.join .btn{flex:none}
+.or{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:.85rem}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.note{font-size:.88rem;color:var(--muted)}
+.err{background:rgba(255,106,125,.12);border:1px solid rgba(255,106,125,.5);color:#ffd0d6;border-radius:12px;padding:10px 14px;font-size:.95rem}
+.games{display:flex;flex-direction:column;gap:10px}
+.game{display:flex;gap:14px;align-items:flex-start;background:var(--panel);border:2px solid var(--line);border-radius:16px;padding:14px;text-align:left;width:100%}
+.game .ic{font-family:var(--display);font-size:1.3rem;width:44px;height:44px;border-radius:50%;background:var(--panel2);display:grid;place-items:center;flex:none;color:var(--amber)}
+.game p{font-size:.92rem;color:var(--muted)}
+.game.on{border-color:var(--amber);background:var(--panel2)}
+.game div{min-width:0;display:flex;flex-direction:column;gap:2px}
+.game h3{font-size:1.1rem}
+footer{text-align:center;font-size:.82rem;color:var(--muted);padding-top:6px}
+/* coaster */
+.lobby-head{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.coaster{width:190px;height:190px;max-width:100%;border-radius:50%;background:var(--amber);color:var(--amber-ink);display:grid;place-items:center;position:relative;
+  box-shadow:0 10px 0 rgba(0,0,0,.25), inset 0 0 0 7px var(--amber), inset 0 0 0 9px rgba(43,24,0,.5)}
+.coaster::before{content:"";position:absolute;inset:16px;border-radius:50%;border:2px dashed rgba(43,24,0,.45)}
+.coaster small{display:block;font-weight:700;letter-spacing:.18em;font-size:.72rem;text-transform:uppercase}
+.coaster b{font-family:var(--display);font-weight:400;font-size:3rem;letter-spacing:.12em;line-height:1;display:block;padding-left:.12em}
+.plist{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.plist li{display:flex;align-items:center;gap:12px;min-width:0}
+.plist .nm{font-weight:700;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tag{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:2px 8px;background:var(--panel2);color:var(--muted);flex:none}
+.tag.host{background:var(--amber);color:var(--amber-ink)}
+.rm{border:0;background:none;color:var(--muted);font-size:1.3rem;padding:0 6px}
+.addrow{display:flex;gap:10px}
+.addrow .btn{flex:none}
+/* play */
+.round{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-weight:700;font-size:.9rem}
+.round span:first-child{font-family:var(--display);font-weight:400;font-size:1.1rem;color:var(--foam)}
+.stage{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:22px 18px;display:flex;flex-direction:column;gap:16px;align-items:stretch}
+.q{font-size:clamp(1.45rem,5.4vw,1.9rem)}
+.unit{color:var(--muted);font-weight:700}
+.guessrow{display:flex;gap:10px;align-items:center}
+.guessrow input{font-size:1.5rem;font-weight:700;text-align:center;font-variant-numeric:tabular-nums}
+.sent{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--panel2);border-radius:14px;padding:12px 14px}
+.sent b{font-size:1.3rem;font-variant-numeric:tabular-nums}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.duo .btn{font-size:1.35rem;padding:20px 10px}
+.btn.pick{background:var(--panel2);color:var(--foam);box-shadow:0 4px 0 #1a0d20;border:2px solid var(--line)}
+.btn.pick.on{background:var(--amber);color:var(--amber-ink);border-color:var(--amber);box-shadow:0 4px 0 #a86f00}
+.vote{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.vote button{display:flex;align-items:center;gap:10px;background:var(--panel2);border:2px solid var(--line);border-radius:14px;padding:8px 10px;text-align:left;min-width:0}
+.vote button span{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.vote button.on{border-color:var(--amber);background:#4a2d2a}
+.status{display:flex;flex-direction:column;gap:10px}
+.dots{display:flex;flex-wrap:wrap;gap:8px}
+.dot{position:relative;line-height:0}
+.dot.wait .av{opacity:.3;filter:grayscale(1)}
+.dot.done::after{content:"✓";position:absolute;right:-3px;bottom:-3px;width:16px;height:16px;border-radius:50%;background:var(--ok);color:#10301a;font-size:11px;line-height:16px;text-align:center;font-weight:700}
+.cards{display:flex;align-items:center;justify-content:center;gap:16px}
+.pcard{width:104px;aspect-ratio:5/7;max-width:40vw;background:#fbf4e4;border-radius:12px;color:#1b1022;position:relative;box-shadow:0 6px 0 rgba(0,0,0,.3);display:grid;place-items:center;flex:none}
+.pcard.red{color:#c8203a}
+.pcard .big{font-family:var(--display);font-size:3.2rem;line-height:1}
+.pcard .cr{position:absolute;font-weight:700;font-size:.95rem;line-height:1;text-align:center}
+.pcard .cr.tl{top:8px;left:9px}.pcard .cr.br{bottom:8px;right:9px;transform:rotate(180deg)}
+.pcard.back{background:repeating-linear-gradient(45deg,var(--amber) 0 8px,#e39a0c 8px 16px);border:5px solid #fbf4e4;box-sizing:border-box}
+.arrow{font-family:var(--display);font-size:2rem;color:var(--muted)}
+.pass{text-align:center;align-items:center}
+.truth{display:flex;flex-direction:column;gap:4px;background:var(--amber);color:var(--amber-ink);border-radius:16px;padding:14px 16px}
+.truth b{font-family:var(--display);font-weight:400;font-size:2rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.truth small{font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.72rem}
+.res{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.res li{display:flex;align-items:center;gap:12px;background:var(--panel2);border-radius:14px;padding:10px 12px;min-width:0}
+.res .who{flex:1;min-width:0;display:flex;flex-direction:column}
+.res .who b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.res .who small{color:var(--muted);font-size:.85rem}
+.res .val{font-variant-numeric:tabular-nums;font-weight:700;text-align:right;flex:none}
+.sip{flex:none;background:var(--red);color:#2a0710;font-weight:700;border-radius:999px;padding:4px 10px;font-size:.88rem;white-space:nowrap}
+.safe{flex:none;background:rgba(134,220,143,.16);color:var(--ok);font-weight:700;border-radius:999px;padding:4px 10px;font-size:.88rem}
+.ex{font-size:1.05rem;font-weight:700;text-align:center;color:var(--amber)}
+.btnrow{display:flex;gap:10px;flex-wrap:wrap}
+.btnrow .btn{flex:1 1 160px}
+.score{display:flex;flex-direction:column;gap:8px}
+.score li{display:flex;align-items:center;gap:10px;min-width:0}
+.score .nm{width:90px;flex:none;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.score .ticks{flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.score .n{font-variant-numeric:tabular-nums;font-weight:700;color:var(--muted);flex:none}
+.tally{stroke:var(--foam);stroke-width:2.4;stroke-linecap:round;fill:none}
+.t0{color:var(--muted)}
+.wait-big{text-align:center;padding:30px 10px;display:flex;flex-direction:column;gap:10px;align-items:center}
+.spinner{width:36px;height:36px;border-radius:50%;border:4px solid var(--line);border-top-color:var(--amber);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spinner{animation:none}.btn{transition:none}}
+@media (max-width:380px){.coaster{width:160px;height:160px}.coaster b{font-size:2.5rem}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<script>
+/* ---------- Verbindung: PeerJS, Host ist der Knoten, Spieler verbinden sich zu ihm ---------- */
+const PREFIX = 'schluckrunde-v1-';
+function makePeer(id){
+  const peer = id ? new Peer(id, {debug:0}) : new Peer({debug:0});
+  peer.on('disconnected', ()=>{ if(!peer.destroyed) setTimeout(()=>{ try{ peer.reconnect(); }catch(e){} }, 1000); });
+  return peer;
+}
+function emitter(){
+  const hs = new Set(); let t = null;
+  return { add(fn){ hs.add(fn); return ()=>hs.delete(fn); }, fire(){ clearTimeout(t); t=setTimeout(()=>hs.forEach(fn=>{ try{ fn(); }catch(e){ console.error(e); } }),0); } };
+}
+// Host: wartet auf Verbindungen und schickt seinen Spielstand an alle
+function openHub(code){
+  return new Promise((resolve, reject)=>{
+    const peer = makePeer(PREFIX+code);
+    const ev = emitter(), errs = new Set();
+    const self = {peer:null, sameTab:true, kind:'viewer', presence:{}};
+    const conns = new Map(); // peerId -> {conn, entry}
+    let opened = false;
+    const send = (c) => { try{ if(c.open) c.send({t:'host', presence:self.presence}); }catch(e){} };
+    const api = {
+      peers: () => [self, ...[...conns.values()].filter(x=>x.ready).map(x=>x.entry)],
+      onPeers(fn, onErr){ if(onErr) errs.add(onErr); return ev.add(fn); },
+      presence(patch){ for(const k in patch){ if(patch[k]===null) delete self.presence[k]; else self.presence[k]=patch[k]; } conns.forEach(x=>send(x.conn)); return Promise.resolve(); },
+      leave(){ try{ peer.destroy(); }catch(e){} return Promise.resolve(); }
+    };
+    peer.on('open', id=>{ opened=true; self.peer=id; resolve(api); });
+    peer.on('connection', conn=>{
+      const x = {conn, ready:false, entry:{peer:conn.peer, sameTab:false, kind:'viewer', presence:{}}};
+      conns.set(conn.peer, x);
+      conn.on('open', ()=>{ x.ready=true; send(conn); ev.fire(); });
+      conn.on('data', m=>{
+        if(!m || m.t!=='pres' || typeof m.presence!=='object') return;
+        const p = m.presence;
+        x.entry = {...x.entry, presence:{role:p.role==='player'?'player':'', p:p.p, ans:p.ans}};
+        ev.fire();
+      });
+      const drop = ()=>{ if(conns.get(conn.peer)===x){ conns.delete(conn.peer); ev.fire(); } };
+      conn.on('close', drop); conn.on('error', drop);
+    });
+    peer.on('error', e=>{
+      if(!opened){ try{ peer.destroy(); }catch(_){} reject({code: e.type==='unavailable-id' ? 'taken' : (e.type||'Fehler')}); }
+    });
+    setTimeout(()=>{ if(!opened){ try{ peer.destroy(); }catch(_){} reject({code:'Zeitüberschreitung'}); } }, 12000);
+  });
+}
+// Spieler: verbindet sich mit dem Host des Codes
+function openLeaf(code){
+  return new Promise((resolve, reject)=>{
+    const peer = makePeer();
+    const ev = emitter(), errs = new Set();
+    const self = {peer:null, sameTab:true, kind:'viewer', presence:{}};
+    let host = null, conn = null, done = false, closed = false;
+    const push = () => { try{ if(conn && conn.open) conn.send({t:'pres', presence:self.presence}); }catch(e){} };
+    const api = {
+      peers: () => host ? [self, host] : [self],
+      onPeers(fn, onErr){ if(onErr) errs.add(onErr); return ev.add(fn); },
+      presence(patch){ for(const k in patch){ if(patch[k]===null) delete self.presence[k]; else self.presence[k]=patch[k]; } push(); return Promise.resolve(); },
+      leave(){ closed=true; try{ peer.destroy(); }catch(e){} return Promise.resolve(); }
+    };
+    const fail = c => { if(done) return; done=true; try{ peer.destroy(); }catch(_){} reject({code:c}); };
+    peer.on('open', id=>{
+      self.peer = id;
+      conn = peer.connect(PREFIX+code, {reliable:true});
+      conn.on('open', ()=>{ if(done) return; done=true; push(); resolve(api); });
+      conn.on('data', m=>{ if(m && m.t==='host' && m.presence && typeof m.presence==='object'){ host = {peer:conn.peer, sameTab:false, kind:'viewer', presence:m.presence}; ev.fire(); } });
+      conn.on('close', ()=>{ host=null; ev.fire(); if(!closed) errs.forEach(f=>f({code:'Host weg'})); });
+    });
+    peer.on('error', e=>{ if(!done) fail(e.type==='peer-unavailable' ? 'not_found' : (e.type||'Fehler')); });
+    setTimeout(()=>fail('not_found'), 10000);
+  });
+}
+</script>
+<script>
+/* ---------- Daten ---------- */
+const GAMES = {
+  schaetzen: {name:'Schätzen', ic:'≈', d:'Eine Frage, eine Zahl. Wer am weitesten danebenliegt, trinkt 3. Wer am nächsten dran ist, verteilt 2.'},
+  hol:       {name:'Höher oder Tiefer', ic:'↕', d:'Ist die nächste Karte höher oder tiefer? Falsch getippt: 2 Schlucke. Gleiche Karte: alle trinken 1.'},
+  wwe:       {name:'Wer würde eher', ic:'?', d:'Alle stimmen ab, wer es am ehesten tun würde. Jede Stimme, die du bekommst, ist ein Schluck.'}
+};
+const QS = [
+  {q:'Wie hoch ist der Mount Everest?', a:8849, u:'m'},
+  {q:'Wie viele Knochen hat ein erwachsener Mensch?', a:206, u:'Knochen'},
+  {q:'In welchem Jahr fiel die Berliner Mauer?', a:1989, y:1},
+  {q:'Wie viele Staaten gehören zur EU?', a:27, u:'Staaten'},
+  {q:'Wie viele Tasten hat ein Klavier?', a:88, u:'Tasten'},
+  {q:'Wie viele Herzen hat ein Oktopus?', a:3, u:'Herzen'},
+  {q:'Wie lang ist der Rhein?', a:1233, u:'km'},
+  {q:'Wie hoch ist die Zugspitze?', a:2962, u:'m'},
+  {q:'Wie viele Minuten hat eine Woche?', a:10080, u:'Minuten'},
+  {q:'Wie viele Zähne hat ein Erwachsener mit Weisheitszähnen?', a:32, u:'Zähne'},
+  {q:'In welchem Jahr landeten die ersten Menschen auf dem Mond?', a:1969, y:1},
+  {q:'Wie viele Sekunden hat ein Tag?', a:86400, u:'Sekunden'},
+  {q:'Wie hoch ist der Eiffelturm mit Antennen?', a:330, u:'m'},
+  {q:'Wie weit ist der Mond im Mittel von der Erde entfernt?', a:384400, u:'km'},
+  {q:'Wie viele Felder hat ein Schachbrett?', a:64, u:'Felder'},
+  {q:'Wie alt wurde Johann Wolfgang von Goethe?', a:82, u:'Jahre'},
+  {q:'In welchem Jahr wurde die Bundesrepublik Deutschland gegründet?', a:1949, y:1},
+  {q:'Wie lang ist ein Marathon?', a:42195, u:'m'},
+  {q:'Bei wie viel Grad Fahrenheit kocht Wasser?', a:212, u:'°F'},
+  {q:'Wie viele Zeitzonen hat Russland?', a:11, u:'Zeitzonen'},
+  {q:'Wie viele Sterne hat die Europaflagge?', a:12, u:'Sterne'},
+  {q:'In welchem Jahr sank die Titanic?', a:1912, y:1},
+  {q:'Wie groß ist Deutschland?', a:357588, u:'km²'},
+  {q:'Wie hoch ist der Kölner Dom?', a:157, u:'m'},
+  {q:'Wie viele Mitgliedstaaten haben die Vereinten Nationen?', a:193, u:'Staaten'},
+  {q:'Wie lang ist der Äquator?', a:40075, u:'km'},
+  {q:'In welchem Jahr wurde das erste iPhone vorgestellt?', a:2007, y:1},
+  {q:'In welchem Jahr wurde Google gegründet?', a:1998, y:1},
+  {q:'Wie viele Augen hat ein normaler Würfel insgesamt?', a:21, u:'Augen'},
+  {q:'Wie viele Karten hat ein Skatblatt?', a:32, u:'Karten'},
+  {q:'Wie hoch ist der Burj Khalifa?', a:828, u:'m'},
+  {q:'Wie viele Tore fielen insgesamt im WM-Halbfinale 2014 Brasilien gegen Deutschland?', a:8, u:'Tore'},
+  {q:'Wie viele Saiten hat eine normale Gitarre?', a:6, u:'Saiten'},
+  {q:'Wie viele Planeten hat unser Sonnensystem?', a:8, u:'Planeten'},
+  {q:'Wie viele Bundesländer hat Deutschland?', a:16, u:'Länder'},
+  {q:'Wie heiß ist die Oberfläche der Sonne ungefähr?', a:5500, u:'°C'}
+];
+const WWE = [
+  '… als Erstes auf der Party einschlafen?','… beim Karaoke das Mikro nicht mehr hergeben?','… aus Versehen dem Ex schreiben?',
+  '… sich auf einem Festival verlaufen?','… um 4 Uhr morgens noch einen Döner holen?','… eine Quizshow im Fernsehen gewinnen?',
+  '… den eigenen Geburtstag vergessen?','… mit einem Fremden zurückkommen, der jetzt „ein guter Freund“ ist?','… ein Urlaubs-Tattoo bereuen?',
+  '… beim Flunkyball schummeln?','… als Erstes die Musik auf der Party wechseln?','… eine Woche ohne Handy durchhalten?',
+  '… heimlich Reality-TV schauen?','… viel zu schick zur Party kommen?','… das Handy in der Bar liegen lassen?',
+  '… auf dem Tisch tanzen?','… am selben Tag spontan in den Urlaub fliegen?','… beim Brettspiel einen Wutanfall bekommen?',
+  '… mit einer Band berühmt werden?','… als Erstes Pizza bestellen?','… beim Wandern zuerst aufgeben?','… als Erstes heiraten?',
+  '… sich mit dem Türsteher anfreunden?','… beim Kochen die Küche abfackeln?','… eine Nachricht an die falsche Gruppe schicken?'
+];
+const SUITS = ['♠','♥','♦','♣'];
+const RANK = v => v<=10 ? String(v) : ({11:'B',12:'D',13:'K',14:'A'})[v];
+
+/* ---------- Avatar ---------- */
+const BG   = ['#f6ad1d','#ff6a7d','#5ec8c0','#8f7cf6','#86dc8f','#4d8df0','#f2e3b3','#e86fd0'];
+const SKIN = ['#ffe0c4','#f4c39b','#d9a06f','#b07548','#7d4f2e','#5a3620'];
+const HC   = ['#2b1a12','#6b3e1f','#d9a441','#c9452e','#e8e0d4','#3d5bd9'];
+const AVF  = [
+  {l:'Hintergrund', n:BG.length, sw:BG},
+  {l:'Haut', n:SKIN.length, sw:SKIN},
+  {l:'Augen', n:6},
+  {l:'Mund', n:5},
+  {l:'Kopf', n:7},
+  {l:'Haarfarbe', n:HC.length, sw:HC}
+];
+function avatarSVG(code, size){
+  const d = (/^\d{6}$/.test(code) ? code : '000000').split('').map(Number);
+  const bg=BG[d[0]%BG.length], sk=SKIN[d[1]%SKIN.length], ey=d[2]%6, mo=d[3]%5, tp=d[4]%7, hc=HC[d[5]%HC.length];
+  const k='#1b1022';
+  const line = `stroke="${k}" stroke-width="3.5" fill="none" stroke-linecap="round"`;
+  const E=[
+    `<circle cx="39" cy="55" r="4" fill="${k}"/><circle cx="61" cy="55" r="4" fill="${k}"/>`,
+    `<path d="M33 57 Q39 50 45 57 M55 57 Q61 50 67 57" ${line}/>`,
+    `<circle cx="39" cy="54" r="7" fill="#fff"/><circle cx="61" cy="54" r="7" fill="#fff"/><circle cx="40" cy="55" r="3.6" fill="${k}"/><circle cx="62" cy="55" r="3.6" fill="${k}"/>`,
+    `<rect x="27" y="48" width="21" height="12" rx="4" fill="${k}"/><rect x="52" y="48" width="21" height="12" rx="4" fill="${k}"/><path d="M48 52 L52 52" stroke="${k}" stroke-width="3"/><path d="M31 51.5 L37 51.5" stroke="#fff" stroke-width="2" opacity=".5" stroke-linecap="round"/>`,
+    `<path d="M33 56 L45 56 M55 56 L67 56" ${line}/>`,
+    `<circle cx="39" cy="55" r="4" fill="${k}"/><path d="M55 57 Q61 50 67 57" ${line}/>`
+  ];
+  const M=[
+    `<path d="M41 68 Q50 77 59 68" ${line}/>`,
+    `<path d="M39 66 Q50 84 61 66Z" fill="${k}"/><path d="M42 67 L58 67 L57 70 L43 70Z" fill="#fff"/>`,
+    `<path d="M43 71 L57 71" ${line}/>`,
+    `<ellipse cx="50" cy="71" rx="4.5" ry="5.5" fill="${k}"/>`,
+    `<path d="M41 68 Q50 77 59 68" ${line}/><path d="M47 73 Q50.5 82 54 73Z" fill="#ff6f8a"/>`
+  ];
+  let back='', front='';
+  if(tp===2) back=`<path d="M20 58 Q18 20 50 20 Q82 20 80 58 L82 88 Q72 92 68 78 L32 78 Q28 92 18 88Z" fill="${hc}"/>`;
+  if(tp===1) front=`<path d="M21 52 Q20 22 50 22 Q80 22 79 52 Q70 38 56 40 Q46 30 21 52Z" fill="${hc}"/>`;
+  if(tp===2) front=`<path d="M21 54 Q22 22 50 22 Q78 22 79 54 Q62 44 52 32 Q40 46 21 54Z" fill="${hc}"/>`;
+  if(tp===3) front=`<path d="M20 46 Q20 16 50 16 Q80 16 80 46Z" fill="#e8475f"/><rect x="17" y="40" width="66" height="11" rx="5.5" fill="#ffd6a0"/><circle cx="50" cy="13" r="6" fill="#ffd6a0"/>`;
+  if(tp===4) front=`<path d="M36 33 L50 4 L64 33Z" fill="#5ec8c0"/><path d="M41 23 L59 23 M45 14 L55 14" stroke="#fff3d9" stroke-width="3"/><circle cx="50" cy="5" r="4" fill="#f6ad1d"/>`;
+  if(tp===5) front=`<path d="M31 34 L29 14 L40 24 L50 10 L60 24 L71 14 L69 34Z" fill="#f6c02b" stroke="#b9800b" stroke-width="2" stroke-linejoin="round"/>`;
+  if(tp===6) front=[[27,42],[33,30],[44,24],[56,24],[67,30],[73,42]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="10" fill="${hc}"/>`).join('');
+  return `<svg class="av" viewBox="0 0 100 100" width="${size}" height="${size}" aria-hidden="true"><rect width="100" height="100" fill="${bg}"/>${back}`+
+    `<path d="M14 104 Q16 82 50 82 Q84 82 86 104Z" fill="${k}" opacity=".35"/><circle cx="50" cy="56" r="29" fill="${sk}"/>`+
+    `<circle cx="31" cy="65" r="5" fill="#ff6f8a" opacity=".35"/><circle cx="69" cy="65" r="5" fill="#ff6f8a" opacity=".35"/>${E[ey]}${M[mo]}${front}</svg>`;
+}
+const randAv = () => AVF.map(f=>Math.floor(Math.random()*f.n)).join('');
+
+/* ---------- Helfer ---------- */
+const $app = document.getElementById('app');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store = {
+  get(k,d){ try{ const v=localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+const sleep = ms => new Promise(r=>setTimeout(r,ms));
+const cleanName = x => String(x||'').replace(/[\u0000-\u001f\u007f]/g,'').trim().slice(0,16) || 'Gast';
+const cleanAv = x => /^\d{6}$/.test(x) ? x : '000000';
+const sipTxt = s => s===1 ? '1 Schluck' : s+' Schlucke';
+function fmt(n, q){ if(q && q.y) return String(Math.round(n)); return Number(n).toLocaleString('de-DE',{maximumFractionDigits:2}); }
+function parseNum(s){
+  s = String(s||'').replace(/\s/g,'');
+  if(s.includes(',')) s = s.replace(/\./g,'').replace(',', '.');
+  else if(/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g,'');
+  const n = parseFloat(s); return Number.isFinite(n) ? n : null;
+}
+function genCode(){ const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let c=''; for(let i=0;i<4;i++) c+=A[Math.floor(Math.random()*A.length)]; return c; }
+const bags = {};
+function nextFrom(kind, n){
+  if(!bags[kind] || !bags[kind].length){ bags[kind] = [...Array(n).keys()].sort(()=>Math.random()-.5); }
+  return bags[kind].pop();
+}
+const draw = () => ({v:2+Math.floor(Math.random()*13), s:Math.floor(Math.random()*4)});
+
+/* ---------- Zustand ---------- */
+const S = {
+  me: Object.assign({name:'', av:randAv()}, store.get('sr-profile', {})),
+  roomApi: undefined, nr: null, mode: null, code: '', G: null, myId: null, peerMap: {},
+  myAns: null, editing: false, busy: false, err: '', codeDraft: '',
+  hostSeen: false, lost: false, lostT: null, joinT: null,
+  localIdx: 0, localReady: false, localAnswers: {}, lastG: ''
+};
+S.me.av = cleanAv(S.me.av);
+const saveProfile = () => store.set('sr-profile', {name:S.me.name, av:S.me.av});
+const prof = () => ({n:cleanName(S.me.name), av:S.me.av});
+const newG = () => ({ph:'lobby', gt:'schaetzen', r:0, rk:'', pl:[], ac:[], res:null, sp:{}, qi:0, card:null, prev:null, hd:'', top:null});
+const isHost = () => S.mode==='host' || S.mode==='local';
+const plById = id => (S.G && S.G.pl.find(p=>p.id===id)) || {id, n:'Weg', av:'000000'};
+
+/* ---------- Spiellogik (Host) ---------- */
+function validAns(G, v){
+  if(G.gt==='schaetzen') return typeof v==='number' && Number.isFinite(v);
+  if(G.gt==='hol') return v==='h' || v==='t';
+  if(G.gt==='wwe') return G.pl.some(p=>p.id===v);
+  return false;
+}
+function answersFor(G){
+  const out = {};
+  if(S.mode==='local'){ for(const id in S.localAnswers) out[id]=S.localAnswers[id]; return out; }
+  for(const p of G.pl){
+    let a = null;
+    if(p.id===S.myId) a = S.myAns;
+    else { const peer = S.peerMap[p.id]; a = peer && peer.presence && peer.presence.ans; }
+    if(a && a.k===G.rk && validAns(G, a.v)) out[p.id] = a.v;
+  }
+  return out;
+}
+function pushG(){
+  const s = JSON.stringify(S.G);
+  if(s!==S.lastG){
+    S.lastG = s;
+    if(S.mode==='host' && S.nr) S.nr.presence({g:S.G}).catch(e=>{ S.err='Spielstand konnte nicht gesendet werden ('+(e&&e.code||'Fehler')+').'; render(); });
+  }
+  render();
+}
+function hostSync(){
+  if(S.mode!=='host' || !S.nr) return;
+  const peers = S.nr.peers();
+  S.peerMap = {}; peers.forEach(p=>{ S.peerMap[p.peer]=p; });
+  const me = peers.find(p=>p.sameTab); if(me) S.myId = me.peer;
+  const entries = [{id:S.myId, n:cleanName(S.me.name), av:S.me.av}];
+  for(const p of peers){
+    if(p.sameTab || p.kind!=='viewer' || !p.presence || p.presence.role!=='player') continue;
+    const pp = p.presence.p || {};
+    entries.push({id:p.peer, n:cleanName(pp.n), av:cleanAv(pp.av)});
+  }
+  const prev = S.G.pl.map(x=>x.id);
+  entries.sort((a,b)=>{ const ia=prev.indexOf(a.id), ib=prev.indexOf(b.id); return (ia<0?999:ia)-(ib<0?999:ib); });
+  S.G.pl = entries.slice(0,12);
+  if(S.G.ph==='play') checkAnswers(); else pushG();
+}
+function checkAnswers(){
+  const a = answersFor(S.G);
+  S.G.ac = Object.keys(a);
+  if(S.G.pl.length && S.G.pl.every(p=>p.id in a)) reveal(); else pushG();
+}
+function newRound(){
+  const G = S.G;
+  G.r++; G.rk = Math.random().toString(36).slice(2,8); G.ph='play'; G.res=null; G.ac=[]; G.top=null; G.hd='';
+  if(G.gt==='schaetzen') G.qi = nextFrom('s', QS.length);
+  if(G.gt==='wwe') G.qi = nextFrom('w', WWE.length);
+  if(G.gt==='hol'){ if(!G.card) G.card = draw(); G.prev = null; }
+  S.myAns=null; S.localAnswers={}; S.localIdx=0; S.localReady=false;
+  if(S.mode==='host') S.nr.presence({ans:null}).catch(()=>{});
+  pushG();
+}
+function reveal(){
+  const G = S.G, a = answersFor(G), res = [];
+  if(G.gt==='schaetzen'){
+    const truth = QS[G.qi].a;
+    const got = G.pl.filter(p=>p.id in a).map(p=>({id:p.id, v:a[p.id], d:Math.abs(a[p.id]-truth)})).sort((x,y)=>x.d-y.d);
+    const best = got.length ? got[0].d : 0, worst = got.length ? got[got.length-1].d : 0;
+    for(const g of got){
+      let s=1, t='';
+      if(best===worst){ s=0; t = g.d===0 ? 'Volltreffer!' : 'Alle gleich weit weg'; }
+      else if(g.d===best){ s=0; t = g.d===0 ? 'Volltreffer! Verteilt 4' : 'Am nächsten dran · verteilt 2'; }
+      else if(g.d===worst){ s=3; t='Am weitesten weg'; }
+      res.push({id:g.id, v:fmt(g.v, QS[G.qi]), s, t});
+    }
+    G.pl.filter(p=>!(p.id in a)).forEach(p=>res.push({id:p.id, v:'–', s:3, t:'Keine Antwort'}));
+  }
+  if(G.gt==='hol'){
+    G.prev = G.card; G.card = draw();
+    const dir = G.card.v>G.prev.v ? 'h' : G.card.v<G.prev.v ? 't' : '=';
+    G.hd = dir;
+    for(const p of G.pl){
+      const v = a[p.id], vt = v==='h'?'Höher':v==='t'?'Tiefer':'–';
+      if(dir==='=') res.push({id:p.id, v:vt, s:1, t:'Gleiche Karte'});
+      else if(!v) res.push({id:p.id, v:vt, s:2, t:'Keine Antwort'});
+      else if(v===dir) res.push({id:p.id, v:vt, s:0, t:'Richtig'});
+      else res.push({id:p.id, v:vt, s:2, t:'Falsch'});
+    }
+  }
+  if(G.gt==='wwe'){
+    const votes = {}; G.pl.forEach(p=>votes[p.id]=0);
+    for(const id in a) if(a[id] in votes) votes[a[id]]++;
+    const max = Math.max(0, ...Object.values(votes));
+    G.top = max>0 ? G.pl.filter(p=>votes[p.id]===max).map(p=>p.id) : [];
+    for(const p of G.pl){
+      const voted = p.id in a, s = votes[p.id] + (voted?0:1);
+      const t = (max>0 && votes[p.id]===max ? 'Meiste Stimmen' : '') + (voted ? '' : ((max>0 && votes[p.id]===max)?' · ':'')+'Nicht abgestimmt +1');
+      res.push({id:p.id, v:votes[p.id]+(votes[p.id]===1?' Stimme':' Stimmen'), s, t});
+    }
+    res.sort((x,y)=>y.s-x.s);
+  }
+  for(const r of res) G.sp[r.id] = (G.sp[r.id]||0) + r.s;
+  G.res = res; G.ph = 'reveal'; G.ac = [];
+  pushG();
+}
+
+/* ---------- Räume ---------- */
+function onRoomErr(e){
+  if(!S.mode || S.mode==='local') return;
+  S.lost = true; S.err = 'Die Verbindung wurde getrennt ('+(e&&e.code||'Fehler')+').'; render();
+}
+async function createRoom(){
+  if(!S.roomApi || S.busy) return;
+  if(!S.me.name.trim()){ S.err='Gib zuerst deinen Namen ein.'; render(); document.getElementById('nm')?.focus(); return; }
+  S.busy=true; S.err=''; render();
+  try{
+    for(let i=0;i<3;i++){
+      const code = genCode();
+      let nr;
+      try{ nr = await openHub(code); }catch(e){ if(e && e.code==='taken') continue; throw e; }
+      S.nr=nr; S.code=code; S.mode='host'; S.G=newG(); S.lastG=''; S.myAns=null;
+      const me = nr.peers().find(p=>p.sameTab); S.myId = me ? me.peer : 'host';
+      await nr.presence({role:'host', p:prof()});
+      nr.onPeers(()=>hostSync(), onRoomErr);
+      try{ navigator.wakeLock && navigator.wakeLock.request('screen').catch(()=>{}); }catch(e){}
+      S.busy=false; hostSync(); return;
+    }
+    throw {code:'kein freier Code'};
+  }catch(e){
+    S.busy=false; S.mode=null; S.nr=null;
+    S.err = 'Der Raum konnte nicht erstellt werden ('+(e&&e.code||'Fehler')+'). Versuch es nochmal oder spielt auf einem Handy.';
+    render();
+  }
+}
+async function joinRoom(){
+  if(!S.roomApi || S.busy) return;
+  const code = (S.codeDraft||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(!S.me.name.trim()){ S.err='Gib zuerst deinen Namen ein.'; render(); document.getElementById('nm')?.focus(); return; }
+  if(code.length!==4){ S.err='Der Raum-Code hat 4 Zeichen.'; render(); return; }
+  S.busy=true; S.err=''; render();
+  try{
+    const nr = await openLeaf(code);
+    S.nr=nr; S.code=code; S.mode='player'; S.G=null; S.hostSeen=false; S.lost=false; S.myAns=null;
+    await nr.presence({role:'player', p:prof()});
+    nr.onPeers(()=>playerSync(), onRoomErr);
+    S.joinT = setTimeout(()=>{ if(S.mode==='player' && !S.hostSeen){ leaveRoom(); S.err='Kein Raum mit dem Code '+code+' gefunden. Prüf den Code.'; render(); } }, 7000);
+    S.busy=false; render();
+  }catch(e){
+    S.busy=false; S.mode=null; S.nr=null;
+    S.err = (e && e.code==='not_found') ? 'Kein Raum mit dem Code '+code+' gefunden. Prüf den Code.' : 'Beitreten hat nicht geklappt ('+(e&&e.code||'Fehler')+').'; render();
+  }
+}
+function playerSync(){
+  if(S.mode!=='player' || !S.nr) return;
+  const peers = S.nr.peers();
+  const me = peers.find(p=>p.sameTab); if(me) S.myId = me.peer;
+  const host = peers.find(p=>!p.sameTab && p.presence && p.presence.role==='host' && p.presence.g);
+  if(host){
+    S.hostSeen=true; S.lost=false; clearTimeout(S.lostT); S.lostT=null; clearTimeout(S.joinT);
+    const g = host.presence.g;
+    S.G = Object.assign(newG(), g, {pl:(Array.isArray(g.pl)?g.pl:[]).map(p=>({id:String(p.id), n:cleanName(p.n), av:cleanAv(p.av)}))});
+  } else if(S.hostSeen && !S.lostT){
+    S.lostT = setTimeout(()=>{ S.lostT=null; const h=S.nr && S.nr.peers().some(p=>p.presence && p.presence.role==='host'); if(!h){ S.lost=true; render(); } }, 4000);
+  }
+  render();
+}
+function leaveRoom(){
+  try{ S.nr && S.nr.leave(); }catch(e){}
+  clearTimeout(S.lostT); clearTimeout(S.joinT);
+  Object.assign(S, {nr:null, mode:null, G:null, code:'', myAns:null, lost:false, hostSeen:false, lostT:null, joinT:null, lastG:''});
+  render();
+}
+function startLocal(){
+  if(!S.me.name.trim()){ S.err='Gib zuerst deinen Namen ein.'; render(); document.getElementById('nm')?.focus(); return; }
+  S.err=''; S.mode='local'; S.myId='me'; S.G=newG();
+  S.G.pl=[{id:'me', n:cleanName(S.me.name), av:S.me.av}];
+  pushG();
+}
+function submitAnswer(v){
+  const G=S.G; if(!G || G.ph!=='play' || !validAns(G, v)) return;
+  if(S.mode==='local'){
+    const p = G.pl[S.localIdx]; if(!p) return;
+    S.localAnswers[p.id]=v; S.localIdx++; S.localReady=false;
+    if(S.localIdx>=G.pl.length) reveal(); else render();
+    return;
+  }
+  S.myAns = {k:G.rk, v};
+  if(S.mode==='player') S.nr.presence({ans:S.myAns}).catch(()=>{});
+  if(S.mode==='host') hostSync();
+  render();
+}
+
+/* ---------- Ansichten ---------- */
+function tally(n){
+  if(!n) return '<span class="t0">–</span>';
+  const g = (k, full) => { let l=''; for(let i=0;i<k;i++) l+=`<path d="M${4+i*6} 3 L${4+i*6} 21"/>`; if(full) l+='<path d="M1 18 L27 6"/>'; return `<svg class="tally" viewBox="0 0 28 24" width="28" height="24" aria-hidden="true">${l}</svg>`; };
+  let out=''; for(let i=0;i<Math.floor(n/5);i++) out+=g(4,true); if(n%5) out+=g(n%5,false); return out;
+}
+function scoreHTML(){
+  const G=S.G; const rows = G.pl.map(p=>({p, s:G.sp[p.id]||0})).sort((a,b)=>b.s-a.s);
+  if(!rows.some(r=>r.s)) return '';
+  return `<section class="panel"><h2>Schluck-Konto</h2><ul class="plist score">${rows.map(r=>`<li>${avatarSVG(r.p.av,28)}<span class="nm">${esc(r.p.n)}</span><span class="ticks">${tally(r.s)}</span><span class="n">${r.s}</span></li>`).join('')}</ul></section>`;
+}
+function playersHTML(){
+  const G=S.G;
+  return `<ul class="plist">${G.pl.map((p,i)=>`<li>${avatarSVG(p.av,40)}<span class="nm">${esc(p.n)}</span>${i===0 && S.mode!=='local'?'<span class="tag host">Host</span>':''}${p.id===S.myId?'<span class="tag">du</span>':''}${S.mode==='local' && p.id!=='me' && G.ph==='lobby'?`<button class="rm" data-act="rmp" data-id="${esc(p.id)}" aria-label="${esc(p.n)} entfernen">×</button>`:''}</li>`).join('')}</ul>`;
+}
+function topbar(){
+  const right = S.mode==='local'
+    ? `<button class="btn ghost small" data-act="leave">Beenden</button>`
+    : `<span style="display:flex;gap:8px;align-items:center"><span class="chip">${esc(S.code)}</span><button class="btn ghost small" data-act="leave">Verlassen</button></span>`;
+  return `<header class="top"><div class="brand">Schluck<span>runde</span></div>${right}</header>`;
+}
+function builderHTML(){
+  const d = S.me.av.split('').map(Number);
+  return AVF.map((f,fi)=>`<div class="row"><label>${f.l}</label><div class="opts">${[...Array(f.n).keys()].map(v=>{
+    const on = d[fi]===v ? ' on' : '';
+    let inner;
+    if(f.sw) inner = `<span class="sw" style="background:${f.sw[v]}"></span>`;
+    else { const t=[...d]; t[fi]=v; inner = avatarSVG(t.join(''),40); }
+    return `<button class="opt${on}" data-act="av" data-f="${fi}" data-v="${v}" aria-label="${f.l} ${v+1}" aria-pressed="${!!on}">${inner}</button>`;
+  }).join('')}</div></div>`).join('');
+}
+
+function view(){
+  const R = {};
+  const reg = (id, h) => { R[id]=h; return `<div id="${id}">${h}</div>`; };
+  const err = S.err ? `<div class="err" role="alert">${esc(S.err)}</div>` : '';
+
+  // Startseite
+  if(!S.mode){
+    const api = S.roomApi;
+    const dis = (!api || S.busy) ? 'disabled' : '';
+    const note = api===undefined ? '<p class="note">Verbinde mit dem Raum-Dienst …</p>'
+      : api===null ? '<p class="note">Online-Räume konnten nicht geladen werden. Prüf die Internetverbindung oder spielt auf einem Handy.</p>'
+      : '<p class="note">Deine Freunde öffnen diese Seite und geben deinen Code ein.</p>';
+    return {key:'home'+S.editing+S.busy+(api===undefined?'u':api?'y':'n'), regions:R, html:`
+      <header class="top"><div class="brand">Schluck<span>runde</span></div></header>
+      <section class="hero"><h1>Trinkspiele für eure Runde</h1><p class="muted">Raum erstellen, Code teilen, losspielen. Wer danebenliegt, trinkt.</p></section>
+      <section class="panel profile">
+        <button class="av-btn" data-act="edit-av" aria-label="Profilbild ändern">${reg('r-avprev', avatarSVG(S.me.av,84))}<span class="pen">${S.editing?'fertig':'ändern'}</span></button>
+        <div class="field"><label for="nm">Dein Name</label><input type="text" id="nm" maxlength="16" value="${esc(S.me.name)}" placeholder="z. B. Lena" autocomplete="off"></div>
+      </section>
+      ${S.editing ? `<section class="panel builder"><div class="builder-head"><h2>Dein Charakter</h2></div>${reg('r-builder', builderHTML())}<div class="builder-foot"><button class="btn ghost" data-act="rand-av">Zufällig</button><button class="btn" data-act="edit-av">Fertig</button></div></section>` : ''}
+      <section class="actions">
+        <button class="btn big" data-act="create" ${dis}>${S.busy?'Verbinde …':'Raum erstellen'}</button>
+        <div class="join"><input type="text" id="code" maxlength="4" placeholder="CODE" value="${esc(S.codeDraft)}" autocapitalize="characters" autocomplete="off" aria-label="Raum-Code"><button class="btn ghost" data-act="join" ${dis}>Beitreten</button></div>
+        ${note}
+        <div class="or">oder</div>
+        <button class="btn ghost wide" data-act="local">Auf einem Handy spielen</button>
+      </section>
+      ${reg('r-err', err)}
+      <section class="games"><h2>Die Spiele</h2>${Object.values(GAMES).map(g=>`<div class="game"><span class="ic">${g.ic}</span><div><h3>${g.name}</h3><p>${g.d}</p></div></div>`).join('')}</section>
+      <footer>Trinkt verantwortungsvoll. Ein Schluck Wasser zählt auch.</footer>`};
+  }
+
+  // Verbindung weg
+  if(S.lost){
+    return {key:'lost', regions:R, html:`${topbar()}<section class="stage wait-big"><h1>Der Raum ist weg</h1><p class="muted">Der Host hat den Raum verlassen oder die Verbindung ist abgebrochen.</p><button class="btn" data-act="leave">Zur Startseite</button></section>`};
+  }
+
+  // Warten auf Host
+  if(S.mode==='player' && !S.G){
+    return {key:'search', regions:R, html:`${topbar()}<section class="stage wait-big"><div class="spinner"></div><h1>Suche Raum ${esc(S.code)}</h1><p class="muted">Einen Moment, wir verbinden dich mit dem Host.</p></section>`};
+  }
+
+  const G = S.G, game = GAMES[G.gt] || GAMES.schaetzen;
+
+  // Lobby
+  if(G.ph==='lobby'){
+    const head = S.mode==='local'
+      ? `<section class="hero"><h1>Runde auf einem Handy</h1><p class="muted">Tragt alle Mitspieler ein. Während des Spiels gebt ihr das Handy reihum weiter.</p></section>`
+      : `<section class="lobby-head"><div class="coaster"><div><small>Raum-Code</small><b>${esc(S.code)}</b><small>Schluckrunde</small></div></div>
+         <p class="muted">Freunde öffnen diese Seite und geben den Code ein.</p>
+         <button class="btn ghost small" data-act="copy">Einladung kopieren</button></section>`;
+    const addForm = S.mode==='local' ? `<div class="addrow"><input type="text" id="addn" maxlength="16" placeholder="Name hinzufügen" autocomplete="off" aria-label="Name des Mitspielers"><button class="btn small" data-act="addp">Hinzufügen</button></div>` : '';
+    const picker = isHost()
+      ? `<section class="games"><h2>Spiel wählen</h2>${Object.entries(GAMES).map(([k,g])=>`<button class="game${G.gt===k?' on':''}" data-act="pick" data-g="${k}" aria-pressed="${G.gt===k}"><span class="ic">${g.ic}</span><div><h3>${g.name}</h3><p>${g.d}</p></div></button>`).join('')}</section>`
+        + reg('r-start', `<button class="btn big wide" data-act="start" ${G.pl.length<2?'disabled':''}>${G.pl.length<2?'Mindestens 2 Spieler':(G.r?'Weiter mit '+game.name:'Spiel starten')}</button>`)
+      : reg('r-wait', `<section class="panel"><p class="eyebrow">Nächstes Spiel</p><h2>${esc(game.name)}</h2><p class="muted">${esc(game.d)}</p><p>Der Host startet gleich.</p></section>`);
+    return {key:'lobby'+S.mode+(isHost()?G.gt+G.r:''), regions:R, html:`${topbar()}${head}
+      <section class="panel"><h2>Spieler</h2>${reg('r-players', playersHTML())}${addForm}</section>
+      ${reg('r-err', err)}${picker}${reg('r-score', scoreHTML())}`};
+  }
+
+  const roundBar = `<div class="round"><span>${esc(game.name)}</span><span>Runde ${G.r}</span></div>`;
+
+  // Spielen
+  if(G.ph==='play'){
+    const local = S.mode==='local';
+    const cur = local ? G.pl[S.localIdx] : null;
+    const myV = local ? undefined : (S.myAns && S.myAns.k===G.rk ? S.myAns.v : undefined);
+    let body = '';
+    if(local && cur && !S.localReady){
+      body = `<section class="stage pass">${avatarSVG(cur.av,96)}<p class="muted">Gib das Handy an</p><h1>${esc(cur.n)}</h1><button class="btn big wide" data-act="ready">Ich bin ${esc(cur.n)}</button></section>`;
+    } else if(G.gt==='schaetzen'){
+      const Q = QS[G.qi] || QS[0];
+      body = `<section class="stage"><p class="eyebrow">${local?esc(cur.n)+' schätzt':'Schätzfrage'}</p><h1 class="q">${esc(Q.q)}</h1>`+
+        (myV===undefined
+          ? `<div class="guessrow"><input type="text" id="guess" inputmode="decimal" placeholder="Deine Zahl" autocomplete="off" aria-label="Deine Schätzung">${Q.u?`<span class="unit">${esc(Q.u)}</span>`:''}</div><button class="btn big" data-act="guess">Abschicken</button>`
+          : `<div class="sent"><span>Deine Schätzung<br><b>${fmt(myV,Q)} ${esc(Q.u||'')}</b></span><button class="btn ghost small" data-act="unans">Ändern</button></div>`)+`</section>`;
+    } else if(G.gt==='hol'){
+      const c = G.card || {v:7,s:0};
+      body = `<section class="stage"><p class="eyebrow">${local?esc(cur.n)+' tippt':'Aktuelle Karte'}</p>
+        <div class="cards">${cardHTML(c)}<span class="arrow">→</span><div class="pcard back" aria-label="verdeckte Karte"></div></div>
+        <h1 class="q" style="text-align:center">Höher oder tiefer?</h1>
+        <div class="duo"><button class="btn pick${myV==='h'?' on':''}" data-act="ans" data-v="h">Höher</button><button class="btn pick${myV==='t'?' on':''}" data-act="ans" data-v="t">Tiefer</button></div></section>`;
+    } else if(G.gt==='wwe'){
+      body = `<section class="stage"><p class="eyebrow">${local?esc(cur.n)+' stimmt ab · ':''}Wer würde eher …</p><h1 class="q">${esc(WWE[G.qi] || WWE[0])}</h1>`+
+        reg('r-vote', `<div class="vote">${G.pl.map(p=>`<button class="${myV===p.id?'on':''}" data-act="ans" data-v="${esc(p.id)}">${avatarSVG(p.av,32)}<span>${esc(p.n)}</span></button>`).join('')}</div>`)+`</section>`;
+    }
+    const done = local ? G.pl.slice(0,S.localIdx).map(p=>p.id) : (G.ac||[]);
+    const status = `<section class="status"><p class="muted">${done.length} von ${G.pl.length} ${local?'sind durch':'haben geantwortet'}</p><div class="dots">${G.pl.map(p=>`<span class="dot ${done.includes(p.id)?'done':'wait'}" title="${esc(p.n)}">${avatarSVG(p.av,34)}</span>`).join('')}</div>`+
+      (S.mode==='host' ? `<button class="btn ghost" data-act="reveal" ${done.length?'':'disabled'}>Jetzt auflösen</button>` : '')+`</section>`;
+    const akey = local ? S.localIdx+'/'+S.localReady : JSON.stringify(myV===undefined?null:myV);
+    return {key:'play'+G.rk+akey, regions:R, html:`${topbar()}${roundBar}${body}${reg('r-status', status)}${reg('r-err', err)}`};
+  }
+
+  // Auflösung
+  let head='';
+  if(G.gt==='schaetzen'){
+    const Q = QS[G.qi] || QS[0];
+    head = `<p class="eyebrow">Auflösung</p><h1 class="q">${esc(Q.q)}</h1><div class="truth"><small>Richtige Antwort</small><b>${fmt(Q.a,Q)} ${esc(Q.u||'')}</b></div>`;
+  } else if(G.gt==='hol'){
+    const t = G.hd==='h'?'Höher!':G.hd==='t'?'Tiefer!':'Gleich!';
+    head = `<p class="eyebrow">Auflösung</p><div class="cards">${cardHTML(G.prev||{v:7,s:0})}<span class="arrow">→</span>${cardHTML(G.card||{v:7,s:0})}</div><h1 class="q" style="text-align:center">${t}</h1>`;
+  } else {
+    const tops = (G.top||[]).map(id=>esc(plById(id).n));
+    head = `<p class="eyebrow">Wer würde eher …</p><h1 class="q">${esc(WWE[G.qi]||WWE[0])}</h1>`+
+      (tops.length ? `<p class="ex">${tops.join(' und ')} ${tops.length>1?'würden':'würde'} es wohl am ehesten tun.</p>` : `<p class="ex">Niemand hat abgestimmt.</p>`);
+  }
+  const res = `<ul class="res">${(G.res||[]).map(r=>{ const p=plById(r.id); return `<li>${avatarSVG(p.av,40)}<span class="who"><b>${esc(p.n)}</b>${r.t?`<small>${esc(r.t)}</small>`:''}</span><span class="val">${esc(r.v)}</span>${r.s>0?`<span class="sip">${sipTxt(r.s)}</span>`:'<span class="safe">sicher</span>'}</li>`; }).join('')}</ul>`;
+  const ctrl = isHost()
+    ? `<div class="btnrow"><button class="btn" data-act="next">Nächste Runde</button><button class="btn ghost" data-act="lobby">Spiel wechseln</button></div>`
+    : `<p class="muted" style="text-align:center">Der Host startet gleich die nächste Runde.</p>`;
+  return {key:'rev'+G.rk, regions:R, html:`${topbar()}${roundBar}<section class="stage">${head}${reg('r-res', res)}</section>${ctrl}${reg('r-score', scoreHTML())}${reg('r-err', err)}`};
+}
+function cardHTML(c){
+  const red = c.s===1 || c.s===2, r = RANK(c.v), su = SUITS[c.s%4];
+  return `<div class="pcard${red?' red':''}" aria-label="${r} ${su}"><span class="cr tl">${r}<br>${su}</span><span class="big">${r}</span><span class="cr br">${r}<br>${su}</span></div>`;
+}
+
+let lastKey = null;
+function render(){
+  const v = view();
+  if(v.key!==lastKey){ $app.innerHTML = v.html; lastKey = v.key; const g=document.getElementById('guess'); if(g) g.focus({preventScroll:true}); }
+  else for(const id in v.regions){ const el=document.getElementById(id); if(el) el.innerHTML = v.regions[id]; }
+}
+
+/* ---------- Eingaben ---------- */
+function act(a, d){
+  if(a==='edit-av'){ S.editing=!S.editing; render(); return; }
+  if(a==='av'){ const t=S.me.av.split(''); t[+d.f]=String(+d.v); S.me.av=t.join(''); saveProfile(); render(); return; }
+  if(a==='rand-av'){ S.me.av=randAv(); saveProfile(); render(); return; }
+  if(a==='create') return createRoom();
+  if(a==='join') return joinRoom();
+  if(a==='local') return startLocal();
+  if(a==='leave'){ S.err=''; return leaveRoom(); }
+  if(a==='copy'){
+    const link = location.origin + location.pathname + '?code=' + S.code;
+    const txt = 'Komm in meine Schluckrunde! Raum-Code: '+S.code+' – '+link;
+    try{ navigator.clipboard.writeText(txt).then(()=>{ S.err=''; flash('Einladung kopiert'); }, ()=>flash(txt)); }catch(e){ flash(txt); }
+    return;
+  }
+  if(a==='addp'){
+    const inp=document.getElementById('addn'); const n=cleanName(inp && inp.value);
+    if(!inp || !inp.value.trim()) return;
+    if(S.G.pl.length>=12){ S.err='Mehr als 12 Spieler gehen nicht.'; render(); return; }
+    S.G.pl.push({id:'l'+Math.random().toString(36).slice(2,8), n, av:randAv()});
+    inp.value=''; S.err=''; pushG(); return;
+  }
+  if(a==='rmp'){ S.G.pl = S.G.pl.filter(p=>p.id!==d.id); pushG(); return; }
+  if(a==='pick' && isHost()){ S.G.gt=d.g; pushG(); return; }
+  if(a==='start' && isHost()){ if(S.G.pl.length>=2) newRound(); return; }
+  if(a==='next' && isHost()){ newRound(); return; }
+  if(a==='lobby' && isHost()){ S.G.ph='lobby'; pushG(); return; }
+  if(a==='reveal' && S.mode==='host'){ reveal(); return; }
+  if(a==='ready'){ S.localReady=true; render(); return; }
+  if(a==='guess'){
+    const v = parseNum(document.getElementById('guess')?.value);
+    if(v===null){ S.err='Gib eine Zahl ein.'; render(); return; }
+    S.err=''; submitAnswer(v); return;
+  }
+  if(a==='unans'){ S.myAns=null; if(S.mode==='player') S.nr.presence({ans:null}).catch(()=>{}); if(S.mode==='host') hostSync(); render(); return; }
+  if(a==='ans'){ submitAnswer(d.v); return; }
+}
+function flash(msg){
+  const el=document.getElementById('r-err'); if(!el) return;
+  el.innerHTML=`<div class="note" style="text-align:center">${esc(msg)}</div>`;
+  setTimeout(()=>{ if(el.isConnected) el.innerHTML=''; }, 3500);
+}
+$app.addEventListener('click', e=>{ const b=e.target.closest('[data-act]'); if(!b || b.disabled) return; act(b.dataset.act, b.dataset); });
+let profT=null;
+$app.addEventListener('input', e=>{
+  if(e.target.id==='nm'){ S.me.name=e.target.value.slice(0,16); saveProfile(); }
+  if(e.target.id==='code'){ const v=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,''); if(e.target.value!==v) e.target.value=v; S.codeDraft=v; }
+});
+$app.addEventListener('keydown', e=>{
+  if(e.key!=='Enter') return;
+  if(e.target.id==='code') act('join',{});
+  if(e.target.id==='guess') act('guess',{});
+  if(e.target.id==='addn') act('addp',{});
+});
+
+/* ---------- Start ---------- */
+try{ const c = new URLSearchParams(location.search).get('code'); if(c) S.codeDraft = c.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,4); }catch(e){}
+S.roomApi = window.Peer ? true : null;
+render();
+</script>
+</body>
+</html>
