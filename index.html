@@ -175,6 +175,7 @@ footer{text-align:center;font-size:.82rem;color:var(--muted);padding-top:4px}
 .spinner{width:40px;height:40px;border-radius:12px;border:3px solid var(--ink);background:var(--lemon);animation:spin 1.2s ease-in-out infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .drawing{width:min(100%,340px);aspect-ratio:1;margin:0 auto;display:block;border:2.5px solid var(--ink);border-radius:18px;background:#fff;box-shadow:5px 5px 0 var(--sh);object-fit:contain}
+.refbtn{align-self:center;text-decoration:none;display:inline-block}
 .gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .gallery figure{margin:0;display:flex;flex-direction:column;gap:6px;min-width:0}
 .gallery img{width:100%;aspect-ratio:1;border:2.5px solid var(--ink);border-radius:14px;background:#fff;display:block}
@@ -1184,6 +1185,7 @@ function cardHTML(c){
   const red = c.s===1 || c.s===2, r = RANK(c.v), su = SUITS[c.s%4];
   return `<div class="pcard${red?' red':''}" aria-label="${r} ${su}"><span class="cr tl">${r}<br>${su}</span><span class="big">${r}</span><span class="cr br">${r}<br>${su}</span></div>`;
 }
+const refLink = name => `<a class="btn ghost small refbtn" href="https://www.google.com/search?tbm=isch&amp;q=${encodeURIComponent(name+' Zeichentrick')}" target="_blank" rel="noopener noreferrer">So sieht ${esc(name)} aus ↗</a>`;
 const timerHTML = c => (online() && S.dl) ? `<div class="timer" style="--c:${c}"><div class="tb"><i id="tbi"></i></div><span id="tbs"></span></div>` : '';
 
 function view(){
@@ -1272,6 +1274,7 @@ function view(){
       const own = !local && G.cur && G.cur.id===S.myId;
       body = `<section class="box stage" style="--c:${game.c}"><p class="eyebrow">Bild ${G.vi+1} von ${G.vn} · ${esc(DRAWQ[G.qi%DRAWQ.length])}</p>
         ${G.cur?`<img class="drawing" src="${esc(G.cur.img)}" alt="Zeichnung ${G.vi+1}">`:''}
+        ${refLink(DRAWQ[G.qi%DRAWQ.length])}
         ${own ? `<p class="ex">Das ist dein Bild. Die anderen bewerten gerade.</p>` :
           `<h2 class="center">${local?'Wie gut ist es?':'Wie gut ist es getroffen?'}</h2><div class="trio">${VOTES.map(o=>`<button class="btn v${o.p}${myV===o.p?' on':''}" data-act="ans" data-v="${o.p}">${o.l}</button>`).join('')}</div>`}</section>`;
     } else if(G.gt==='draw'){
@@ -1323,7 +1326,7 @@ function view(){
     const w = (G.res||[]).filter(r=>r.w).map(r=>esc(plById(r.id).n));
     head = `<p class="eyebrow">Ergebnis${G.gt==='draw'?' · '+esc(DRAWQ[G.qi%DRAWQ.length]):''}</p><h1 class="q">${esc(game.name)}</h1>`+(w.length?`<p class="ex">${w.join(' und ')} ${w.length>1?'gewinnen':'gewinnt'}!</p>`:'');
   }
-  const gal = (G.gt==='draw' && G.gal && G.gal.length) ? `<div class="gallery">${G.gal.map(x=>`<figure><img src="${esc(x.img)}" alt="Bild von ${esc(plById(x.id).n)}"><figcaption>${esc(plById(x.id).n)}</figcaption></figure>`).join('')}</div>` : '';
+  const gal = (G.gt==='draw' && G.gal && G.gal.length) ? `<div class="gallery">${G.gal.map(x=>`<figure><img src="${esc(x.img)}" alt="Bild von ${esc(plById(x.id).n)}"><figcaption>${esc(plById(x.id).n)}</figcaption></figure>`).join('')}</div>${refLink(DRAWQ[G.qi%DRAWQ.length])}` : '';
   const res = `<ul class="res">${(G.res||[]).map(r=>{ const p=plById(r.id); return `<li>${avatarSVG(p.av,40)}<span class="who"><b>${esc(p.n)}</b>${r.t?`<small>${esc(r.t)}</small>`:''}</span><span class="val">${esc(r.v)}</span>${r.s>0?`<span class="sip">${sipTxt(r.s)}</span>`:'<span class="safe">safe</span>'}</li>`; }).join('')}</ul>`;
   const lastMix = G.mode==='mix' && G.r>=G.len;
   let ctrl;
