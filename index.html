@@ -211,16 +211,57 @@ footer{text-align:center;font-size:.82rem;color:var(--muted);padding-top:4px}
 .match small{font-size:.75rem;font-weight:700;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
 /* Busfahrer */
 .bushero{background:linear-gradient(135deg,var(--card) 0%,var(--card2) 100%);border-top:12px solid var(--orange)}
-.bc{width:64px;aspect-ratio:5/8;background:#fffaf0;border:2.5px solid var(--ink);border-radius:10px;box-shadow:3px 3px 0 var(--sh);position:relative;display:grid;place-items:center;flex:none;color:var(--dk)}
-.bc .bl{position:absolute;top:4px;left:6px;font-family:var(--display);font-weight:800;font-size:.85rem;line-height:1}
-.bc .bl.br{top:auto;left:auto;bottom:4px;right:6px;transform:rotate(180deg)}
-.bc.sm{width:42px;border-width:2px;border-radius:8px;box-shadow:2px 2px 0 var(--sh)}
-.bc.sm .bl{font-size:.68rem;top:3px;left:4px}.bc.sm .bl.br{bottom:3px;right:4px}
-.bc.lg{width:96px}
-.bc.lg .bl{font-size:1.1rem}
-.bc.back{background:repeating-linear-gradient(45deg,var(--orange) 0 7px,#e8852a 7px 14px)}
-.bc.hl{outline:3px solid var(--lemon);outline-offset:2px}
+.bc{width:64px;aspect-ratio:60/96;border-radius:10%/6.5%;box-shadow:3px 3px 0 rgba(0,0,0,.35);position:relative;flex:none;line-height:0}
+.bc svg{width:100%;height:100%;display:block}
+.bc.xs{width:24px;box-shadow:1px 1px 0 rgba(0,0,0,.4)}
+.bc.sm{width:40px;box-shadow:2px 2px 0 rgba(0,0,0,.35)}
+.bc.md{width:56px}
+.bc.rs{width:32px;box-shadow:1px 1px 0 rgba(0,0,0,.4)}
+.bc.lg{width:92px;box-shadow:4px 4px 0 rgba(0,0,0,.35)}
+.bc.back{border:1.6px solid #16133a;background-color:#2f55b8;
+  background-image:linear-gradient(45deg,rgba(251,243,223,.35) 25%,transparent 25%,transparent 75%,rgba(251,243,223,.35) 75%),linear-gradient(45deg,rgba(251,243,223,.35) 25%,transparent 25%,transparent 75%,rgba(251,243,223,.35) 75%);
+  background-size:8px 8px;background-position:0 0,4px 4px;outline:2px solid #fbf3df;outline-offset:-4px}
+.bc.hl{box-shadow:0 0 0 3px var(--lemon),0 0 16px var(--lemon)}
 .bc.ghost{opacity:.25}
+/* runder Tisch */
+.btable{position:relative;width:100%;max-width:520px;aspect-ratio:1/1.12;margin:30px auto 40px}
+.felt{position:absolute;inset:15% 13% 17%;border-radius:50%;background:radial-gradient(ellipse at 50% 38%,#2f8a5c 0%,#1f6243 58%,#174632 100%);
+  border:10px solid #7a4a24;box-shadow:inset 0 0 0 3px #5a3418,inset 0 6px 20px rgba(0,0,0,.35),0 0 0 2.5px var(--ink),6px 6px 0 var(--sh);display:grid;place-items:center;padding:7% 9%}
+.center{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;color:#fff;min-width:0;max-width:100%}
+.center .cq{font-family:var(--display);font-weight:800;font-size:clamp(.82rem,3.8vw,1.1rem);line-height:1.15;text-wrap:balance}
+.center .cs{font-size:.7rem;opacity:.85;font-weight:700}
+.center .row{display:flex;gap:6px;align-items:center;justify-content:center;flex-wrap:wrap}
+.center .ok{color:var(--lemon);font-family:var(--display);font-weight:800;font-size:.85rem}
+.center .bad{color:#ffb3bf;font-family:var(--display);font-weight:800;font-size:.85rem}
+.seat{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:3px;width:88px;z-index:2}
+.seat .av{transition:box-shadow .2s}
+.seat.turn .av{box-shadow:0 0 0 4px var(--lemon),0 0 20px var(--lemon)}
+.seat.cand .av{box-shadow:0 0 0 3px var(--orange)}
+.seat .nm{font-size:.68rem;font-weight:800;background:var(--card);border:2px solid var(--ink);border-radius:999px;padding:1px 8px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.seat.me .nm{background:var(--ink);color:var(--dk)}
+.seat.turn .nm{background:var(--lemon);color:var(--dk)}
+.seat .mc{display:flex;padding-left:9px;min-height:12px}
+.seat .mc .bc{margin-left:-9px}
+.seat .mc button{border:0;background:none;padding:0;margin-left:-9px;border-radius:4px}
+.seat .mc button .bc{margin-left:0}
+.seat .mc button:not(:disabled) .bc{box-shadow:0 0 0 2px var(--mint),0 0 10px var(--mint)}
+.seat .sub{font-size:.58rem;font-weight:700;color:var(--muted);white-space:nowrap}
+.seat .rl{font-family:var(--display);font-size:.52rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:2px solid var(--ink);border-radius:999px;padding:1px 6px;background:var(--orange);color:var(--dk)}
+.seat .rl.co{background:var(--lemon)}
+.pyr-t{display:flex;flex-direction:column-reverse;align-items:center;gap:3px}
+.pyr-t .prow{display:flex;gap:3px}
+.pyr-t .pslot{position:relative}
+.pyr-t .cnt{position:absolute;top:-6px;right:-6px;background:var(--mint);color:var(--dk);border:1.5px solid var(--ink);border-radius:999px;font-size:.55rem;font-weight:800;padding:0 4px;line-height:1.4}
+.ride-t{display:flex;gap:4px}
+.ride-t .slot{display:flex;flex-direction:column;align-items:center;gap:2px}
+.ride-t .slot small{font-size:.55rem;font-weight:800;opacity:.75}
+.ride-t .slot.cur .bc{box-shadow:0 0 0 3px var(--lemon),0 0 12px var(--lemon)}
+.myhand{display:flex;gap:10px;align-items:flex-end;justify-content:center;flex-wrap:wrap}
+.myhand button{border:0;background:none;padding:0;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.7rem;font-weight:800}
+.myhand button:disabled{cursor:default}
+.myhand button:not(:disabled) .bc{box-shadow:0 0 0 3px var(--mint),0 0 16px var(--mint);animation:wig 1s ease-in-out infinite}
+.status-line{text-align:center;font-weight:700}
+@media (max-width:380px){.seat{width:76px}.btable{aspect-ratio:1/1.2}}
 .hands{display:flex;flex-direction:column;gap:10px}
 .hand{display:flex;align-items:center;gap:10px;background:var(--field);border:2px solid var(--line);border-radius:14px;padding:8px 10px;min-width:0}
 .hand.on{border-color:var(--lemon)}
@@ -967,17 +1008,55 @@ const isCard = c => typeof c==='string' && /^[ESGH][789ZUOKA]$/.test(c);
 const cval = c => BRANK[c[1]];
 const newDeck = () => shuffle(['E','S','G','H'].flatMap(s=>Object.keys(BRANK).map(r=>s+r)));
 const cardName = c => BSUIT[c[0]].n+' '+({U:'Unter',O:'Ober',K:'König',A:'Ass',Z:'10'}[c[1]]||c[1]);
-const SICON = {
-  H:'<path d="M12 21C3 14 2 9 5 6c2.5-2.5 5.5-1.5 7 1 1.5-2.5 4.5-3.5 7-1 3 3 2 8-7 15z"/>',
-  G:'<path d="M12 2C5 7 4 14 12 22 20 14 19 7 12 2z"/><path d="M12 6v14" stroke="#fffaf0" stroke-width="1.4" fill="none"/>',
-  E:'<path d="M5 10c0-3.5 3-5.5 7-5.5s7 2 7 5.5z"/><path d="M7 10.5h10c0 6-2.5 10-5 10s-5-4-5-10z"/><path d="M12 4.5V2" stroke-width="2"/>',
-  S:'<circle cx="12" cy="13" r="8"/><path d="M5 12.5h14" stroke="#fffaf0" stroke-width="1.4"/><circle cx="12" cy="16.5" r="1.6" fill="#fffaf0" stroke="none"/><circle cx="12" cy="4" r="1.8"/>'
+// Farbzeichen im Stil des bayerischen Blatts (selbst gezeichnet), Mittelpunkt 0/0, Größe etwa 14
+function pip(s, x, y, k){
+  const t = `transform="translate(${x} ${y}) scale(${k})"`;
+  if(s==='H') return `<path ${t} d="M0 6C-8 0-8-5-5-7.2-2.6-8.8 0-7 0-5 0-7 2.6-8.8 5-7.2 8-5 8 0 0 6Z" fill="#d8243a" stroke="#6e0f1d" stroke-width=".7"/>`;
+  if(s==='G') return `<g ${t}><path d="M0-8C-7-3.5-7 3 0 7.5 7 3 7-3.5 0-8Z" fill="#3aa356" stroke="#14532d" stroke-width=".7"/><path d="M0-6V9M0-2L-3.5-4.5M0 1.5L3.5-1M0 4.5L-3 2.5" stroke="#14532d" stroke-width=".7" fill="none"/></g>`;
+  if(s==='E') return `<g ${t}><path d="M0-6.5C1.5-8.5 5-8.5 6-6.5 4-5.6 2-5.4 0-6.5Z" fill="#3aa356" stroke="#14532d" stroke-width=".5"/><ellipse cx="0" cy="2.4" rx="4" ry="5.2" fill="#d39745" stroke="#5a3210" stroke-width=".7"/><path d="M-5-.4C-5-4.6 5-4.6 5-.4Z" fill="#7a4a1f" stroke="#3d2208" stroke-width=".7"/><path d="M-3.4-1.6H3.4M-2.8-3.1H2.8" stroke="#3d2208" stroke-width=".45"/><path d="M0-4.2V-7" stroke="#3d2208" stroke-width=".9"/></g>`;
+  return `<g ${t}><path d="M0-5.8V-8" stroke="#8a5a00" stroke-width=".9"/><circle r="5.8" fill="#f2b51c" stroke="#8a5a00" stroke-width=".7"/><path d="M-5.6-.8H5.6" stroke="#c0392b" stroke-width="1.6"/><path d="M-1.2 2.2H1.2V5H-1.2Z" fill="#5a3a00"/><circle cy="2.2" r="1.3" fill="#5a3a00"/></g>`;
+}
+const PIPS = {
+  '7':[[20,20],[40,20],[30,36],[20,54],[40,54],[20,76],[40,76]],
+  '8':[[20,18],[40,18],[20,38],[40,38],[20,58],[40,58],[20,78],[40,78]],
+  '9':[[20,17],[40,17],[20,34],[40,34],[30,48],[20,62],[40,62],[20,79],[40,79]],
+  'Z':[[20,16],[40,16],[30,27],[20,38],[40,38],[20,58],[40,58],[30,69],[20,80],[40,80]]
 };
-const suitSVG = (s,sz) => `<svg viewBox="0 0 24 24" width="${sz}" height="${sz}" fill="${BSUIT[s].c}" stroke="${BSUIT[s].c}" aria-hidden="true">${SICON[s]}</svg>`;
+function figure(s, r){
+  const robe = {E:'#3f7a3a', S:'#b83227', G:'#2f6db0', H:'#7b2d8b'}[s], gold = '#f2c14e', k = '#16133a';
+  const K = r==='K', O = r==='O';
+  let f = `<path d="M8 90V42Q30 14 52 42V90Z" fill="${BSUIT[s].c}" opacity=".13"/>`;
+  f += `<path d="M12 90Q13 61 30 55Q47 61 48 90Z" fill="${robe}" stroke="${k}" stroke-width="1"/><path d="M30 57V90" stroke="${gold}" stroke-width="2"/>`;
+  f += [62,70,78,86].map(y=>`<circle cx="30" cy="${y}" r="1" fill="${k}"/>`).join('');
+  if(K) f += `<path d="M12 90Q13 63 21 58L24 90ZM48 90Q47 63 39 58L36 90Z" fill="#fff" stroke="${k}" stroke-width=".6"/>`+[[16,72],[19,82],[44,72],[41,82]].map(([x,y])=>`<path d="M${x} ${y}l1 2-2 0z" fill="${k}"/>`).join('');
+  f += `<path d="M21 56Q30 63 39 56L37 52.5Q30 57.5 23 52.5Z" fill="#fff" stroke="${k}" stroke-width=".7"/>`;
+  f += `<circle cx="30" cy="42" r="9.5" fill="#f3c9a0" stroke="${k}" stroke-width="1"/><circle cx="26.8" cy="41" r="1" fill="${k}"/><circle cx="33.2" cy="41" r="1" fill="${k}"/><path d="M30 42.5Q29 45 30.6 45.4" stroke="${k}" stroke-width=".6" fill="none"/>`;
+  if(K){
+    f += `<path d="M21 44Q30 60 39 44Q35 48.5 30 48.5Q25 48.5 21 44Z" fill="#ece8e0" stroke="${k}" stroke-width=".7"/>`;
+    f += `<path d="M20.5 35.5L21.5 24.5L25.8 30L30 21.5L34.2 30L38.5 24.5L39.5 35.5Z" fill="${gold}" stroke="${k}" stroke-width=".9" stroke-linejoin="round"/><circle cx="30" cy="27.6" r="1.3" fill="#d8243a"/><circle cx="24" cy="31.5" r=".9" fill="#2f6db0"/><circle cx="36" cy="31.5" r=".9" fill="#2f6db0"/>`;
+    f += `<path d="M17 89L15 52" stroke="${gold}" stroke-width="1.8"/><circle cx="15" cy="50" r="2.4" fill="${gold}" stroke="${k}" stroke-width=".6"/>${pip(s,44,72,1)}`;
+  } else {
+    f += `<path d="M27 46.5Q30 48.5 33 46.5" stroke="${k}" stroke-width=".8" fill="none"/>`;
+    if(O) f += `<path d="M24.5 44.5Q27 43 30 44.6Q33 43 35.5 44.5" stroke="#5a3420" stroke-width="1.5" fill="none" stroke-linecap="round"/>`;
+    f += `<path d="M18.5 37Q19.5 27.5 30 27.5Q40.5 27.5 41.5 37Q30 32.5 18.5 37Z" fill="${O?'#16133a':'#5a3420'}" stroke="${k}" stroke-width=".8"/><path d="M38 31Q46 23 49 15" stroke="${gold}" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M46 18Q50 17 51 13" stroke="${gold}" stroke-width="1" fill="none"/>`;
+    if(O) f += `<path d="M41 63Q48 50 45 31" stroke="${robe}" stroke-width="4.5" fill="none" stroke-linecap="round"/><circle cx="45" cy="31" r="2.2" fill="#f3c9a0" stroke="${k}" stroke-width=".6"/>${pip(s,44,23,1.15)}`;
+    else f += `<path d="M41 63Q47 70 43 76" stroke="${robe}" stroke-width="4.5" fill="none" stroke-linecap="round"/><circle cx="43" cy="76" r="2.2" fill="#f3c9a0" stroke="${k}" stroke-width=".6"/>${pip(s,40,82,1.1)}`;
+  }
+  return f;
+}
+function cardSVG(c){
+  const s = c[0], r = c[1], lab = BLAB[r], k = '#16133a';
+  let body;
+  if(PIPS[r]) body = PIPS[r].map(([x,y])=>pip(s,x,y,1)).join('');
+  else if(r==='A') body = `<circle cx="30" cy="44" r="21" fill="${BSUIT[s].c}" opacity=".1"/>`+pip(s,30,44,2.7)+`<path d="M10 72L50 72L47 76L50 80L10 80L13 76Z" fill="#fff3d0" stroke="${k}" stroke-width=".8"/><text x="30" y="78.4" text-anchor="middle" font-size="6.6" font-weight="700" font-family="Georgia,serif" fill="${k}" letter-spacing=".8">SAU</text>`;
+  else body = figure(s, r);
+  const lb = (x,y,anchor) => `<text x="${x}" y="${y}" font-size="9.5" font-weight="700" font-family="Georgia,'Times New Roman',serif" fill="${k}" text-anchor="${anchor}">${lab}</text>`;
+  return `<svg viewBox="0 0 60 96" aria-hidden="true"><rect x="1" y="1" width="58" height="94" rx="6" fill="#fbf3df" stroke="${k}" stroke-width="1.6"/><rect x="4" y="4" width="52" height="88" rx="4" fill="none" stroke="${BSUIT[s].c}" stroke-width=".7" opacity=".55"/>${body}${lb(7.5,13.5,'start')}${lb(52.5,90.5,'end')}</svg>`;
+}
 function bcard(c, o={}){
   const cls = (o.size?' '+o.size:'') + (o.hl?' hl':'') + (o.ghost?' ghost':'');
   if(o.back || !isCard(c)) return `<div class="bc back${cls}" aria-label="verdeckte Karte"></div>`;
-  return `<div class="bc${cls}" aria-label="${cardName(c)}"><span class="bl">${BLAB[c[1]]}</span>${suitSVG(c[0], o.size==='sm'?18:o.size==='lg'?44:28)}<span class="bl br">${BLAB[c[1]]}</span></div>`;
+  return `<div class="bc${cls}" role="img" aria-label="${cardName(c)}">${cardSVG(c)}</div>`;
 }
 const BQ = {
   1:{q:'Schwarz oder Rot?', o:[['b','Schwarz'],['r','Rot']], n:1, hint:'Eichel und Schellen zählen als schwarz, Gras und Herz als rot.'},
@@ -1833,14 +1912,82 @@ const roleHTML = (c,l,id) => `<div class="role" style="--c:${c}">${avatarSVG(plB
 function busView(R, reg){
   const G = S.G, b = G.b, local = S.mode==='local', me = S.myId, nm = id => plById(id).n;
   if(!b) return {key:'busx', regions:R, html:`${topbar()}<section class="box wait-big"><div class="spinner"></div></section>`};
-  const ord = b.ord, active = (b.st==='ask' || b.st==='show') ? ord[b.turn] : null;
+  const ord = b.ord, n = ord.length;
+  const active = (b.st==='ask' || b.st==='show') ? ord[b.turn] : b.st==='ride' ? b.driver : null;
   const curTop = b.st==='pyr' && b.flip>0 ? b.pyr[b.flip-1] : null;
-  const showHands = ['ask','show','pyr','king'].includes(b.st);
-  const hands = !showHands ? '' : `<section class="box"><h2>Karten</h2><div class="hands">${ord.map(id=>{
-      const h = b.hands[id]||[], canLay = curTop && (local || id===me);
-      const cs = h.map(c=> canLay ? `<button class="laybtn" data-act="blay" data-who="${esc(id)}" data-c="${c}" ${c[1]===curTop[1]?'':'disabled'} aria-label="${cardName(c)} ablegen">${bcard(c,{size:'sm'})}</button>` : bcard(c,{size:'sm'})).join('') || '<small class="muted">keine Karten</small>';
-      return `<div class="hand${id===active?' on':''}">${avatarSVG(plById(id).av,36)}<span class="who"><b>${esc(nm(id))}${id===me&&!local?' (du)':''}</b><small>${b.drank[id]||0} getrunken · ${b.gave[id]||0} verteilt</small></span><span class="cs">${cs}</span></div>`;
-    }).join('')}</div></section>`;
+  const myV = S.myAns && S.myAns.k===G.rk ? S.myAns.v : null;
+  const cands = b.st==='king' && b.king ? b.king.cands : [];
+  // Sitzordnung: man selbst sitzt unten, die anderen folgen reihum im Uhrzeigersinn
+  const start = local ? 0 : Math.max(0, ord.indexOf(me));
+  const seats = ord.map((id,i)=>{
+    const k = (i - start + n) % n, a = Math.PI/2 + k*2*Math.PI/n;
+    const x = 50 + 41*Math.cos(a), y = 50 + 40*Math.sin(a);
+    const h = b.hands[id] || [], lay = curTop && local;
+    const cs = h.map(c => lay
+      ? `<button data-act="blay" data-who="${esc(id)}" data-c="${c}" ${c[1]===curTop[1]?'':'disabled'} aria-label="${esc(nm(id))}: ${cardName(c)} ablegen">${bcard(c,{size:'xs'})}</button>`
+      : bcard(c,{size:'xs'})).join('');
+    const role = id===b.driver ? '<span class="rl">Busfahrer</span>' : id===b.co ? '<span class="rl co">Beifahrer</span>' : '';
+    const cls = (id===active?' turn':'') + (cands.includes(id)?' cand':'') + (id===me && !local?' me':'');
+    return `<div class="seat${cls}" style="left:${x.toFixed(1)}%;top:${y.toFixed(1)}%">${avatarSVG(plById(id).av,40)}<span class="nm">${esc(nm(id))}${id===me && !local?' (du)':''}</span>${role}<span class="mc">${cs}</span><span class="sub">${b.drank[id]||0} getrunken</span></div>`;
+  }).join('');
+
+  let center = '', below = '';
+  if(b.st==='ask' || b.st==='show'){
+    const q = BQ[b.round], mine = local || active===me;
+    if(b.st==='show' && b.last){
+      const L = b.last;
+      center = `<span class="cs">Runde ${b.round} von 3 · ${esc(nm(L.id))}</span>${bcard(L.c,{size:'md'})}<span class="${L.ok?'ok':'bad'}">${L.ok ? 'Richtig! Verteilt '+sipTxt(L.n) : 'Falsch! Trinkt '+sipTxt(L.n)}</span>`;
+      below = `<p class="status-line">${esc(nm(L.id))} hat ${esc(cardName(L.c))} gezogen.</p>`;
+    } else {
+      center = `<span class="cs">Runde ${b.round} von 3</span><span class="cq">${q.q}</span>${bcard('',{back:true,size:'md'})}<span class="cs">${esc(nm(active))} ist dran</span>`;
+      if(mine){
+        const ref = b.round===1 ? '' : `<div class="myhand">${(b.hands[active]||[]).slice(0,b.round-1).map(c=>bcard(c,{size:'md'})).join('')}</div>`;
+        below = `<section class="box stage" style="--c:var(--orange)"><p class="eyebrow">${local ? esc(nm(active))+' ist dran' : 'Du bist dran'}</p><h2>${q.q}</h2><p class="muted">${q.hint}</p>${ref}
+          <div class="duo">${q.o.map(([v,l])=>`<button class="btn${myV===v?' on':''}" data-act="bg" data-v="${v}">${l}</button>`).join('')}</div></section>`;
+      } else below = `<p class="status-line muted">${esc(nm(active))} überlegt: ${q.q}</p>`;
+    }
+  }
+  if(b.st==='pyr'){
+    const rows = [[0,1,2,3],[4,5,6],[7,8],[9]].map(r=>r.filter(i=>i<b.pyr.length));
+    center = `<span class="cs">Pyramide · ${b.flip} von ${b.pyr.length}</span><div class="pyr-t">${rows.map(r=>`<div class="prow">${r.map(i=>`<div class="pslot">${bcard(b.pyr[i],{back:i>=b.flip, hl:i===b.flip-1, size:'xs'})}${(b.laid[i]||[]).length?`<span class="cnt">${b.laid[i].length}</span>`:''}</div>`).join('')}</div>`).join('')}</div>`
+      + (curTop ? `<span class="cs">Ablegen bringt ${2*PROW(b.flip-1)} Schlucke</span>` : '');
+    const offen = curTop ? `${esc(cardName(curTop))} liegt offen` : 'Gleich wird aufgedeckt';
+    if(local){
+      const opts = curTop ? ord.flatMap(id=>(b.hands[id]||[]).filter(c=>c[1]===curTop[1]).map(c=>`<button data-act="blay" data-who="${esc(id)}" data-c="${c}">${bcard(c,{size:'md'})}${esc(nm(id))}</button>`)) : [];
+      below = `<section class="box"><p class="eyebrow">${offen}</p>${opts.length ? `<div class="myhand">${opts.join('')}</div><p class="muted center">Antippen legt die Karte ab.</p>` : '<p class="muted">Gerade passt keine Karte.</p>'}</section>`;
+    } else {
+      const h = b.hands[me] || [];
+      below = `<section class="box"><p class="eyebrow">Deine Karten · ${offen}</p>${h.length ? `<div class="myhand">${h.map(c=>{ const fit = curTop && c[1]===curTop[1]; return `<button data-act="blay" data-c="${c}" ${fit?'':'disabled'} aria-label="${cardName(c)}${fit?' ablegen':''}">${bcard(c,{size:'md'})}${fit?'Ablegen':''}</button>`; }).join('')}</div>` : '<p class="muted">Du hast keine Karten mehr. Gut gemacht!</p>'}</section>`;
+    }
+  }
+  if(b.st==='king'){
+    const k = b.king, last = k && k.deals.length ? k.deals[k.deals.length-1] : null;
+    center = k
+      ? `<span class="cs">Auskönigen · ${k.role==='driver'?'Busfahrer':'Beifahrer'}</span>${last ? bcard(last[1],{size:'md', hl:last[1]==='HK'}) : bcard('',{back:true,size:'md'})}<span class="${last && last[1]==='HK'?'ok':'cs'}">${last ? esc(nm(last[0]))+(last[1]==='HK'?' zieht den Herz-König!':'') : 'Wer zieht den Herz-König?'}</span>`
+      : `<span class="cq">Karten werden gezählt …</span>`;
+    below = `<p class="status-line muted">${k ? 'Gleichstand: Wer den Herz-König zieht, '+(k.role==='driver'?'fährt Bus.':'wird Beifahrer.') : 'Wer die meisten Karten übrig hat, fährt Bus.'}</p>`;
+  }
+  if(b.st==='ride' && b.ride){
+    const r = b.ride, mine = local || b.driver===me;
+    center = `<span class="cs">Busfahrt · ${r.fails} ${r.fails===1?'Crash':'Crashes'}</span><div class="ride-t">${r.tb.map((c,i)=>`<div class="slot${i===r.pos && r.sub==='ask'?' cur':''}">${bcard(c,{back:!r.up[i], size:'rs'})}<small>${i+1}</small></div>`).join('')}</div>`
+      + (r.sub==='show' && r.last ? `<span class="${r.last.ok?'ok':'bad'}">${r.last.ok ? (r.pos>=5?'Angekommen!':'Richtig!') : 'Crash! '+sipTxt(r.last.pos+1)}</span>` : '');
+    if(r.sub==='show' && r.last){
+      const L = r.last;
+      below = `<section class="box stage" style="--c:var(--orange)"><div class="cards">${bcard(L.base,{size:'md'})}<span class="arrow">→</span>${bcard(L.d,{size:'lg'})}</div><p class="ex">${L.ok ? (r.pos>=5 ? 'Der Bus ist angekommen!' : 'Richtig! Weiter zu Karte '+(r.pos+1)+'.') : 'Bus-Crash! '+sipTxt(L.pos+1)+' für Busfahrer und Beifahrer. Zurück zum Anfang.'}</p></section>`;
+    } else if(mine){
+      below = `<section class="box stage" style="--c:var(--orange)"><p class="eyebrow">${local ? esc(nm(b.driver))+' fährt' : 'Du fährst'}</p><h2>Karte ${r.pos+1}: drunter oder drüber?</h2>
+        <div class="cards">${bcard(r.tb[r.pos],{back:!r.up[r.pos], size:'md'})}</div>${!r.up[r.pos]?'<p class="muted center">Die Karte ist noch verdeckt. Du musst blind tippen!</p>':''}
+        <div class="duo"><button class="btn${myV==='u'?' on':''}" data-act="bg" data-v="u">Drunter</button><button class="btn${myV==='o'?' on':''}" data-act="bg" data-v="o">Drüber</button></div></section>`;
+    } else below = `<p class="status-line muted">${esc(nm(b.driver))} fährt gerade Karte ${r.pos+1} an …</p>`;
+  }
+  if(b.st==='end'){
+    const rows = ord.map(id=>({id, d:b.drank[id]||0, g:b.gave[id]||0})).sort((x,y)=>y.d-x.d);
+    const fails = b.ride ? b.ride.fails : 0;
+    center = `<span class="cq">Endstation!</span><span class="cs">Nach ${fails} ${fails===1?'Crash':'Crashes'} angekommen</span>`;
+    below = `<section class="box"><h2>Alle Stats</h2><p class="muted">Zusammen ${rows.reduce((a,r)=>a+r.d,0)} Schlucke getrunken.</p><div class="tablewrap"><table><thead><tr><th>Spieler</th><th>Getrunken</th><th>Verteilt</th></tr></thead><tbody>${rows.map(r=>`<tr><td><span class="pn">${avatarSVG(plById(r.id).av,28)}${esc(nm(r.id))}</span></td><td>${r.d}</td><td>${r.g}</td></tr>`).join('')}</tbody></table></div></section>
+      <div class="btnrow">${isHost()?'<button class="btn coral" data-act="bagain">Nochmal spielen</button>':''}<button class="btn ghost" data-act="leave">${isHost()?'Beenden':'Raum verlassen'}</button></div>`;
+  }
+
   let give = '';
   const givers = local ? ord.filter(id=>b.cred[id]>0) : (b.cred[me]>0 ? [me] : []);
   if(givers.length && b.st!=='end'){
@@ -1849,50 +1996,7 @@ function busView(R, reg){
       ${local && givers.length>1 ? `<div class="chips">${givers.map(id=>`<button class="${id===from?'on':''}" data-act="bfrom" data-id="${esc(id)}">${avatarSVG(plById(id).av,26)}${esc(nm(id))}</button>`).join('')}</div><p>An wen? Jeder Tipp ist ein Schluck.</p>` : '<p>Tipp auf jemanden. Jeder Tipp ist ein Schluck.</p>'}
       <div class="chips">${ord.filter(id=>id!==from).map(id=>`<button data-act="bgive" data-from="${esc(from)}" data-to="${esc(id)}">${avatarSVG(plById(id).av,26)}${esc(nm(id))}</button>`).join('')}</div></section>`;
   }
-  const myV = S.myAns && S.myAns.k===G.rk ? S.myAns.v : null;
-  let main = '';
-  if(b.st==='ask' || b.st==='show'){
-    const q = BQ[b.round], h = b.hands[active]||[], mine = local || active===me;
-    const ref = b.round===1 ? '' : `<div class="cards">${h.slice(0, b.round-1).map(c=>bcard(c)).join('')}</div>`;
-    let lower;
-    if(b.st==='show' && b.last){ const L=b.last; lower = `<div class="cards">${bcard(L.c,{size:'lg'})}</div><p class="ex">${esc(nm(L.id))} ${L.ok ? 'liegt richtig und verteilt '+sipTxt(L.n)+'!' : 'liegt falsch und trinkt '+sipTxt(L.n)+'.'}</p>`; }
-    else if(mine) lower = `<div class="duo">${q.o.map(([v,l])=>`<button class="btn${myV===v?' on':''}" data-act="bg" data-v="${v}">${l}</button>`).join('')}</div>`;
-    else lower = `<p class="center muted">${esc(nm(active))} überlegt noch …</p>`;
-    main = `<section class="box stage" style="--c:var(--orange)"><p class="eyebrow">Runde ${b.round} von 3 · ${esc(nm(active))} ist dran</p><h1 class="q">${q.q}</h1><p class="muted">${q.hint}</p>${ref}${lower}</section>`;
-  }
-  if(b.st==='pyr'){
-    const rows = [[0,1,2,3],[4,5,6],[7,8],[9]].map(r=>r.filter(i=>i<b.pyr.length));
-    main = `<section class="box stage" style="--c:var(--orange)"><p class="eyebrow">Pyramide · Karte ${b.flip} von ${b.pyr.length}</p>
-      <h2>${curTop ? `${cardName(curTop)} liegt offen. Ablegen bringt ${2*PROW(b.flip-1)} Schlucke.` : 'Gleich wird aufgedeckt …'}</h2>
-      <div class="pyr">${rows.map((r,ri)=>`<div class="prow"><small>Reihe ${ri+1}<br>${2*(ri+1)} Schl.</small>${r.map(i=>`<div class="pslot">${bcard(b.pyr[i],{back:i>=b.flip, hl:i===b.flip-1, size:'sm'})}${(b.laid[i]||[]).length?`<span class="cnt">${b.laid[i].length}</span>`:''}</div>`).join('')}</div>`).join('')}</div>
-      <p class="muted center">Hast du eine Karte mit gleicher Zahl oder gleichem Bild, tipp sie in deiner Hand an.</p></section>`;
-  }
-  if(b.st==='king'){
-    const k = b.king;
-    main = `<section class="box stage" style="--c:var(--orange)"><p class="eyebrow">Auskönigen</p><h2>${k ? (k.role==='driver'?'Wer wird Busfahrer?':'Wer wird Beifahrer?') : 'Die Karten werden gezählt …'}</h2>`+
-      (k ? `<p class="muted">Gleichstand zwischen ${k.cands.map(id=>esc(nm(id))).join(', ')}. Wer den Herz-König zieht, ${k.role==='driver'?'fährt Bus':'wird Beifahrer'}.</p><div class="deals">${k.deals.slice(-12).reverse().map(([id,c])=>`<div>${bcard(c,{size:'sm',hl:c==='HK'})}${esc(nm(id))}${c==='HK'?' · Herz-König!':''}</div>`).join('')}</div>` : '')
-      + `<div class="roles">${b.driver?roleHTML('var(--orange)','Busfahrer',b.driver):''}${b.co?roleHTML('var(--lemon)','Beifahrer',b.co):''}</div></section>`;
-  }
-  if(b.st==='ride' && b.ride){
-    const r = b.ride, drv = b.driver, mine = local || drv===me;
-    const slots = r.tb.map((c,i)=>`<div class="slot${i===r.pos && r.sub==='ask'?' cur':''}">${bcard(c,{back:!r.up[i]})}<small>Karte ${i+1}</small></div>`).join('');
-    let lower;
-    if(r.sub==='show' && r.last){ const L=r.last; lower = `<div class="cards">${bcard(L.base)}<span class="arrow">→</span>${bcard(L.d,{size:'lg'})}</div><p class="ex">${L.ok ? (r.pos>=5 ? 'Der Bus ist angekommen!' : 'Richtig! Weiter zu Karte '+(r.pos+1)+'.') : 'Bus-Crash! '+sipTxt(L.pos+1)+' für Busfahrer und Beifahrer. Zurück zum Anfang.'}</p>`; }
-    else if(mine) lower = `<p class="center">Ist die nächste Karte drunter oder drüber als Karte ${r.pos+1}?${!r.up[r.pos]?' Die ist noch verdeckt!':''}</p><div class="duo"><button class="btn${myV==='u'?' on':''}" data-act="bg" data-v="u">Drunter</button><button class="btn${myV==='o'?' on':''}" data-act="bg" data-v="o">Drüber</button></div>`;
-    else lower = `<p class="center muted">${esc(nm(drv))} tippt …</p>`;
-    main = `<section class="box stage" style="--c:var(--orange)"><p class="eyebrow">Busfahrt · ${r.fails} ${r.fails===1?'Crash':'Crashes'} bisher</p>
-      <div class="roles">${roleHTML('var(--orange)','Busfahrer',drv)}${b.co?roleHTML('var(--lemon)','Beifahrer',b.co):''}</div>
-      <div class="ride">${slots}</div>${lower}</section>`;
-  }
-  if(b.st==='end'){
-    const rows = ord.map(id=>({id, d:b.drank[id]||0, g:b.gave[id]||0})).sort((x,y)=>y.d-x.d);
-    const fails = b.ride ? b.ride.fails : 0;
-    main = `<section class="hero"><p class="eyebrow">Endstation</p><h1>Der Bus ist angekommen!</h1><p class="muted">Nach ${fails} ${fails===1?'Crash':'Crashes'}. Zusammen ${rows.reduce((a,r)=>a+r.d,0)} Schlucke getrunken.</p></section>
-      <div class="roles">${b.driver?roleHTML('var(--orange)','Busfahrer',b.driver):''}${b.co?roleHTML('var(--lemon)','Beifahrer',b.co):''}</div>
-      <section class="box"><h2>Alle Stats</h2><div class="tablewrap"><table><thead><tr><th>Spieler</th><th>Getrunken</th><th>Verteilt</th></tr></thead><tbody>${rows.map(r=>`<tr><td><span class="pn">${avatarSVG(plById(r.id).av,28)}${esc(nm(r.id))}</span></td><td>${r.d}</td><td>${r.g}</td></tr>`).join('')}</tbody></table></div></section>
-      <div class="btnrow">${isHost()?'<button class="btn coral" data-act="bagain">Nochmal fahren</button>':''}<button class="btn ghost" data-act="leave">${isHost()?'Beenden':'Raum verlassen'}</button></div>`;
-  }
-  return {key:'bus'+Date.now(), regions:R, html:`${topbar()}${b.st!=='end'?timerHTML('var(--orange)'):''}${main}${give}${hands}`};
+  return {key:'bus'+Date.now(), regions:R, html:`${topbar()}${b.st!=='end'?timerHTML('var(--orange)'):''}<div class="btable"><div class="felt"><div class="center">${center}</div></div>${seats}</div>${below}${give}`};
 }
 function endView(R, reg){
   const G=S.G;
