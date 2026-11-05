@@ -286,6 +286,109 @@ body.bus #app{max-width:820px}
 .seat .sub{font-size:.66rem}
 .myhand .bc.md{width:clamp(72px,20vw,100px)}
 @media (max-width:380px){.btable{aspect-ratio:1/1.36}.felt{inset:14% 6% 15%}}
+.seat{left:calc(50% + var(--cx)*41%);top:calc(50% + var(--cy)*41.5%);transform:translate(calc(-50% + var(--cx)*22%),calc(-50% + var(--cy)*30%))}
+.seat .si{display:contents}
+.cols,.col{display:contents}
+
+/* ===== PC: alles auf einen Bildschirm, nebeneinander statt untereinander ===== */
+@media (min-width:1000px) and (min-height:560px){
+  body{height:100vh;overflow:hidden;padding:14px 28px}
+  #app,body.bus #app{max-width:1500px;height:100%;gap:12px}
+  .top{min-height:38px;flex:none}
+  .round,.progress,.timer{flex:none}
+  .cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;flex:1;min-height:0}
+  .col{display:flex;flex-direction:column;gap:16px;min-height:0;overflow-y:auto;padding:0 8px 8px 0;scrollbar-width:thin}
+  .cols.home{grid-template-columns:minmax(380px,.85fr) minmax(0,1.15fr)}
+  .cols.home .ca{justify-content:safe center}
+  .cols.home .word{font-size:clamp(2.4rem,min(5.4vw,8vh),4.6rem)}
+  .cols .pickbox .tiles{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cols.home .tiles{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .cols.home .tile{padding:10px}
+  .cols.home .tile .kind{font-size:.5rem}
+  .cols.home .cb{justify-content:safe center}
+  .cols.home .bushero{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;column-gap:18px;row-gap:10px}
+  .cols.home .bushero>p.muted,.cols.home .bushero>.note{grid-column:1/-1}
+  .cols.home .bushero .btnrow{grid-column:1/-1}
+  .cols.home .bushero .btn{padding:11px 14px;font-size:.92rem}
+  .cols.c3{grid-template-columns:minmax(260px,.75fr) minmax(0,1.6fr) minmax(320px,.9fr)}
+  .col{overflow-x:hidden}
+  .cols.c3 .codecard,.cols.lobby2 .codecard{flex-direction:column;align-items:stretch;gap:10px}
+  .cols.c3 .codecard .code{font-size:clamp(2.6rem,4.4vw,3.6rem)}
+  .cols.c3 .rounds label{flex-basis:100%}
+  .cols.lobby2{grid-template-columns:minmax(320px,.8fr) minmax(0,1.2fr)}
+  .cols.play{grid-template-columns:minmax(0,1.55fr) minmax(320px,.75fr)}
+  .cols.play .ca>.stage{flex:1;justify-content:safe center;padding:24px clamp(24px,4vw,64px)}
+  .cols.play .q{font-size:clamp(1.5rem,2.4vw,2.3rem)}
+  .cols.play .drawing{width:min(100%,46vh)}
+  .cols.play .gallery{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+  .cols.play .board{width:min(100%,44vh)}
+  .cols.end{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .tiles .tile p{font-size:.78rem}
+  .plist li{gap:10px}
+
+  /* Busfahrer: Tisch links über die ganze Höhe, rechts die Aktionen */
+  .cols.bus{grid-template-columns:minmax(0,1fr) minmax(340px,410px)}
+  .cols.bus .ca{overflow:visible;padding:0}
+  .cols.bus .cb{justify-content:center}
+  .btable{aspect-ratio:auto;width:100%;height:100%;max-width:none;margin:0;container-type:size}
+  .felt{inset:7% 9%;padding:0;border-width:14px}
+  .center{gap:10px;max-width:60%;max-height:calc(100% - 150px)}
+  .center .ok,.center .bad,.center .cq{text-wrap:balance}
+  .ph-ask .center{max-height:calc(100% - 200px)}
+  .center .cq{font-size:clamp(1.1rem,1.8vw,1.7rem)}
+  .center .cs{font-size:.95rem}
+  .center .ok,.center .bad{font-size:1.35rem}
+  .center .bc.md{width:clamp(70px,calc((100cqh - 390px)/1.6),150px)}
+  .ph-king .center .bc.md{width:clamp(70px,calc((100cqh - 300px)/1.6),150px)}
+  body.bus #toasts{left:auto;right:28px;transform:none;bottom:24px;width:380px}
+  .pyr-t{gap:0;--pw:clamp(44px,calc((100cqh - 190px)/5.7),100px)}
+  .pyr-t .prow{gap:10px;position:relative}
+  .pyr-t .prow+.prow{margin-bottom:calc(var(--pw)*-.24)}
+  .pyr-t .prow:nth-child(1){z-index:4}.pyr-t .prow:nth-child(2){z-index:3}.pyr-t .prow:nth-child(3){z-index:2}
+  .pyr-t .bc{width:var(--pw)}
+  .ph-pyr .center,.ph-king .center,.ph-ride .center{max-height:none}
+  /* außerhalb der Fragerunden: kompakte Plätze, damit die Tischmitte Platz hat */
+  .btable:not(.ph-ask) .seat{padding:6px 12px 6px 6px;top:calc(50% + var(--cy)*(50% - 34px))}
+  .btable:not(.ph-ask) .seat .av{width:44px;height:44px}
+  .btable:not(.ph-ask) .seat .si{flex-direction:row;flex-wrap:wrap;align-items:center;column-gap:6px;row-gap:2px;max-width:190px}
+  .btable:not(.ph-ask) .seat .sub{flex-basis:100%}
+  .btable:not(.ph-ask) .seat .mc .tag{font-size:.6rem;padding:1px 7px}
+  .pyr-t .cnt{font-size:.8rem;padding:1px 6px}
+  .ride-t{gap:12px}
+  .ride-t .bc{width:clamp(50px,min(calc((100cqh - 250px)/1.7),calc((100cqw*.6 - 70px)/5)),110px)}
+  .ride-t .slot small{font-size:.8rem}
+  /* Sitzplätze: Avatar links, Infos rechts, rund um den ovalen Tisch */
+  .seat{flex-direction:row;align-items:center;gap:10px;width:max-content;max-width:240px;
+    left:calc(50% + var(--cx)*(50% - 112px));top:calc(50% + var(--cy)*(50% - 44px));transform:translate(-50%,-50%);
+    background:rgba(16,14,36,.82);border:2.5px solid var(--ink);border-radius:20px;padding:8px 14px 8px 8px;box-shadow:4px 4px 0 var(--sh)}
+  .ph-ask .seat{top:calc(50% + var(--cy)*(50% - 66px))}
+  .seat .si{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0}
+  .seat .av{width:58px;height:58px}
+  .seat .nm{font-size:.92rem;max-width:150px}
+  .seat .mc{padding-left:16px;min-height:0}
+  .seat .mc .bc{width:44px}
+  .seat .mc .bc,.seat .mc button{margin-left:-16px}
+  .seat .sub{font-size:.72rem}
+  .seat.turn{border-color:var(--lemon);box-shadow:0 0 0 3px var(--lemon),0 0 24px rgba(255,216,77,.5)}
+  .seat.turn .av{box-shadow:none}
+  .myhand .bc.md{width:clamp(70px,9vh,100px)}
+  .cols.bus .cb .box{gap:12px}
+  .cols.bus .cb .cards .bc.md{width:clamp(70px,11vh,100px)}
+  .cols.bus .cb .cards .bc.lg{width:clamp(90px,15vh,130px)}
+  .cols.bus .duo .btn{padding:22px 10px;font-size:1.2rem}
+}
+@media (min-width:1000px) and (min-height:560px) and (max-height:800px){
+  #app{gap:8px}
+  .col{gap:12px}
+  .box{padding:14px}
+  .cols.home .stickers,.cols.home .bushero>.note,.cols.home footer{display:none}
+  .cols.home .hero{gap:6px;padding-top:0}
+  .cols.home .actions{gap:9px}
+  .cols.home .btn.big{padding:13px}
+  .cols.home .tile p{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .cols.home .bushero{border-top-width:8px}
+  .cols.home .bushero>p.muted{font-size:.88rem}
+}
 .hands{display:flex;flex-direction:column;gap:10px}
 .hand{display:flex;align-items:center;gap:10px;background:var(--field);border:2px solid var(--line);border-radius:14px;padding:8px 10px;min-width:0}
 .hand.on{border-color:var(--lemon)}
@@ -1738,6 +1841,12 @@ function tttHTML(){
 }
 const refLink = name => `<a class="btn ghost small refbtn" href="https://www.google.com/search?tbm=isch&amp;q=${encodeURIComponent(name+' Zeichentrick')}" target="_blank" rel="noopener noreferrer">So sieht ${esc(name)} aus ↗</a>`;
 const timerHTML = c => ((online() || (S.G && S.G.kind==='bus')) && S.dl) ? `<div class="timer" style="--c:${c}"><div class="tb"><i id="tbi"></i></div><span id="tbs"></span></div>` : '';
+// PC-Ansicht: Inhalte nebeneinander statt untereinander, damit nichts gescrollt werden muss.
+// Auf dem Handy sind .cols und .col unsichtbar (display:contents), dort bleibt alles wie vorher.
+const DQ = matchMedia('(min-width:1000px) and (min-height:560px)');
+const desk = () => DQ.matches;
+const cols = (a, b, c='') => `<div class="cols ${c}"><div class="col ca">${a}</div><div class="col cb">${b}</div></div>`;
+const cols3 = (a, b, c, k='') => `<div class="cols c3 ${k}"><div class="col ca">${a}</div><div class="col cb">${b}</div><div class="col cc">${c}</div></div>`;
 
 function view(){
   const R = {};
@@ -1748,33 +1857,36 @@ function view(){
     const dis = (!S.roomApi || S.busy) ? 'disabled' : '';
     const note = S.roomApi ? '<p class="note">Deine Freunde öffnen diese Seite und geben deinen Code ein.</p>'
       : '<p class="note">Online-Räume konnten nicht geladen werden. Prüf die Internetverbindung oder spielt auf einem Handy.</p>';
-    return {key:'home'+S.editing+S.bTab+S.busy, regions:R, html:`
-      <header class="top"><div class="logo"><i></i>Schluckrunde</div><span class="sticker">${ORDER.length} Spiele</span></header>
-      <section class="hero">
+    const hero = `<section class="hero">
         <h1 class="word">Schluck<br><span>runde</span></h1>
         <p class="muted">Raum aufmachen, Code teilen, gegeneinander zocken. Wer verliert, trinkt.</p>
         <div class="stickers"><span class="sticker">Quiz</span><span class="sticker">Minigames</span><span class="sticker">Zeichenduell</span><span class="sticker">Läuft automatisch</span><span class="sticker">Endstand mit Stats</span></div>
-      </section>
-      <section class="box profile">
+      </section>`;
+    const profile = `<section class="box profile">
         <button class="av-btn" data-act="edit-av" aria-label="Charakter bearbeiten">${reg('r-avprev', avatarSVG(S.me.av,88))}<span class="pen">${S.editing?'fertig':'ändern'}</span></button>
         <div class="field"><label for="nm">Dein Name</label><input type="text" id="nm" maxlength="16" value="${esc(S.me.name)}" placeholder="z. B. Lena" autocomplete="off"></div>
-      </section>
-      ${S.editing ? `<section class="box builder"><div class="bhead">${reg('r-avbig', avatarSVG(S.me.av,112))}<div class="acts"><h2>Dein Charakter</h2><button class="btn ghost small" data-act="rand-av">Würfeln</button><button class="btn mint small" data-act="edit-av">Fertig</button></div></div>${reg('r-builder', builderHTML())}</section>` : ''}
-      <section class="actions">
+      </section>`;
+    const builder = S.editing ? `<section class="box builder"><div class="bhead">${reg('r-avbig', avatarSVG(S.me.av,112))}<div class="acts"><h2>Dein Charakter</h2><button class="btn ghost small" data-act="rand-av">Würfeln</button><button class="btn mint small" data-act="edit-av">Fertig</button></div></div>${reg('r-builder', builderHTML())}</section>` : '';
+    const actions = `<section class="actions">
         <button class="btn coral big" data-act="create" ${dis}>${S.busy?'Verbinde …':'Raum erstellen'}</button>
         <div class="join"><input type="text" id="code" maxlength="4" placeholder="CODE" value="${esc(S.codeDraft)}" autocapitalize="characters" autocomplete="off" aria-label="Raum-Code"><button class="btn blue" data-act="join" ${dis}>Beitreten</button></div>
         ${note}
         <div class="or">oder</div>
         <button class="btn ghost wide" data-act="local">Alle auf einem Handy</button>
-      </section>
-      ${reg('r-err', err)}
-      <section class="box bushero"><div style="display:flex;gap:6px;align-items:flex-end">${bcard('EU',{size:'sm'})}${bcard('HK',{size:'sm'})}${bcard('GA',{size:'sm'})}</div>
+      </section>`;
+    const bus = `<section class="box bushero"><div style="display:flex;gap:6px;align-items:flex-end">${bcard('EU',{size:'sm'})}${bcard('HK',{size:'sm'})}${bcard('GA',{size:'sm'})}</div>
         <div><p class="eyebrow">Eigenes Spiel · Schafkopf-Karten</p><h2>Busfahrer</h2></div>
         <p class="muted">Schwarz oder Rot, drunter oder drüber, drinnen oder draußen, dann die Pyramide. Wer am Ende die meisten Karten hat, fährt Bus. Für 2 bis 7 Leute.</p>
         <div class="btnrow"><button class="btn" data-act="createbus" ${dis}>Busfahrer-Raum erstellen</button><button class="btn ghost" data-act="localbus">Auf einem Handy</button></div>
-        <p class="note">Zum Mitspielen geben die anderen oben ganz normal den Code ein.</p></section>
-      <section class="actions"><h2>Die Spiele</h2><div class="tiles">${ORDER.map(k=>tileHTML(k,false)).join('')}</div></section>
-      <footer>Trinkt verantwortungsvoll. Ein Schluck Wasser zählt auch.</footer>`};
+        <p class="note">Zum Mitspielen geben die anderen ${desk()?'links':'oben'} ganz normal den Code ein.</p></section>`;
+    const tiles = `<section class="actions"><h2>Die Spiele</h2><div class="tiles">${ORDER.map(k=>tileHTML(k,false)).join('')}</div></section>`;
+    const foot = `<footer>Trinkt verantwortungsvoll. Ein Schluck Wasser zählt auch.</footer>`;
+    const top = `<header class="top"><div class="logo"><i></i>Schluckrunde</div><span class="sticker">${ORDER.length} Spiele</span></header>`;
+    const errR = reg('r-err', err);
+    const html = desk()
+      ? top + cols(hero+profile+actions+errR+foot, builder || bus+tiles, 'home')
+      : top + hero + profile + builder + actions + errR + bus + tiles + foot;
+    return {key:'home'+S.editing+S.bTab+S.busy, regions:R, html};
   }
 
   if(S.lost){
@@ -1807,21 +1919,29 @@ function view(){
     } else if(isHost()){
       const mix = G.mode==='mix';
       const specials = (G.sel.length?G.sel:ORDER).filter(isSpecial).length, times = G.len<=10?1:2;
-      setup = `<section class="box"><h2>Spielmodus</h2>
+      const modeH = `<h2>Spielmodus</h2>
         <div class="seg"><button class="${mix?'':'on'}" data-act="mode" data-m="single">Ein Spiel</button><button class="${mix?'on':''}" data-act="mode" data-m="mix">Mix</button></div>
         <p class="muted">${mix?`Minigames und Zeichenduell kommen je ${times===1?'einmal':'zweimal'} dran, der Rest sind Quizrunden. Am Ende gibt es den Endstand.`:'Ihr spielt ein Spiel, so oft ihr wollt. Beenden zeigt den Endstand.'}</p>
         ${mix?`<div class="rounds"><label>Runden</label>${[5,10,15,20].map(n=>`<button class="tab${G.len===n?' on':''}" data-act="len" data-n="${n}">${n}</button>`).join('')}</div>`:''}
-        <div class="rounds"><label>Wer würde eher</label><button class="tab${G.spicy?' on':''}" data-act="spicy" data-v="1">Spicy</button><button class="tab${G.spicy?'':' on'}" data-act="spicy" data-v="0">Nur lustig</button></div>
-        <div class="tiles">${ORDER.map(k=>tileHTML(k,true, mix?G.sel.includes(k):G.gt===k)).join('')}</div>
-        ${mix && specials*times>G.len-1 ? `<p class="note">Bei ${G.len} Runden passen nicht alle Spezialspiele rein. Ein paar fallen zufällig weg.</p>`:''}
-        <p class="note">${S.mode==='host'?'Alles läuft automatisch: Runden starten bei allen gleichzeitig und gehen von selbst weiter.':'Letzter Platz trinkt 3, Mittelfeld 1, der Gewinner verteilt 2.'}</p></section>`
-        + reg('r-start', `<button class="btn coral big wide" data-act="start" ${G.pl.length<2||(mix&&!G.sel.length)?'disabled':''}>${G.pl.length<2?'Mindestens 2 Spieler':(mix?`Mix starten · ${G.len} Runden`:game.name+' starten')}</button>`);
+        <div class="rounds"><label>Wer würde eher</label><button class="tab${G.spicy?' on':''}" data-act="spicy" data-v="1">Spicy</button><button class="tab${G.spicy?'':' on'}" data-act="spicy" data-v="0">Nur lustig</button></div>`;
+      const tilesH = `<div class="tiles">${ORDER.map(k=>tileHTML(k,true, mix?G.sel.includes(k):G.gt===k)).join('')}</div>`;
+      const notesH = `${mix && specials*times>G.len-1 ? `<p class="note">Bei ${G.len} Runden passen nicht alle Spezialspiele rein. Ein paar fallen zufällig weg.</p>`:''}
+        <p class="note">${S.mode==='host'?'Alles läuft automatisch: Runden starten bei allen gleichzeitig und gehen von selbst weiter.':'Letzter Platz trinkt 3, Mittelfeld 1, der Gewinner verteilt 2.'}</p>`;
+      const startH = reg('r-start', `<button class="btn coral big wide" data-act="start" ${G.pl.length<2||(mix&&!G.sel.length)?'disabled':''}>${G.pl.length<2?'Mindestens 2 Spieler':(mix?`Mix starten · ${G.len} Runden`:game.name+' starten')}</button>`);
+      if(desk()){
+        const pick = `<section class="box pickbox"><h2>${mix?'Welche Spiele kommen in den Mix?':'Welches Spiel?'}</h2>${tilesH}</section>`;
+        return {key:'lobby'+S.mode+G.kind+'d'+G.mode+G.gt+G.sel.join()+G.len+G.spicy, regions:R, html:`${topbar()}${cols3(
+          head+`<section class="box"><h2>Spieler</h2>${reg('r-players', playersHTML())}${addForm}</section>`+reg('r-score', barsHTML()),
+          pick,
+          `<section class="box">${modeH}${notesH}</section>`+reg('r-err', err)+startH, 'lobby')}`};
+      }
+      setup = `<section class="box">${modeH}${tilesH}${notesH}</section>` + startH;
     } else {
       setup = reg('r-wait', `<section class="box"><p class="eyebrow">Gleich geht's los</p><h2>${G.mode==='mix'?`Mix · ${G.len} Runden`:esc(game.name)}</h2><p class="muted">${G.mode==='mix'?esc(G.sel.map(k=>GAMES[k].name).join(', ')):esc(game.d)}</p><p>Der Host startet gleich. Danach läuft alles von selbst.</p></section>`);
     }
-    return {key:'lobby'+S.mode+G.kind+(isHost()?G.mode+G.gt+G.sel.join()+G.len+G.spicy:''), regions:R, html:`${topbar()}${head}
-      <section class="box"><h2>Spieler</h2>${reg('r-players', playersHTML())}${addForm}</section>
-      ${reg('r-err', err)}${setup}${reg('r-score', barsHTML())}`};
+    const pbox = `<section class="box"><h2>Spieler</h2>${reg('r-players', playersHTML())}${addForm}</section>`;
+    return {key:'lobby'+S.mode+G.kind+(isHost()?G.mode+G.gt+G.sel.join()+G.len+G.spicy:''), regions:R, html:`${topbar()}${cols(
+      head+pbox+reg('r-score', barsHTML()), reg('r-err', err)+setup, 'lobby2')}`};
   }
 
   if(G.kind==='bus') return busView(R, reg);
@@ -1894,7 +2014,7 @@ function view(){
     const status = ((local && voting) || G.gt==='ttt' || (G.gt==='hol' && G.sub!=='guess')) ? '' : `<section class="box"><p class="muted">${need.filter(p=>done.includes(p.id)).length} von ${need.length} ${local?'sind durch':'sind fertig'}</p><div class="dots">${need.map(p=>`<span class="dot ${done.includes(p.id)?'done':'wait'}" title="${esc(p.n)}">${avatarSVG(p.av,38)}</span>`).join('')}</div>`+
       (S.mode==='host' ? `<button class="btn ghost small" data-act="skip" ${done.length?'':'disabled'}>Nicht warten, weiter</button>` : '')+`</section>`;
     const akey = local ? S.localIdx+'/'+S.localReady+G.sub+G.vi : JSON.stringify(myV===undefined?null:myV)+S.miniRunning+G.sub+(G.gt==='hol'?G.alive.length:'');
-    return {key:'play'+G.rk+akey, regions:R, html:`${topbar()}${roundBar}${timerHTML(game.c)}${body}${reg('r-status', status)}${reg('r-err', err)}`};
+    return {key:'play'+G.rk+akey, regions:R, html:`${topbar()}${roundBar}${timerHTML(game.c)}${cols(body, reg('r-status', status)+reg('r-err', err)+(desk()?reg('r-score', barsHTML()):''), 'play')}`};
   }
 
   // Auflösung
@@ -1929,7 +2049,10 @@ function view(){
     ctrl = `<p class="muted center">${lastMix?'Gleich kommt der Endstand …':'Die nächste Runde startet automatisch …'}</p>`+
       (S.mode==='host' ? `<div class="btnrow"><button class="btn ghost small" data-act="skip">Sofort weiter</button><button class="btn ghost small" data-act="end">Beenden & Stats</button>${G.mode==='single'?`<button class="btn ghost small" data-act="lobby">Spiel wechseln</button>`:''}</div>` : '');
   }
-  return {key:'rev'+G.r+G.rk, regions:R, html:`${topbar()}${roundBar}${timerHTML(game.c)}<section class="box stage" style="--c:${game.c}">${head}${gal}${reg('r-res', res)}</section>${ctrl}${reg('r-score', barsHTML())}${reg('r-err', err)}`};
+  const stageR = `<section class="box stage" style="--c:${game.c}">${head}${gal}${desk()?'':reg('r-res', res)}</section>`;
+  return {key:'rev'+G.r+G.rk, regions:R, html:`${topbar()}${roundBar}${timerHTML(game.c)}${desk()
+    ? cols(stageR, `<section class="box"><h2>Wer trinkt?</h2>${reg('r-res', res)}</section>${ctrl}${reg('r-score', barsHTML())}${reg('r-err', err)}`, 'play')
+    : stageR+ctrl+reg('r-score', barsHTML())+reg('r-err', err)}`};
 }
 
 const roleHTML = (c,l,id) => `<div class="role" style="--c:${c}">${avatarSVG(plById(id).av,40)}<div><small>${l}</small><b>${esc(plById(id).n)}</b></div></div>`;
@@ -1945,15 +2068,14 @@ function busView(R, reg){
   const start = local ? 0 : Math.max(0, ord.indexOf(me));
   const seats = ord.map((id,i)=>{
     const k = (i - start + n) % n, a = Math.PI/2 + k*2*Math.PI/n;
-    const x = 50 + 41*Math.cos(a), y = 50 + 41.5*Math.sin(a);
-    const dx = (Math.cos(a)*22).toFixed(0), dy = (Math.sin(a)*30).toFixed(0);
+    const cx = Math.cos(a).toFixed(3), cy = Math.sin(a).toFixed(3);
     const h = b.hands[id] || [];
     // Während Pyramide, Auskönigen und Busfahrt braucht die Tischmitte Platz: dann nur die Anzahl
     const cs = ['ask','show'].includes(b.st) ? h.map(c=>bcard(c,{size:'xs'})).join('')
       : (b.st==='end' ? '' : `<span class="tag">${h.length} ${h.length===1?'Karte':'Karten'}</span>`);
     const role = id===b.driver ? '<span class="rl">Busfahrer</span>' : id===b.co ? '<span class="rl co">Beifahrer</span>' : '';
     const cls = (id===active?' turn':'') + (cands.includes(id)?' cand':'') + (id===me && !local?' me':'');
-    return `<div class="seat${cls}" style="left:${x.toFixed(1)}%;top:${y.toFixed(1)}%;transform:translate(calc(-50% + ${dx}%),calc(-50% + ${dy}%))">${avatarSVG(plById(id).av,40)}<span class="nm">${esc(nm(id))}${id===me && !local?' (du)':''}</span>${role}<span class="mc">${cs}</span><span class="sub">${b.drank[id]||0} getrunken</span></div>`;
+    return `<div class="seat${cls}" style="--cx:${cx};--cy:${cy}">${avatarSVG(plById(id).av,40)}<div class="si"><span class="nm">${esc(nm(id))}${id===me && !local?' (du)':''}</span>${role}<span class="mc">${cs}</span><span class="sub">${b.drank[id]||0} getrunken</span></div></div>`;
   }).join('');
 
   let center = '', below = '';
@@ -2020,7 +2142,8 @@ function busView(R, reg){
       ${local && givers.length>1 ? `<div class="chips">${givers.map(id=>`<button class="${id===from?'on':''}" data-act="bfrom" data-id="${esc(id)}">${avatarSVG(plById(id).av,26)}${esc(nm(id))}</button>`).join('')}</div><p>An wen? Jeder Tipp ist ein Schluck.</p>` : '<p>Tipp auf jemanden. Jeder Tipp ist ein Schluck.</p>'}
       <div class="chips">${ord.filter(id=>id!==from).map(id=>`<button data-act="bgive" data-from="${esc(from)}" data-to="${esc(id)}">${avatarSVG(plById(id).av,26)}${esc(nm(id))}</button>`).join('')}</div></section>`;
   }
-  return {key:'bus'+Date.now(), regions:R, html:`${topbar()}${b.st!=='end'?timerHTML('var(--orange)'):''}<div class="btable"><div class="felt"><div class="center">${center}</div></div>${seats}</div>${below}${give}`};
+  const ph = ['ask','show'].includes(b.st) ? 'ph-ask' : 'ph-'+b.st;
+  return {key:'bus'+Date.now(), regions:R, html:`${topbar()}${b.st!=='end'?timerHTML('var(--orange)'):''}${cols(`<div class="btable ${ph}"><div class="felt"><div class="center">${center}</div></div>${seats}</div>`, below+give, 'bus')}`};
 }
 function endView(R, reg){
   const G=S.G;
@@ -2037,12 +2160,12 @@ function endView(R, reg){
   const ctrl = isHost()
     ? `<div class="btnrow"><button class="btn coral" data-act="again">Nochmal spielen</button><button class="btn ghost" data-act="leave">${S.mode==='local'?'Beenden':'Raum schließen'}</button></div>`
     : `<div class="btnrow"><button class="btn ghost" data-act="leave">Raum verlassen</button></div>`;
-  return {key:'end'+G.r+G.hist.length, regions:R, html:`${topbar()}
+  return {key:'end'+G.r+G.hist.length, regions:R, html:`${topbar()}${cols(`
     <section class="hero"><p class="eyebrow">Endstand nach ${G.r} ${G.r===1?'Runde':'Runden'}</p><h1>${most&&most.s?esc(most.p.n)+' ist heute Schluckkönig:in':'Das war\'s!'}</h1><p class="muted">Zusammen ${total} Schlucke getrunken.</p></section>
     <section class="box">${podium}</section>
-    <div class="awards">${award('var(--mint)','Meiste Siege',wins,wins?wins.w+' Siege':'')}${award('var(--lemon)','Am meisten verteilt',giver,giver?giver.d+' Schlucke':'')}${award('var(--lilac)','Am nüchternsten',sober,sober?sober.s+' Schlucke':'')}</div>
-    <section class="box"><h2>Alle Stats</h2>${table}</section>
-    ${hist}${ctrl}${reg('r-err','')}`};
+    <div class="awards">${award('var(--mint)','Meiste Siege',wins,wins?wins.w+' Siege':'')}${award('var(--lemon)','Am meisten verteilt',giver,giver?giver.d+' Schlucke':'')}${award('var(--lilac)','Am nüchternsten',sober,sober?sober.s+' Schlucke':'')}</div>`,
+    `<section class="box"><h2>Alle Stats</h2>${table}</section>
+    ${hist}${ctrl}${reg('r-err','')}`, 'end')}`};
 }
 
 let lastKey = null;
@@ -2060,6 +2183,7 @@ function tick(){
   i.style.width = Math.min(100, left/tot*100)+'%'; s.textContent = Math.ceil(left/1000)+' s';
 }
 setInterval(tick, 250);
+DQ.addEventListener('change', ()=>{ lastKey = null; render(); });
 
 /* ---------- Eingaben ---------- */
 function act(a, d){
