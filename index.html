@@ -13,7 +13,7 @@
 :root{
   --bg:#100e24; --dot:#221e45; --card:#1b1838; --card2:#25214b; --field:#141130;
   --ink:#f1eeff; --dk:#16133a; --muted:#a7a2d6; --sh:#6c5cff; --line:#2f2a5c;
-  --coral:#ff5a76; --blue:#5b74ff; --lemon:#ffd84d; --mint:#2fe0a8; --lilac:#b49cff; --orange:#ff9a3d; --pink:#ff8fd0;
+  --coral:#ff5a76; --blue:#5b74ff; --lemon:#ffd84d; --mint:#2fe0a8; --lilac:#b49cff; --orange:#ff9a3d; --pink:#ff8fd0; --sky:#57d6ff;
   --display:"Unbounded",system-ui,sans-serif;
   --body:"DM Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:dark;
@@ -180,6 +180,83 @@ footer{text-align:center;font-size:.82rem;color:var(--muted);padding-top:4px}
 .gallery figure{margin:0;display:flex;flex-direction:column;gap:6px;min-width:0}
 .gallery img{width:100%;aspect-ratio:1;border:2.5px solid var(--ink);border-radius:14px;background:#fff;display:block}
 .gallery figcaption{font-size:.82rem;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* Mehr oder Weniger */
+.vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:stretch}
+.term{border:2.5px solid var(--ink);border-radius:18px;padding:14px 10px;display:flex;flex-direction:column;gap:6px;align-items:center;justify-content:center;text-align:center;min-width:0;background:var(--card2)}
+.term.a{background:var(--blue);color:#fff}
+.term b{font-family:var(--display);font-weight:800;font-size:clamp(.95rem,4.4vw,1.25rem);line-height:1.15;overflow-wrap:anywhere}
+.term .views{font-family:var(--display);font-weight:700;font-size:.82rem;font-variant-numeric:tabular-nums}
+.term .views.q{font-size:1.6rem}
+.term.ok{background:var(--mint);color:var(--dk)}
+.vsx{font-family:var(--display);font-weight:800;display:grid;place-items:center;font-size:.9rem;color:var(--muted)}
+.alive{display:flex;flex-wrap:wrap;gap:6px}
+.out .av{opacity:.3;filter:grayscale(1)}
+.src{font-size:.75rem;color:var(--muted);text-align:center}
+/* Tic-Tac-Toe */
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:min(100%,330px);margin:0 auto}
+.board button{aspect-ratio:1;border:2.5px solid var(--ink);border-radius:16px;background:var(--card2);font-family:var(--display);font-weight:800;font-size:clamp(2rem,12vw,3.4rem);line-height:1;padding:0;display:grid;place-items:center}
+.board button:disabled{cursor:default}
+.board .X{color:var(--coral)}.board .O{color:var(--sky)}
+.board button.win{background:var(--lemon);color:var(--dk)}
+.board.mini{width:96px;gap:3px}
+.board.mini span{aspect-ratio:1;border:1.5px solid var(--line);border-radius:6px;background:var(--card2);display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:.9rem}
+.duel{display:flex;align-items:center;justify-content:center;gap:12px}
+.duel .side{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0;max-width:40%}
+.duel .side b{font-size:.85rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.duel .side.turn .av{box-shadow:0 0 0 3px var(--lemon)}
+.duel .mk{font-family:var(--display);font-weight:800;font-size:1rem}
+.turnline{text-align:center;font-family:var(--display);font-weight:700}
+.matches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.match{display:flex;flex-direction:column;gap:6px;align-items:center;background:var(--field);border:2px solid var(--line);border-radius:14px;padding:10px;min-width:0}
+.match small{font-size:.75rem;font-weight:700;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+/* Busfahrer */
+.bushero{background:linear-gradient(135deg,var(--card) 0%,var(--card2) 100%);border-top:12px solid var(--orange)}
+.bc{width:64px;aspect-ratio:5/8;background:#fffaf0;border:2.5px solid var(--ink);border-radius:10px;box-shadow:3px 3px 0 var(--sh);position:relative;display:grid;place-items:center;flex:none;color:var(--dk)}
+.bc .bl{position:absolute;top:4px;left:6px;font-family:var(--display);font-weight:800;font-size:.85rem;line-height:1}
+.bc .bl.br{top:auto;left:auto;bottom:4px;right:6px;transform:rotate(180deg)}
+.bc.sm{width:42px;border-width:2px;border-radius:8px;box-shadow:2px 2px 0 var(--sh)}
+.bc.sm .bl{font-size:.68rem;top:3px;left:4px}.bc.sm .bl.br{bottom:3px;right:4px}
+.bc.lg{width:96px}
+.bc.lg .bl{font-size:1.1rem}
+.bc.back{background:repeating-linear-gradient(45deg,var(--orange) 0 7px,#e8852a 7px 14px)}
+.bc.hl{outline:3px solid var(--lemon);outline-offset:2px}
+.bc.ghost{opacity:.25}
+.hands{display:flex;flex-direction:column;gap:10px}
+.hand{display:flex;align-items:center;gap:10px;background:var(--field);border:2px solid var(--line);border-radius:14px;padding:8px 10px;min-width:0}
+.hand.on{border-color:var(--lemon)}
+.hand .who{display:flex;flex-direction:column;min-width:0;flex:1}
+.hand .who b{font-size:.88rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hand .who small{font-size:.72rem;color:var(--muted)}
+.hand .cs{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.laybtn{border:0;background:none;padding:0;border-radius:8px}
+.laybtn:disabled{cursor:default}
+.laybtn:not(:disabled) .bc{outline:3px solid var(--mint);outline-offset:2px;animation:wig 1s ease-in-out infinite}
+@keyframes wig{50%{transform:translateY(-3px)}}
+.pyr{display:flex;flex-direction:column-reverse;align-items:center;gap:8px}
+.prow{display:flex;gap:8px;align-items:center}
+.prow small{font-family:var(--display);font-weight:700;font-size:.62rem;color:var(--muted);width:3.6em;text-align:right}
+.pslot{position:relative}
+.pslot .cnt{position:absolute;top:-8px;right:-8px;background:var(--mint);color:var(--dk);border:2px solid var(--ink);border-radius:999px;font-size:.62rem;font-weight:800;padding:1px 6px}
+.give{background:var(--lemon);color:var(--dk)}
+.give .eyebrow{color:var(--dk)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{display:flex;align-items:center;gap:8px;background:#fff;color:var(--dk);border:2.5px solid var(--dk);border-radius:999px;padding:4px 12px 4px 4px;font-weight:700;font-size:.85rem}
+.chips button .av{border-color:var(--dk)}
+.chips button.on{background:var(--dk);color:#fff}
+.ride{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.ride .slot{display:flex;flex-direction:column;align-items:center;gap:6px}
+.ride .slot small{font-family:var(--display);font-weight:700;font-size:.62rem;color:var(--muted)}
+.ride .slot.cur small{color:var(--lemon)}
+.ride .slot.cur .bc{outline:3px solid var(--lemon);outline-offset:2px}
+.deals{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow:auto}
+.deals div{display:flex;align-items:center;gap:10px;font-weight:700;font-size:.88rem}
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.role{border:2.5px solid var(--ink);border-radius:16px;padding:10px;display:flex;align-items:center;gap:10px;background:var(--c);color:var(--dk);min-width:0}
+.role div{display:flex;flex-direction:column;min-width:0}
+.role small{font-family:var(--display);font-weight:700;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase}
+.role b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#toasts{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 16px);z-index:70;display:flex;flex-direction:column;gap:8px;width:min(92vw,380px);pointer-events:none}
+.toast{background:var(--coral);color:#fff;border:2.5px solid var(--ink);border-radius:16px;box-shadow:4px 4px 0 var(--sh);padding:10px 14px;font-weight:800;font-family:var(--display);font-size:.9rem;animation:popin .3s ease-out}
 /* scoreboard */
 .bars{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
 .bars li{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:10px;align-items:center}
@@ -283,6 +360,7 @@ input[type=range]{flex:1;min-width:0;accent-color:var(--lemon)}
 <div id="app"></div>
 <div id="ov" hidden></div>
 <div id="pop" hidden></div>
+<div id="toasts" aria-live="polite"></div>
 
 <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 <script>
@@ -319,7 +397,7 @@ function openHub(code){
       conn.on('data', m=>{
         if(!m || m.t!=='pres' || typeof m.presence!=='object') return;
         const p = m.presence;
-        x.entry = {...x.entry, presence:{role:p.role==='player'?'player':'', p:p.p, ans:p.ans}};
+        x.entry = {...x.entry, presence:{role:p.role==='player'?'player':'', p:p.p, ans:p.ans, act:p.act}};
         ev.fire();
       });
       const drop = ()=>{ if(conns.get(conn.peer)===x){ conns.delete(conn.peer); ev.fire(); } };
@@ -359,8 +437,9 @@ function openLeaf(code){
 /* ---------- Spiele ---------- */
 const GAMES = {
   schaetzen:{name:'Schätzen', kind:'Quiz', ic:'≈', c:'var(--lemon)', d:'Eine Frage, eine Zahl. Wer am nächsten dran ist, gewinnt.'},
-  hol:      {name:'Höher oder Tiefer', kind:'Quiz', ic:'↕', c:'var(--blue)', fg:'#fff', d:'Ist die nächste Karte höher oder tiefer? Falsch: 2 Schlucke.'},
-  wwe:      {name:'Wer würde eher', kind:'Quiz', ic:'?', c:'var(--coral)', fg:'#fff', d:'Alle stimmen ab. Jede Stimme ist ein Schluck.'},
+  hol:      {name:'Mehr oder Weniger', kind:'Quiz', ic:'↕', c:'var(--blue)', fg:'#fff', d:'Welcher Begriff wurde 2025 öfter nachgeschlagen? Wer falsch liegt, fliegt raus.'},
+  wwe:      {name:'Wer würde eher', kind:'Quiz', ic:'?', c:'var(--coral)', fg:'#fff', d:'Spicy und lustige Fragen. Jede Stimme ist ein Schluck.'},
+  ttt:      {name:'Tic-Tac-Toe', kind:'Duell', ic:'#', c:'var(--sky)', d:'Immer zwei gegeneinander, bei ungerader Zahl spielt einer gegen den Bot.'},
   draw:     {name:'Zeichenduell', kind:'Kreativ', ic:'✎', c:'var(--lilac)', d:'Alle zeichnen denselben Cartoon-Helden. Danach bewertet ihr jedes Bild.'},
   memory:   {name:'Block-Bau', kind:'Minigame', ic:'▦', c:'var(--mint)', d:'Merk dir das Muster und bau es schnell nach.'},
   react:    {name:'Reflex', kind:'Minigame', ic:'!', c:'var(--orange)', d:'Tipp, sobald es grün wird. Zu früh kostet.'},
@@ -371,8 +450,8 @@ const QUIZ = ['schaetzen','hol','wwe'];
 const isMini = gt => ['memory','react','stroop'].includes(gt);
 const isSpecial = gt => !QUIZ.includes(gt);
 // Zeiten in ms (online läuft alles automatisch)
-const T_PLAY = {schaetzen:30000, hol:15000, wwe:20000, memory:44000, react:34000, stroop:32000, draw:90000};
-const T_VOTE = 10000, T_REVEAL = 10000;
+const T_PLAY = {schaetzen:30000, hol:15000, wwe:20000, memory:44000, react:34000, stroop:32000, draw:90000, ttt:90000};
+const T_VOTE = 10000, T_REVEAL = 10000, T_HOL = 12000, T_HOLSHOW = 3500, T_TTTMOVE = 12000;
 const QS = [
   {q:'Wie hoch ist der Mount Everest?', a:8849, u:'m'},
   {q:'Wie viele Knochen hat ein erwachsener Mensch?', a:206, u:'Knochen'},
@@ -411,16 +490,60 @@ const QS = [
   {q:'Wie viele Bundesländer hat Deutschland?', a:16, u:'Länder'},
   {q:'Wie heiß ist die Oberfläche der Sonne ungefähr?', a:5500, u:'°C'}
 ];
-const WWE = [
-  '… als Erstes auf der Party einschlafen?','… beim Karaoke das Mikro nicht mehr hergeben?','… aus Versehen dem Ex schreiben?',
-  '… sich auf einem Festival verlaufen?','… um 4 Uhr morgens noch einen Döner holen?','… eine Quizshow im Fernsehen gewinnen?',
-  '… den eigenen Geburtstag vergessen?','… mit einem Fremden zurückkommen, der jetzt „ein guter Freund“ ist?','… ein Urlaubs-Tattoo bereuen?',
-  '… beim Flunkyball schummeln?','… als Erstes die Musik auf der Party wechseln?','… eine Woche ohne Handy durchhalten?',
-  '… heimlich Reality-TV schauen?','… viel zu schick zur Party kommen?','… das Handy in der Bar liegen lassen?',
-  '… auf dem Tisch tanzen?','… am selben Tag spontan in den Urlaub fliegen?','… beim Brettspiel einen Wutanfall bekommen?',
-  '… mit einer Band berühmt werden?','… als Erstes Pizza bestellen?','… beim Wandern zuerst aufgeben?','… als Erstes heiraten?',
-  '… sich mit dem Türsteher anfreunden?','… beim Kochen die Küche abfackeln?','… eine Nachricht an die falsche Gruppe schicken?'
+const WWE_FUN = [
+  '… im Supermarkt eine Traube probieren und am Ende die ganze Packung leer essen?','… beim Insta-Stalking aus Versehen ein Foto von vor fünf Jahren liken?',
+  '… nach drei Bier einen Vortrag über Krypto halten?','… im Urlaub was mit dem Animateur anfangen?','… für 500 € einen Monat lang nur Döner essen?',
+  '… beim Vorstellungsgespräch einschlafen?','… bei einer Datingshow im Fernsehen mitmachen?','… mit der eigenen Mutter aufs Festival gehen?',
+  '… Sprachnachrichten über fünf Minuten verschicken?','… betrunken einen Hund adoptieren?','… nach einer Party in einer fremden Wohnung aufwachen?',
+  '… vor dem Spiegel eine Oscar-Rede üben?','… den Namen vom Partner tätowieren lassen?','… im Club mit dem DJ über die Musik diskutieren?',
+  '… nachts um drei den Ex anrufen?','… beim Flunkyball schummeln?','… sich auf dem Festival verlaufen und erst Sonntag wieder auftauchen?',
+  '… im Taxi die Lebensgeschichte vom Fahrer hören und weinen?','… bei Tinder die eigene Cousine matchen?','… auf einer Hochzeit die Rede komplett verhauen?',
+  '… mit dem Türsteher eine Freundschaft fürs Leben schließen?','… beim Kochen die Küche abfackeln?','… sein Handy in der Kloschüssel versenken?'
 ];
+const WWE_SPICY = [
+  '… am ersten Urlaubsabend einen One-Night-Stand haben?','… beim ersten Date schon mit nach Hause gehen?','… mit dem Ex im Bett landen, obwohl es „das letzte Mal“ war?',
+  '… eine Affäre mit dem Chef anfangen?','… Handschellen in der Nachttischschublade haben?','… einen Dreier ausprobieren?',
+  '… ein Nacktfoto an die falsche Person schicken?','… auf Tinder mit fünf Leuten gleichzeitig schreiben?','… es an einem öffentlichen Ort treiben?',
+  '… beim Strip-Poker absichtlich verlieren?','… mit dem besten Freund vom Ex schlafen?','… beim Sex den falschen Namen sagen?',
+  '… im Flugzeug-Klo rummachen?','… heute Nacht mit jemandem aus dieser Runde knutschen?','… einen Lapdance geben?',
+  '… im Schlafzimmer Rollenspiele vorschlagen?','… schon mal von den Nachbarn beim Sex gehört worden sein?','… sich einen Sugar Daddy oder eine Sugar Mama suchen?',
+  '… auf einer Hochzeit mit einem Gast rummachen?','… sich ein OnlyFans anlegen?','… richtig guten Dirty Talk können?',
+  '… morgens neben jemandem aufwachen und den Namen nicht wissen?','… nackt baden gehen, wenn alle zuschauen?','… im Sexshop als Erstes die Peitsche ausprobieren?',
+  '… den Partner nachts wecken, weil man Lust hat?','… beim Flaschendrehen am liebsten die ganze Runde küssen?','… die meisten Bodycounts in dieser Runde haben?'
+];
+const WWE = [...WWE_FUN, ...WWE_SPICY];
+function pickWwe(G){
+  const kind = G.spicy ? 'wsp' : 'wfun';
+  if(!bags[kind] || !bags[kind].length) bags[kind] = shuffle(G.spicy ? [...WWE.keys()] : [...WWE_FUN.keys()]);
+  return bags[kind].pop();
+}
+// Echte Aufrufzahlen der deutschen Wikipedia 2025 (Wikimedia Pageviews, Nutzer, alle Zugriffe)
+const HOLD = [
+  ['Döner Kebab',197263],['Pizza',125280],['Bier',116237],['Kaffee',115960],['Oktoberfest',253288],['Mallorca',271814],['Helene Fischer',799979],
+  ['FC Bayern München',655485],['Borussia Dortmund',364398],['Netflix',260137],['Instagram',316514],['TikTok',295774],['Spotify',207895],
+  ['Taylor Swift',697058],['Elon Musk',2603893],['Donald Trump',2417294],['Jägermeister',114288],['Aperol',218972],['Coca-Cola',177218],
+  ['Burger King',65804],['Nutella',118710],['IKEA',167000],['Lidl',248901],['Aldi',271763],['SpongeBob',173609],['Die Simpsons',217294],
+  ['Harry Potter',525002],['Star Wars',571344],['Minecraft',353205],['Bitcoin',396906],['ChatGPT',3921119],['Rammstein',329106],
+  ['Capital Bra',178592],['Apache 207',365780],['Shirin David',997184],['Wodka',101887],['Gin',117241],['Tequila',92932],['Berlin',1137177],
+  ['Köln',545549],['Ibiza',97693],['Bali',168254],['Weihnachten',168694],['Silvester',113880],['Valentinstag',230261],['Halloween',331258],
+  ['Pokémon',187756],['Barbie',112393],['Lego',185825],['iPhone',222388],['Wiener Schnitzel',82943],['Currywurst',95263],['Sushi',93117],
+  ['Avocado',213731],['Katze',269542],['Hund',157455],['Einhorn',60849],['Zombie',41140],['Vampir',73533],['Lionel Messi',483892],
+  ['Heidi Klum',740032],['Dieter Bohlen',480347],['Angela Merkel',766283],['Friedrich Merz',3364010],['Kim Kardashian',278057],
+  ['Michael Jackson',795383],['Sex',1026874],['Pornografie',463778],['YouTube',1086295],['Google',628867],['Bundesliga',310436],
+  ['Formel 1',338221],['Paris',431322],['New York City',584947],['Tokio',294973],['Kakerlaken',47128],['Spinnen',67383],['Haie',125752],
+  ['Pinguine',132570],['Albert Einstein',831039],['Titanic',757122],['Mond',268477],['Mars',222295],['Bad Bunny',208331],['Billie Eilish',416487],
+  ['Eminem',477184],['Sido',458222],['Dua Lipa',414513],['Rihanna',353529],['Ed Sheeran',424164],['Brad Pitt',619953],['Leonardo DiCaprio',757718],
+  ['Squid Game',895231],['Game of Thrones',762805],['Breaking Bad',436960],['Stranger Things',1341851],['Gurke',80348],['Aubergine',96666],
+  ['Sauna',59538],['Swingerclub',102209],['Vibrator',65047],['Sildenafil (Viagra)',122799],['Semaglutid (Ozempic)',218525],['Champagner',83676],
+  ['McDonald’s',195066],['OnlyFans',151344]
+];
+function buildChain(){
+  const pool = shuffle(HOLD.filter(x=>x[1]>=5000).map(x=>({n:x[0], v:x[1]})));
+  const out = [];
+  for(const t of pool){ if(out.length>=12) break; if(out.length && Math.abs(Math.log(t.v/out[out.length-1].v)) < 0.08) continue; out.push(t); }
+  return out;
+}
+const fmtViews = n => n>=1e6 ? (n/1e6).toFixed(1).replace('.',',')+' Mio.' : Number(n).toLocaleString('de-DE');
 const DRAWQ = [
   'SpongeBob','Patrick Star','Thaddäus Tentakel','Mr. Krabs','Plankton','Peppa Wutz','Phineas und Ferb','Perry das Schnabeltier',
   'Dr. Doofenshmirtz','Ben 10','Avatar Aang','Finn und Jake','Gumball','Jimmy Neutron','Timmy Turner','Cosmo und Wanda',
@@ -543,7 +666,8 @@ if(!/^\d{10}$/.test(S.me.av)) S.me.av = randAv();
 const saveProfile = () => store.set('sr-profile2', {name:S.me.name, av:S.me.av});
 const prof = () => ({n:cleanName(S.me.name), av:S.me.av});
 const newG = () => ({ph:'lobby', mode:'mix', gt:'schaetzen', sel:[...ORDER], len:10, plan:[], r:0, rk:'', seed:1, pl:[], ac:[], res:null, st:{}, hist:[],
-  qi:0, card:null, prev:null, hd:'', top:null, sub:'', vi:0, vn:0, cur:null, gal:null, tl:0, tt:0});
+  qi:0, top:null, sub:'', vi:0, vn:0, cur:null, gal:null, tl:0, tt:0, spicy:true,
+  hchain:null, hi:0, alive:[], out:{}, hres:null, ttt:null, kind:'party', b:null});
 const isHost = () => S.mode==='host' || S.mode==='local';
 const online = () => S.mode==='host' || S.mode==='player';
 const plById = id => (S.G && S.G.pl.find(p=>p.id===id)) || {id, n:'Weg', av:'0000000000'};
@@ -551,7 +675,7 @@ const plById = id => (S.G && S.G.pl.find(p=>p.id===id)) || {id, n:'Weg', av:'000
 /* ---------- Ablauf (nur Host) ---------- */
 function schedule(ms, fn){
   clearTimeout(S.ht); S.hfn = fn;
-  if(S.mode!=='host'){ S.deadline=0; return; }
+  if(S.mode!=='host' && !(S.mode==='local' && S.G && S.G.kind==='bus')){ S.deadline=0; return; }
   S.deadline = Date.now()+ms; S.G.tt = ms;
   S.ht = setTimeout(()=>{ S.deadline=0; S.hfn=null; fn(); }, ms);
 }
@@ -582,6 +706,7 @@ function validAns(G, v){
   if(G.gt==='schaetzen') return typeof v==='number' && Number.isFinite(v);
   if(G.gt==='hol') return v==='h' || v==='t';
   if(G.gt==='wwe') return G.pl.some(p=>p.id===v);
+  if(G.gt==='ttt') return v && Array.isArray(v.mv) && v.mv.length<=9 && v.mv.every(x=>Number.isInteger(x) && x>=0 && x<9);
   if(G.gt==='draw') return G.sub==='vote' ? [0,1,2].includes(v) : (v && typeof v==='object' && okImg(v.img));
   if(isMini(G.gt)) return v && typeof v==='object' && typeof v.sc==='number' && Number.isFinite(v.sc) && typeof v.d==='string' && v.d.length<48;
   return false;
@@ -598,9 +723,13 @@ function answersFor(G){
   return out;
 }
 // wer in diesem Schritt antworten muss
-function needed(G){ if(G.gt==='draw' && G.sub==='vote') return G.pl.filter(p=>!G.cur || p.id!==G.cur.id); return G.pl; }
+function needed(G){
+  if(G.gt==='draw' && G.sub==='vote') return G.pl.filter(p=>!G.cur || p.id!==G.cur.id);
+  if(G.gt==='hol') return G.pl.filter(p=>(G.alive||[]).includes(p.id));
+  return G.pl;
+}
 function pushG(){
-  if(S.mode==='host'){ S.G.tl = S.deadline ? Math.max(0, S.deadline-Date.now()) : 0; S.dl = S.deadline; }
+  if(S.mode==='host' || S.mode==='local'){ S.G.tl = S.deadline ? Math.max(0, S.deadline-Date.now()) : 0; S.dl = S.deadline; }
   const s = JSON.stringify(S.G);
   if(s!==S.lastG){ S.lastG = s; if(S.mode==='host' && S.nr) S.nr.presence({g:S.G}); }
   render();
@@ -619,10 +748,13 @@ function hostSync(){
   const prev = S.G.pl.map(x=>x.id);
   entries.sort((a,b)=>{ const ia=prev.indexOf(a.id), ib=prev.indexOf(b.id); return (ia<0?999:ia)-(ib<0?999:ib); });
   S.G.pl = entries.slice(0,12);
+  if(S.G.kind==='bus'){ if(S.G.ph==='play') busSync(); else pushG(); return; }
   if(S.G.ph==='play') checkAnswers(); else pushG();
 }
 function checkAnswers(){
   const G = S.G, a = answersFor(G);
+  if(G.gt==='ttt'){ applyTtt(a); return afterTtt(); }
+  if(G.gt==='hol' && G.sub!=='guess') return pushG();
   if(G.gt==='draw' && G.sub==='draw') for(const id in a) S.drawings[id] = a[id].img;
   G.ac = Object.keys(a);
   const need = needed(G);
@@ -631,7 +763,86 @@ function checkAnswers(){
 function advance(){
   const G = S.G;
   if(G.gt==='draw'){ if(G.sub==='draw') return toVote(); return nextVote(); }
+  if(G.gt==='hol'){ if(G.sub==='guess') return resolveHol(); return; }
+  if(G.gt==='ttt'){ (G.ttt||[]).forEach(m=>{ if(!m.w) m.w='d'; }); return reveal(); }
   reveal();
+}
+const newKey = () => Math.random().toString(36).slice(2,8);
+function resetAnswers(){ S.myAns=null; S.localAnswers={}; S.localIdx=0; S.localReady=false; if(S.mode==='host') S.nr.presence({ans:null}); }
+
+/* Mehr oder Weniger: Kette von Begriffen, wer falsch tippt, fliegt raus */
+function startHol(){
+  const G = S.G, chain = buildChain();
+  if(chain.length<4){ G.gt='schaetzen'; G.qi=nextFrom('s',QS.length); schedule(T_PLAY.schaetzen, advance); return pushG(); }
+  G.hchain=chain; G.hi=0; G.alive=G.pl.map(p=>p.id); G.out={};
+  holStep();
+}
+function holStep(){
+  const G = S.G; G.sub='guess'; G.rk=newKey(); G.ac=[]; G.hres=null; resetAnswers();
+  schedule(T_HOL, resolveHol); pushG();
+}
+function resolveHol(){
+  const G = S.G; if(G.ph!=='play' || G.gt!=='hol' || G.sub!=='guess') return;
+  const a = answersFor(G), A = G.hchain[G.hi], B = G.hchain[G.hi+1];
+  const truth = B.v>A.v ? 'h' : B.v<A.v ? 't' : '=';
+  const wrong = G.alive.filter(id => truth!=='=' && a[id]!==truth);
+  const all = wrong.length>0 && wrong.length===G.alive.length;
+  wrong.forEach(id=>{ G.out[id] = G.hi; });
+  if(!all) G.alive = G.alive.filter(id=>!wrong.includes(id));
+  G.hres = {truth, wrong, all}; G.sub = 'show';
+  const done = all || G.alive.length<=1 || G.hi+2 >= G.hchain.length;
+  schedule(T_HOLSHOW, done ? reveal : ()=>{ G.hi++; holStep(); });
+  pushG();
+}
+
+/* Tic-Tac-Toe: Paare, bei ungerader Zahl spielt einer gegen den Bot */
+const LINES = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+function tttWinner(bd){ for(const [x,y,z] of LINES) if(bd[x]!=='.' && bd[x]===bd[y] && bd[y]===bd[z]) return bd[x]; return bd.includes('.') ? '' : 'd'; }
+function tttLine(bd){ for(const l of LINES) if(bd[l[0]]!=='.' && bd[l[0]]===bd[l[1]] && bd[l[1]]===bd[l[2]]) return l; return []; }
+function tttMove(m, side, cell){
+  if(m.w || m.t!==side || m.bd[cell]!=='.') return false;
+  m.bd = m.bd.slice(0,cell) + (side==='a'?'X':'O') + m.bd.slice(cell+1);
+  const w = tttWinner(m.bd); m.w = w==='X' ? 'a' : w==='O' ? 'b' : w;
+  m.t = side==='a' ? 'b' : 'a'; m.at = Date.now();
+  return true;
+}
+function botCell(m){
+  const bd = m.bd, free = [...Array(9).keys()].filter(i=>bd[i]==='.');
+  const winFor = s => free.find(i => tttWinner(bd.slice(0,i)+s+bd.slice(i+1))===s);
+  let c = winFor('O'); if(c!==undefined) return c;
+  c = winFor('X'); if(c!==undefined && Math.random()<.8) return c;
+  if(bd[4]==='.' && Math.random()<.6) return 4;
+  return free[Math.floor(Math.random()*free.length)];
+}
+function startTtt(){
+  const G = S.G, ids = shuffle(G.pl.map(p=>p.id)), ms = [];
+  for(let i=0;i<ids.length;i+=2) ms.push({a:ids[i], b:ids[i+1]||'bot', bd:'.........', t:Math.random()<.5?'a':'b', w:'', ca:0, cb:0, at:Date.now()});
+  G.ttt = ms; G.tdone = false;
+  schedule(T_PLAY.ttt, advance);
+  clearInterval(S.tttIv);
+  if(S.mode==='host') S.tttIv = setInterval(()=>{
+    const g = S.G; if(!g || g.gt!=='ttt' || g.ph!=='play'){ clearInterval(S.tttIv); return; }
+    let moved = false;
+    for(const m of g.ttt){ if(!m.w && m[m.t]!=='bot' && Date.now()-m.at > T_TTTMOVE){ const free=[...Array(9).keys()].filter(i=>m.bd[i]==='.'); moved = tttMove(m, m.t, free[Math.floor(Math.random()*free.length)]) || moved; } }
+    if(moved) afterTtt();
+  }, 1000);
+  afterTtt();
+}
+function applyTtt(a){
+  for(const m of (S.G.ttt||[])) for(const side of ['a','b']){
+    const id = m[side]; if(id==='bot' || !a[id]) continue;
+    const mv = a[id].mv, key = 'c'+side;
+    while(mv.length > m[key] && !m.w && m.t===side){ tttMove(m, side, mv[m[key]]); m[key]++; }
+    if(m.w) m[key] = mv.length;
+  }
+}
+function afterTtt(){
+  const G = S.G; if(G.ph!=='play' || G.gt!=='ttt') return;
+  for(const m of G.ttt){
+    if(!m.w && m.b==='bot' && m.t==='b' && !m.bp){ m.bp = true; setTimeout(()=>{ m.bp=false; if(S.G===G && G.ph==='play' && tttMove(m,'b',botCell(m))) afterTtt(); }, 700); }
+  }
+  if(G.ttt.every(m=>m.w) && !G.tdone){ G.tdone = true; clearSchedule(); setTimeout(()=>{ if(S.G===G && G.ph==='play') reveal(); }, 1800); }
+  pushG();
 }
 function startRound(){
   const G = S.G;
@@ -639,11 +850,12 @@ function startRound(){
   G.r++; G.rk = Math.random().toString(36).slice(2,8); G.seed = Math.floor(Math.random()*1e9);
   G.ph='play'; G.res=null; G.ac=[]; G.top=null; G.hd=''; G.sub=''; G.cur=null; G.gal=null;
   if(G.gt==='schaetzen') G.qi = nextFrom('s', QS.length);
-  if(G.gt==='wwe') G.qi = nextFrom('w', WWE.length);
+  if(G.gt==='wwe') G.qi = pickWwe(G);
   if(G.gt==='draw'){ G.qi = nextFrom('d', DRAWQ.length); G.sub='draw'; S.drawings={}; S.votes={}; }
-  if(G.gt==='hol'){ if(!G.card) G.card = draw(); G.prev = null; }
-  S.myAns=null; S.localAnswers={}; S.localIdx=0; S.localReady=false;
-  if(S.mode==='host') S.nr.presence({ans:null});
+  G.hchain=null; G.hres=null; G.alive=[]; G.out={}; G.ttt=null;
+  resetAnswers();
+  if(G.gt==='hol') return startHol();
+  if(G.gt==='ttt') return startTtt();
   schedule(T_PLAY[G.gt], advance);
   pushG();
 }
@@ -688,7 +900,9 @@ function ranked(G, scores, disp, bonus){
   return res;
 }
 function reveal(){
-  const G = S.G, a = answersFor(G);
+  const G = S.G; if(G.ph!=='play') return;
+  clearInterval(S.tttIv);
+  const a = answersFor(G);
   let res = [];
   if(G.gt==='schaetzen'){
     const Q = QS[G.qi], sc = {};
@@ -707,15 +921,18 @@ function reveal(){
     G.gal = (G.vorder||[]).map(id=>({id, img:S.drawings[id]}));
     G.cur = null; G.sub='';
   } else if(G.gt==='hol'){
-    G.prev = G.card; G.card = draw();
-    const dir = G.card.v>G.prev.v ? 'h' : G.card.v<G.prev.v ? 't' : '=';
-    G.hd = dir;
-    for(const p of G.pl){
-      const v = a[p.id], vt = v==='h'?'Höher':v==='t'?'Tiefer':'–';
-      if(dir==='=') res.push({id:p.id, v:vt, s:1, t:'Gleiche Karte', w:0, dd:0});
-      else if(!v) res.push({id:p.id, v:vt, s:2, t:'Nicht dabei', w:0, dd:0});
-      else if(v===dir) res.push({id:p.id, v:vt, s:0, t:'Richtig', w:1, dd:0});
-      else res.push({id:p.id, v:vt, s:2, t:'Falsch', w:0, dd:0});
+    const sc = {}, survivors = G.pl.filter(p=>!(p.id in G.out) || (G.hres && G.hres.all && G.alive.includes(p.id)));
+    for(const p of G.pl) sc[p.id] = (p.id in G.out) ? G.out[p.id] : 99;
+    if(G.hres && G.hres.all) G.alive.forEach(id=>{ sc[id] = G.hi+0.5; });
+    res = ranked(G, sc, id => sc[id]>=99 ? 'bis zum Schluss' : `raus bei Paar ${Math.floor(sc[id])+1}`);
+    G.sub = 'end';
+  } else if(G.gt==='ttt'){
+    for(const m of (G.ttt||[])) for(const side of ['a','b']){
+      const id = m[side]; if(id==='bot') continue;
+      const opp = m[side==='a'?'b':'a'], vs = opp==='bot' ? 'gegen Bot' : 'gegen '+plById(opp).n;
+      if(m.w==='d' || !m.w) res.push({id, v:vs, s:1, t:'Unentschieden', w:0, dd:0});
+      else if(m.w===side) res.push({id, v:vs, s:0, t:'Gewonnen · verteilt 2', w:1, dd:2});
+      else res.push({id, v:vs, s:2, t:'Verloren', w:0, dd:0});
     }
   } else if(G.gt==='wwe'){
     const votes = {}; G.pl.forEach(p=>votes[p.id]=0);
@@ -742,6 +959,212 @@ function reveal(){
 }
 function endGame(){ clearSchedule(); S.G.ph='end'; S.G.gal=null; pushG(); }
 
+/* ---------- Busfahrer (eigenes Spiel mit Schafkopf-Karten) ---------- */
+const BSUIT = {E:{n:'Eichel', c:'#9b5a2a', black:true}, S:{n:'Schellen', c:'#e0a019', black:true}, G:{n:'Gras', c:'#2f9e4f', black:false}, H:{n:'Herz', c:'#e0263f', black:false}};
+const BRANK = {'7':7,'8':8,'9':9,'Z':10,'U':11,'O':12,'K':13,'A':14};
+const BLAB = {'7':'7','8':'8','9':'9','Z':'10','U':'U','O':'O','K':'K','A':'A'};
+const isCard = c => typeof c==='string' && /^[ESGH][789ZUOKA]$/.test(c);
+const cval = c => BRANK[c[1]];
+const newDeck = () => shuffle(['E','S','G','H'].flatMap(s=>Object.keys(BRANK).map(r=>s+r)));
+const cardName = c => BSUIT[c[0]].n+' '+({U:'Unter',O:'Ober',K:'König',A:'Ass',Z:'10'}[c[1]]||c[1]);
+const SICON = {
+  H:'<path d="M12 21C3 14 2 9 5 6c2.5-2.5 5.5-1.5 7 1 1.5-2.5 4.5-3.5 7-1 3 3 2 8-7 15z"/>',
+  G:'<path d="M12 2C5 7 4 14 12 22 20 14 19 7 12 2z"/><path d="M12 6v14" stroke="#fffaf0" stroke-width="1.4" fill="none"/>',
+  E:'<path d="M5 10c0-3.5 3-5.5 7-5.5s7 2 7 5.5z"/><path d="M7 10.5h10c0 6-2.5 10-5 10s-5-4-5-10z"/><path d="M12 4.5V2" stroke-width="2"/>',
+  S:'<circle cx="12" cy="13" r="8"/><path d="M5 12.5h14" stroke="#fffaf0" stroke-width="1.4"/><circle cx="12" cy="16.5" r="1.6" fill="#fffaf0" stroke="none"/><circle cx="12" cy="4" r="1.8"/>'
+};
+const suitSVG = (s,sz) => `<svg viewBox="0 0 24 24" width="${sz}" height="${sz}" fill="${BSUIT[s].c}" stroke="${BSUIT[s].c}" aria-hidden="true">${SICON[s]}</svg>`;
+function bcard(c, o={}){
+  const cls = (o.size?' '+o.size:'') + (o.hl?' hl':'') + (o.ghost?' ghost':'');
+  if(o.back || !isCard(c)) return `<div class="bc back${cls}" aria-label="verdeckte Karte"></div>`;
+  return `<div class="bc${cls}" aria-label="${cardName(c)}"><span class="bl">${BLAB[c[1]]}</span>${suitSVG(c[0], o.size==='sm'?18:o.size==='lg'?44:28)}<span class="bl br">${BLAB[c[1]]}</span></div>`;
+}
+const BQ = {
+  1:{q:'Schwarz oder Rot?', o:[['b','Schwarz'],['r','Rot']], n:1, hint:'Eichel und Schellen zählen als schwarz, Gras und Herz als rot.'},
+  2:{q:'Drunter oder drüber?', o:[['u','Drunter'],['o','Drüber']], n:2, hint:'Im Vergleich zu deiner ersten Karte. Gleich zählt als falsch.'},
+  3:{q:'Drinnen oder draußen?', o:[['i','Drinnen'],['a','Draußen']], n:1, hint:'Liegt die Karte zwischen deinen ersten beiden Karten oder außerhalb?'}
+};
+const PROW = i => i<4 ? 1 : i<7 ? 2 : i<9 ? 3 : 4;
+const T_BASK = 20000, T_BSHOW = 3500, T_FLIP = 9000, T_RIDE = 25000;
+function bev(to, txt, key){
+  const b = S.G.b; b.evq++;
+  const old = key && b.ev.find(e=>e.key===key && Date.now()-(S.evT[key]||0) < 6000);
+  if(old){ old.q=b.evq; old.txt=txt; } else { b.ev.push({q:b.evq, to, txt, key:key||''}); if(b.ev.length>30) b.ev.shift(); }
+  if(key) S.evT[key]=Date.now();
+}
+function startBus(){
+  const G = S.G; G.ph='play'; G.r=1;
+  const ord = G.pl.slice(0,7).map(p=>p.id);
+  S.bdeck = newDeck(); S.actSeen = {}; S.evT = {}; S.giveN = {};
+  G.b = {st:'ask', round:1, turn:0, ord, hands:{}, cred:{}, drank:{}, gave:{}, ev:[], evq:0, last:null, pyr:[], flip:0, laid:[], king:null, driver:null, co:null, ride:null};
+  ord.forEach(id=>{ G.b.hands[id]=[]; G.b.cred[id]=0; G.b.drank[id]=0; G.b.gave[id]=0; });
+  busAsk();
+}
+function busAsk(){
+  const G = S.G, b = G.b; b.st='ask'; b.last=null; G.rk=newKey(); resetAnswers();
+  schedule(T_BASK, ()=>busResolve(BQ[b.round].o[Math.floor(Math.random()*2)][0]));
+  pushG();
+}
+function busResolve(g){
+  const G = S.G, b = G.b; if(b.st!=='ask') return;
+  const id = b.ord[b.turn], h = b.hands[id];
+  if(!S.bdeck.length) S.bdeck = newDeck();
+  const c = S.bdeck.pop(), v = cval(c); let ok = false;
+  if(b.round===1) ok = (g==='b') === BSUIT[c[0]].black;
+  if(b.round===2){ const base = cval(h[0]); ok = g==='o' ? v>base : v<base; }
+  if(b.round===3){ const lo = Math.min(cval(h[0]),cval(h[1])), hi = Math.max(cval(h[0]),cval(h[1])); ok = g==='i' ? (v>lo && v<hi) : (v<lo || v>hi); }
+  h.push(c);
+  const n = BQ[b.round].n;
+  if(ok) b.cred[id] += n; else { b.drank[id] += n; bev(id, `Falsch geraten. Trink ${sipTxt(n)}!`); }
+  b.last = {id, g, c, ok, n}; b.st = 'show';
+  schedule(T_BSHOW, ()=>{
+    b.turn++; if(b.turn>=b.ord.length){ b.turn=0; b.round++; }
+    if(b.round>3) busPyramid(); else busAsk();
+  });
+  pushG();
+}
+function busPyramid(){
+  const G = S.G, b = G.b; b.st='pyr'; b.pyr = S.bdeck.splice(-10); b.flip=0; b.laid = b.pyr.map(()=>[]);
+  schedule(3000, busFlip); pushG();
+}
+function busFlip(){
+  const b = S.G.b; if(b.st!=='pyr') return;
+  if(b.flip>=b.pyr.length) return busKing();
+  b.flip++; S.G.rk = newKey();
+  schedule(T_FLIP, busFlip); pushG();
+}
+function busAction(id, x){
+  const G = S.G, b = G.b; if(!b || !b.ord.includes(id)) return;
+  if(x.t==='give'){
+    const to = String(x.to); if(!(b.cred[id]>0) || !b.ord.includes(to) || to===id) return;
+    b.cred[id]--; b.drank[to]++; b.gave[id]++;
+    const k = id+'>'+to; S.giveN[k] = (Date.now()-(S.evT[k]||0) < 6000 ? (S.giveN[k]||0) : 0) + 1;
+    bev(to, `${plById(id).n} gibt dir ${sipTxt(S.giveN[k])}!`, k);
+  }
+  if(x.t==='lay'){
+    if(b.st!=='pyr' || b.flip<1) return;
+    const idx = b.flip-1, top = b.pyr[idx], c = String(x.c), h = b.hands[id];
+    if(!isCard(c) || !h.includes(c) || c[1]!==top[1]) return;
+    h.splice(h.indexOf(c),1); b.laid[idx].push([id,c]);
+    b.cred[id] += 2*PROW(idx);
+  }
+}
+function busKing(){
+  const b = S.G.b, cnt = id => b.hands[id].length;
+  const counts = [...new Set(b.ord.map(cnt))].sort((x,y)=>y-x);
+  const grp = k => b.ord.filter(id=>cnt(id)===counts[k]);
+  const g1 = grp(0), g2 = counts.length>1 ? grp(1) : [];
+  b.driver=null; b.co=null; S.kStages=[];
+  if(g1.length===1){ b.driver=g1[0]; S.kStages.push({role:'co', cands:g2}); }
+  else { S.kStages.push({role:'driver', cands:g1}); S.kStages.push({role:'co', cands:null}); }
+  b.st='king'; S.kPrev = g1; nextKing();
+}
+function nextKing(){
+  const b = S.G.b, stg = S.kStages.shift();
+  if(!stg) return busRide();
+  const cands = (stg.cands || S.kPrev).filter(id=>id!==b.driver);
+  if(!cands.length) return nextKing();
+  if(cands.length===1){ b[stg.role]=cands[0]; return nextKing(); }
+  S.kdeck = newDeck(); b.king = {role:stg.role, cands, deals:[], win:null, i:0};
+  schedule(1800, kingDeal); pushG();
+}
+function kingDeal(){
+  const b = S.G.b, k = b.king, id = k.cands[k.i % k.cands.length]; k.i++;
+  const c = S.kdeck.pop(); k.deals.push([id,c]);
+  if(c==='HK'){ k.win=id; b[k.role]=id; bev(id, k.role==='driver' ? 'Du bist der Busfahrer!' : 'Du bist Beifahrer!'); schedule(3500, nextKing); }
+  else schedule(900, kingDeal);
+  pushG();
+}
+function busRide(){
+  const b = S.G.b; S.rdeck = newDeck();
+  b.ride = {tb:S.rdeck.splice(-5), up:[1,1,1,0,0], pos:0, last:null, fails:0, sub:'ask'};
+  b.st='ride'; b.king=null;
+  if(b.driver) bev(b.driver, 'Steig ein, du fährst den Bus!');
+  rideAsk();
+}
+function rideAsk(){
+  const G = S.G, r = G.b.ride; r.sub='ask'; G.rk=newKey(); resetAnswers();
+  schedule(T_RIDE, ()=>rideResolve(Math.random()<.5?'u':'o')); pushG();
+}
+function rideResolve(g){
+  const b = S.G.b, r = b.ride; if(!r || r.sub!=='ask') return;
+  if(!S.rdeck.length) S.rdeck = newDeck().filter(c=>!r.tb.includes(c));
+  const base = r.tb[r.pos], d = S.rdeck.pop(); r.up[r.pos]=1;
+  const ok = g==='o' ? cval(d)>cval(base) : cval(d)<cval(base);
+  r.last = {pos:r.pos, base, d, g, ok}; r.tb[r.pos] = d;
+  if(ok) r.pos++;
+  else {
+    const n = r.pos+1; r.fails++;
+    [b.driver, b.co].filter(Boolean).forEach(id=>{ b.drank[id]+=n; bev(id, `Bus-Crash bei Karte ${n}! Trink ${sipTxt(n)}.`); });
+    r.pos = 0;
+  }
+  r.sub='show';
+  schedule(3200, r.pos>=5 ? busEnd : rideAsk); pushG();
+}
+function busEnd(){ clearSchedule(); const G=S.G; G.b.st='end'; G.ph='end'; pushG(); }
+function ansOf(id){ const a = id===S.myId ? S.myAns : (S.peerMap[id] && S.peerMap[id].presence && S.peerMap[id].presence.ans); return a && a.k===S.G.rk ? a.v : undefined; }
+function busSync(){
+  const b = S.G.b; if(!b) return pushG();
+  for(const id of b.ord){
+    if(id===S.myId) continue;
+    const p = S.peerMap[id], acts = p && p.presence && Array.isArray(p.presence.act) ? p.presence.act : [];
+    for(const x of acts){ if(!x || typeof x.i!=='number' || x.i <= (S.actSeen[id]||0)) continue; S.actSeen[id]=x.i; busAction(id, x); }
+  }
+  if(b.st==='ask'){ const v = ansOf(b.ord[b.turn]); if(BQ[b.round].o.some(o=>o[0]===v)) return busResolve(v); }
+  if(b.st==='ride' && b.ride.sub==='ask'){ const v = ansOf(b.driver); if(v==='u' || v==='o') return rideResolve(v); }
+  pushG();
+}
+// Spieleraktionen (Ablegen, Verteilen) laufen beim Host über busAction, bei Mitspielern über die Presence
+function busDo(x){
+  const G = S.G; if(!G || !G.b) return;
+  if(S.mode==='host' || S.mode==='local'){ busAction(x.who || S.myId, x); pushG(); return; }
+  S.actSeq = (S.actSeq||0)+1; S.myActs = [...(S.myActs||[]), {...x, i:S.actSeq}].slice(-40);
+  S.nr.presence({act:S.myActs});
+}
+function busGuess(v){
+  const G = S.G, b = G.b; if(!b) return;
+  const forRide = b.st==='ride';
+  if(S.mode==='local' || S.mode==='host'){
+    const me = S.mode==='local' ? null : S.myId;
+    if(forRide){ if(me && b.driver!==me) return; return rideResolve(v); }
+    if(me && b.ord[b.turn]!==me) return; return busResolve(v);
+  }
+  S.myAns = {k:G.rk, v}; S.nr.presence({ans:S.myAns}); render();
+}
+function sanitizeBus(x){
+  if(!x || typeof x!=='object') return null;
+  const ids = Array.isArray(x.ord) ? x.ord.map(String).slice(0,7) : [];
+  const num = o => { const r={}; ids.forEach(id=>{ r[id]=Number(o && o[id])||0; }); return r; };
+  const cards = a => Array.isArray(a) ? a.filter(isCard) : [];
+  const hands = {}; ids.forEach(id=>{ hands[id]=cards(x.hands && x.hands[id]); });
+  const pyr = cards(x.pyr);
+  return {
+    st:String(x.st), round:Number(x.round)||1, turn:Number(x.turn)||0, ord:ids, hands, cred:num(x.cred), drank:num(x.drank), gave:num(x.gave),
+    ev:Array.isArray(x.ev) ? x.ev.map(e=>({q:Number(e.q)||0, to:String(e.to), txt:String(e.txt).slice(0,90), key:String(e.key||'')})) : [], evq:Number(x.evq)||0,
+    last: x.last && isCard(x.last.c) ? {id:String(x.last.id), g:String(x.last.g), c:x.last.c, ok:!!x.last.ok, n:Number(x.last.n)||0} : null,
+    pyr, flip:Math.min(pyr.length, Number(x.flip)||0), laid: Array.isArray(x.laid) ? x.laid.map(l=>Array.isArray(l)?l.filter(p=>Array.isArray(p)&&isCard(p[1])).map(p=>[String(p[0]),p[1]]):[]) : [],
+    king: x.king && Array.isArray(x.king.deals) ? {role:String(x.king.role), cands:(x.king.cands||[]).map(String), deals:x.king.deals.filter(d=>Array.isArray(d)&&isCard(d[1])).map(d=>[String(d[0]),d[1]]), win:x.king.win?String(x.king.win):null} : null,
+    driver: x.driver ? String(x.driver) : null, co: x.co ? String(x.co) : null,
+    ride: x.ride && Array.isArray(x.ride.tb) ? {tb:cards(x.ride.tb), up:(x.ride.up||[]).map(Boolean), pos:Number(x.ride.pos)||0, fails:Number(x.ride.fails)||0, sub:String(x.ride.sub),
+      last: x.ride.last && isCard(x.ride.last.d) ? {pos:Number(x.ride.last.pos)||0, base:x.ride.last.base, d:x.ride.last.d, g:String(x.ride.last.g), ok:!!x.ride.last.ok} : null} : null
+  };
+}
+// Hinweise wie "Flo gibt dir 2 Schlucke" auf dem eigenen Handy
+const $toasts = document.getElementById('toasts');
+function busToasts(){
+  const b = S.G && S.G.b; if(!b){ S.evSeen = null; return; }
+  if(S.evSeen==null){ S.evSeen = b.evq; return; }
+  for(const e of b.ev){
+    if(e.q <= S.evSeen) continue;
+    if(S.mode!=='local' && e.to!==S.myId) continue;
+    const txt = S.mode==='local' ? plById(e.to).n+': '+e.txt : e.txt;
+    let el = e.key ? $toasts.querySelector(`[data-k="${CSS.escape(e.key)}"]`) : null;
+    if(!el){ el = document.createElement('div'); el.className='toast'; if(e.key) el.dataset.k=e.key; $toasts.appendChild(el); }
+    el.textContent = txt; clearTimeout(el._t); el._t = setTimeout(()=>el.remove(), 4200);
+  }
+  S.evSeen = b.evq;
+}
+
 /* ---------- Räume ---------- */
 function onRoomErr(){ if(!S.mode || S.mode==='local') return; S.lost = true; render(); }
 function needName(){
@@ -750,7 +1173,7 @@ function needName(){
 }
 function wake(){ try{ navigator.wakeLock && navigator.wakeLock.request('screen').catch(()=>{}); }catch(e){} }
 document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState==='visible' && online()) wake(); });
-async function createRoom(){
+async function createRoom(kind){
   if(!S.roomApi || S.busy || needName()) return;
   S.busy=true; S.err=''; render();
   try{
@@ -758,7 +1181,7 @@ async function createRoom(){
       const code = genCode();
       let nr;
       try{ nr = await openHub(code); }catch(e){ if(e && e.code==='taken') continue; throw e; }
-      S.nr=nr; S.code=code; S.mode='host'; S.G=newG(); S.lastG=''; S.myAns=null;
+      S.nr=nr; S.code=code; S.mode='host'; S.G=newG(); S.G.kind = kind==='bus' ? 'bus' : 'party'; S.lastG=''; S.myAns=null; S.evSeen=null;
       const me = nr.peers().find(p=>p.sameTab); S.myId = me && me.peer ? me.peer : 'host';
       await nr.presence({role:'host', p:prof()});
       nr.onPeers(()=>hostSync(), onRoomErr);
@@ -799,7 +1222,12 @@ function playerSync(){
       pl:(Array.isArray(g.pl)?g.pl:[]).map(p=>({id:String(p.id), n:cleanName(p.n), av:cleanAv(p.av)})),
       st:g.st||{}, hist:Array.isArray(g.hist)?g.hist:[], sel:Array.isArray(g.sel)?g.sel.filter(x=>GAMES[x]):[],
       cur: g.cur && okImg(g.cur.img) ? {id:String(g.cur.id), img:g.cur.img} : null,
-      gal: Array.isArray(g.gal) ? g.gal.filter(x=>x && okImg(x.img)).map(x=>({id:String(x.id), img:x.img})) : null
+      gal: Array.isArray(g.gal) ? g.gal.filter(x=>x && okImg(x.img)).map(x=>({id:String(x.id), img:x.img})) : null,
+      hchain: Array.isArray(g.hchain) ? g.hchain.map(x=>({n:String(x.n).slice(0,60), v:Number(x.v)||0})) : null,
+      alive: Array.isArray(g.alive) ? g.alive.map(String) : [], out: (g.out && typeof g.out==='object') ? g.out : {},
+      hres: g.hres && typeof g.hres==='object' ? {truth:String(g.hres.truth), wrong:Array.isArray(g.hres.wrong)?g.hres.wrong.map(String):[], all:!!g.hres.all} : null,
+      kind: g.kind==='bus' ? 'bus' : 'party', b: g.kind==='bus' ? sanitizeBus(g.b) : null,
+      ttt: Array.isArray(g.ttt) ? g.ttt.map(m=>({a:String(m.a), b:String(m.b), bd:/^[.XO]{9}$/.test(m.bd)?m.bd:'.........', t:m.t==='b'?'b':'a', w:['a','b','d'].includes(m.w)?m.w:''})) : null
     });
     if(!GAMES[S.G.gt]) S.G.gt='schaetzen';
     S.dl = S.G.tl ? Date.now()+Number(S.G.tl) : 0;
@@ -816,9 +1244,9 @@ function leaveRoom(){
   Object.assign(S, {nr:null, mode:null, G:null, code:'', myAns:null, lost:false, hostSeen:false, lostT:null, joinT:null, lastG:'', dl:0, popFor:null});
   render();
 }
-function startLocal(){
+function startLocal(kind){
   if(needName()) return;
-  S.err=''; S.mode='local'; S.myId='me'; S.G=newG();
+  S.err=''; S.mode='local'; S.myId='me'; S.G=newG(); S.G.kind = kind==='bus' ? 'bus' : 'party'; S.evSeen=null;
   S.G.pl=[{id:'me', n:cleanName(S.me.name), av:S.me.av}];
   pushG();
 }
@@ -826,9 +1254,9 @@ function submitAnswer(v, rk){
   const G=S.G; if(!G || G.ph!=='play' || (rk && rk!==G.rk) || !validAns(G, v)) return;
   if(S.mode==='local'){
     if(G.gt==='draw' && G.sub==='vote'){ S.votes[G.cur.id]=[v]; nextVote(); return; }
-    const p = G.pl[S.localIdx]; if(!p) return;
+    const list = needed(G), p = list[S.localIdx]; if(!p) return;
     S.localAnswers[p.id]=v; S.localIdx++; S.localReady=false;
-    if(S.localIdx>=G.pl.length) advance(); else render();
+    if(S.localIdx>=list.length) advance(); else render();
     return;
   }
   S.myAns = {k:G.rk, v};
@@ -1185,8 +1613,28 @@ function cardHTML(c){
   const red = c.s===1 || c.s===2, r = RANK(c.v), su = SUITS[c.s%4];
   return `<div class="pcard${red?' red':''}" aria-label="${r} ${su}"><span class="cr tl">${r}<br>${su}</span><span class="big">${r}</span><span class="cr br">${r}<br>${su}</span></div>`;
 }
+const BOT = {n:'Bot', av:'2720004056'};
+const miniBoard = m => `<div class="board mini">${m.bd.split('').map(c=>`<span class="${c}">${c==='.'?'':c}</span>`).join('')}</div>`;
+function tttHTML(){
+  const G = S.G, local = S.mode==='local', ms = G.ttt || [];
+  const m = local ? (ms.find(x=>!x.w) || ms[ms.length-1]) : ms.find(x=>x.a===S.myId || x.b===S.myId);
+  if(!m) return '<p class="muted center">Du schaust diese Runde zu.</p>';
+  const side = local ? m.t : (m.a===S.myId ? 'a' : 'b');
+  const who = s => m[s]==='bot' ? BOT : plById(m[s]);
+  const myTurn = !m.w && m[m.t]!=='bot' && (local || m.t===side);
+  const line = tttLine(m.bd);
+  let status;
+  if(m.w) status = m.w==='d' ? 'Unentschieden!' : local ? esc(who(m.w).n)+' gewinnt!' : (m.w===side ? 'Gewonnen! Du verteilst 2.' : 'Verloren!');
+  else status = (local || m.t!==side) ? `${esc(who(m.t).n)} ist dran (${m.t==='a'?'X':'O'})` : 'Du bist dran!';
+  const sideHTML = s => `<div class="side${!m.w&&m.t===s?' turn':''}">${avatarSVG(who(s).av,48)}<b>${esc(who(s).n)}</b><span class="mk ${s==='a'?'X':'O'}">${s==='a'?'X':'O'}</span></div>`;
+  const board = m.bd.split('').map((c,i)=>`<button class="${c!=='.'?c:''}${line.includes(i)?' win':''}" data-act="tcell" data-i="${i}" ${myTurn&&c==='.'?'':'disabled'} aria-label="Feld ${i+1}${c!=='.'?' '+c:''}">${c==='.'?'':c}</button>`).join('');
+  const nm = id => id==='bot' ? 'Bot' : plById(id).n;
+  const others = ms.filter(x=>x!==m);
+  return `<div class="duel board-x">${sideHTML('a')}<span class="vsx">vs</span>${sideHTML('b')}</div><p class="turnline">${status}</p><div class="board">${board}</div>`+
+    (others.length ? `<h3>${local?'Alle Duelle':'Andere Duelle'}</h3><div class="matches">${others.map(x=>`<div class="match">${miniBoard(x)}<small>${esc(nm(x.a))} vs ${esc(nm(x.b))}</small></div>`).join('')}</div>` : '');
+}
 const refLink = name => `<a class="btn ghost small refbtn" href="https://www.google.com/search?tbm=isch&amp;q=${encodeURIComponent(name+' Zeichentrick')}" target="_blank" rel="noopener noreferrer">So sieht ${esc(name)} aus ↗</a>`;
-const timerHTML = c => (online() && S.dl) ? `<div class="timer" style="--c:${c}"><div class="tb"><i id="tbi"></i></div><span id="tbs"></span></div>` : '';
+const timerHTML = c => ((online() || (S.G && S.G.kind==='bus')) && S.dl) ? `<div class="timer" style="--c:${c}"><div class="tb"><i id="tbi"></i></div><span id="tbs"></span></div>` : '';
 
 function view(){
   const R = {};
@@ -1217,6 +1665,11 @@ function view(){
         <button class="btn ghost wide" data-act="local">Alle auf einem Handy</button>
       </section>
       ${reg('r-err', err)}
+      <section class="box bushero"><div style="display:flex;gap:6px;align-items:flex-end">${bcard('EU',{size:'sm'})}${bcard('HK',{size:'sm'})}${bcard('GA',{size:'sm'})}</div>
+        <div><p class="eyebrow">Eigenes Spiel · Schafkopf-Karten</p><h2>Busfahrer</h2></div>
+        <p class="muted">Schwarz oder Rot, drunter oder drüber, drinnen oder draußen, dann die Pyramide. Wer am Ende die meisten Karten hat, fährt Bus. Für 2 bis 7 Leute.</p>
+        <div class="btnrow"><button class="btn" data-act="createbus" ${dis}>Busfahrer-Raum erstellen</button><button class="btn ghost" data-act="localbus">Auf einem Handy</button></div>
+        <p class="note">Zum Mitspielen geben die anderen oben ganz normal den Code ein.</p></section>
       <section class="actions"><h2>Die Spiele</h2><div class="tiles">${ORDER.map(k=>tileHTML(k,false)).join('')}</div></section>
       <footer>Trinkt verantwortungsvoll. Ein Schluck Wasser zählt auch.</footer>`};
   }
@@ -1236,13 +1689,26 @@ function view(){
       : `<section class="box codecard"><div class="code">${esc(S.code)}</div><div class="side"><p class="eyebrow">Raum-Code</p><p>Freunde öffnen die Seite und geben den Code ein.</p><button class="btn small" data-act="copy">Einladung kopieren</button></div></section>`;
     const addForm = S.mode==='local' ? `<div class="addrow"><input type="text" id="addn" maxlength="16" placeholder="Name hinzufügen" autocomplete="off" aria-label="Name"><button class="btn small" data-act="addp">Dazu</button></div>` : '';
     let setup;
-    if(isHost()){
+    if(G.kind==='bus'){
+      const many = G.pl.length>7;
+      setup = `<section class="box bushero"><p class="eyebrow">So läuft Busfahrer</p><h2>Busfahrer</h2>
+        <ol class="muted" style="margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:4px">
+          <li><b>Schwarz oder Rot?</b> Richtig: 1 Schluck verteilen. Falsch: 1 trinken.</li>
+          <li><b>Drunter oder drüber?</b> Richtig: 2 verteilen. Falsch: 2 trinken.</li>
+          <li><b>Drinnen oder draußen?</b> Richtig: 1 verteilen. Falsch: 1 trinken.</li>
+          <li><b>Pyramide:</b> Passt deine Karte zur aufgedeckten Karte, leg sie ab und verteil 2, 4, 6 oder 8 Schlucke je nach Reihe.</li>
+          <li>Wer die meisten Karten übrig hat, fährt Bus. Bei Gleichstand wird ausgekönigt: Wer den Herz-König zieht, fährt.</li>
+          <li><b>Busfahrt:</b> 5 Karten, drunter oder drüber. Falsch heißt von vorne und so viele Schlucke wie die Karte, an der es gekracht hat. Der Beifahrer trinkt mit.</li>
+        </ol>${many?'<p class="note">Mehr als 7 Leute passen nicht ins Deck. Die ersten 7 spielen mit.</p>':''}</section>`
+        + (isHost() ? reg('r-start', `<button class="btn coral big wide" data-act="bstart" ${G.pl.length<2?'disabled':''}>${G.pl.length<2?'Mindestens 2 Spieler':'Busfahrer starten'}</button>`) : `<p class="muted center">Der Host startet gleich.</p>`);
+    } else if(isHost()){
       const mix = G.mode==='mix';
       const specials = (G.sel.length?G.sel:ORDER).filter(isSpecial).length, times = G.len<=10?1:2;
       setup = `<section class="box"><h2>Spielmodus</h2>
         <div class="seg"><button class="${mix?'':'on'}" data-act="mode" data-m="single">Ein Spiel</button><button class="${mix?'on':''}" data-act="mode" data-m="mix">Mix</button></div>
         <p class="muted">${mix?`Minigames und Zeichenduell kommen je ${times===1?'einmal':'zweimal'} dran, der Rest sind Quizrunden. Am Ende gibt es den Endstand.`:'Ihr spielt ein Spiel, so oft ihr wollt. Beenden zeigt den Endstand.'}</p>
         ${mix?`<div class="rounds"><label>Runden</label>${[5,10,15,20].map(n=>`<button class="tab${G.len===n?' on':''}" data-act="len" data-n="${n}">${n}</button>`).join('')}</div>`:''}
+        <div class="rounds"><label>Wer würde eher</label><button class="tab${G.spicy?' on':''}" data-act="spicy" data-v="1">Spicy</button><button class="tab${G.spicy?'':' on'}" data-act="spicy" data-v="0">Nur lustig</button></div>
         <div class="tiles">${ORDER.map(k=>tileHTML(k,true, mix?G.sel.includes(k):G.gt===k)).join('')}</div>
         ${mix && specials*times>G.len-1 ? `<p class="note">Bei ${G.len} Runden passen nicht alle Spezialspiele rein. Ein paar fallen zufällig weg.</p>`:''}
         <p class="note">${S.mode==='host'?'Alles läuft automatisch: Runden starten bei allen gleichzeitig und gehen von selbst weiter.':'Letzter Platz trinkt 3, Mittelfeld 1, der Gewinner verteilt 2.'}</p></section>`
@@ -1250,11 +1716,12 @@ function view(){
     } else {
       setup = reg('r-wait', `<section class="box"><p class="eyebrow">Gleich geht's los</p><h2>${G.mode==='mix'?`Mix · ${G.len} Runden`:esc(game.name)}</h2><p class="muted">${G.mode==='mix'?esc(G.sel.map(k=>GAMES[k].name).join(', ')):esc(game.d)}</p><p>Der Host startet gleich. Danach läuft alles von selbst.</p></section>`);
     }
-    return {key:'lobby'+S.mode+(isHost()?G.mode+G.gt+G.sel.join()+G.len:''), regions:R, html:`${topbar()}${head}
+    return {key:'lobby'+S.mode+G.kind+(isHost()?G.mode+G.gt+G.sel.join()+G.len+G.spicy:''), regions:R, html:`${topbar()}${head}
       <section class="box"><h2>Spieler</h2>${reg('r-players', playersHTML())}${addForm}</section>
       ${reg('r-err', err)}${setup}${reg('r-score', barsHTML())}`};
   }
 
+  if(G.kind==='bus') return busView(R, reg);
   if(G.ph==='end') return endView(R, reg);
 
   const total = G.mode==='mix' ? ` / ${G.len}` : '';
@@ -1264,7 +1731,8 @@ function view(){
   if(G.ph==='play'){
     const local = S.mode==='local';
     const voting = G.gt==='draw' && G.sub==='vote';
-    const cur = (local && !voting) ? G.pl[S.localIdx] : null;
+    const passList = (local && !voting && G.gt!=='ttt' && !(G.gt==='hol' && G.sub!=='guess')) ? needed(G) : null;
+    const cur = passList ? passList[S.localIdx] : null;
     const myV = local ? undefined : (S.myAns && S.myAns.k===G.rk ? S.myAns.v : undefined);
     const who = cur ? esc(cur.n)+' · ' : '';
     let body='';
@@ -1294,20 +1762,35 @@ function view(){
           ? `<div class="guessrow"><input type="text" id="guess" inputmode="decimal" placeholder="Deine Zahl" autocomplete="off" aria-label="Deine Schätzung">${Q.u?`<span class="unit">${esc(Q.u)}</span>`:''}</div><button class="btn big" data-act="guess">Abschicken</button>`
           : `<div class="sent"><span>Deine Schätzung<br><b>${fmt(myV,Q)} ${esc(Q.u||'')}</b></span><button class="btn ghost small" data-act="unans">Ändern</button></div>`)+`</section>`;
     } else if(G.gt==='hol'){
-      const c = G.card || {v:7,s:0};
-      body = `<section class="box stage" style="--c:${game.c}"><p class="eyebrow">${who}Aktuelle Karte</p>
-        <div class="cards">${cardHTML(c)}<span class="arrow">→</span><div class="pcard back" aria-label="verdeckte Karte"></div></div>
-        <h1 class="q center">Höher oder tiefer?</h1>
-        <div class="duo"><button class="btn${myV==='h'?' on':''}" data-act="ans" data-v="h">Höher</button><button class="btn${myV==='t'?' on':''}" data-act="ans" data-v="t">Tiefer</button></div></section>`;
+      const A = G.hchain && G.hchain[G.hi], B = G.hchain && G.hchain[G.hi+1];
+      if(!A || !B) body = `<section class="box stage wait-big" style="--c:${game.c}"><div class="spinner"></div><p>Begriffe werden gemischt …</p></section>`;
+      else {
+        const show = G.sub==='show' && G.hres, isOut = !local && !(G.alive||[]).includes(S.myId);
+        let lower;
+        if(show){
+          const t = G.hres.truth, wr = G.hres.wrong.map(id=>esc(plById(id).n));
+          lower = `<p class="ex">${t==='h'?esc(B.n)+' hat mehr!':t==='t'?esc(B.n)+' hat weniger!':'Genau gleich viele!'}</p>`
+            + (G.hres.all ? `<p class="center">Alle lagen falsch. Das Spiel ist vorbei.</p>` : wr.length ? `<p class="center">Raus: <b>${wr.join(', ')}</b></p>` : `<p class="center muted">Alle richtig, weiter geht's!</p>`)
+            + (local ? `<button class="btn" data-act="skip">Weiter</button>` : '');
+        } else if(isOut) lower = `<p class="ex">Du bist raus. Schau den anderen zu.</p>`;
+        else lower = `<p class="center muted">Hat <b>${esc(B.n)}</b> mehr oder weniger Aufrufe als ${esc(A.n)}?</p>
+          <div class="duo"><button class="btn${myV==='h'?' on':''}" data-act="ans" data-v="h">Mehr</button><button class="btn${myV==='t'?' on':''}" data-act="ans" data-v="t">Weniger</button></div>`;
+        body = `<section class="box stage" style="--c:${game.c}"><p class="eyebrow">${who}Paar ${G.hi+1} · noch ${G.alive.length} im Spiel</p>
+          <h2 class="center">Was wurde 2025 öfter nachgeschlagen?</h2>
+          <div class="vs"><div class="term a"><b>${esc(A.n)}</b><span class="views">${fmtViews(A.v)} Aufrufe</span></div><span class="vsx">vs</span><div class="term${show?' ok':''}"><b>${esc(B.n)}</b><span class="views${show?'':' q'}">${show?fmtViews(B.v)+' Aufrufe':'?'}</span></div></div>
+          ${lower}<p class="src">Quelle: Seitenaufrufe der deutschen Wikipedia im Jahr 2025</p></section>`;
+      }
+    } else if(G.gt==='ttt'){
+      body = `<section class="box stage" style="--c:${game.c}"><p class="eyebrow">Tic-Tac-Toe · Gewinner verteilt 2</p>${reg('r-ttt', tttHTML())}</section>`;
     } else {
       body = `<section class="box stage" style="--c:${game.c}"><p class="eyebrow">${who}Wer würde eher …</p><h1 class="q">${esc(WWE[G.qi]||WWE[0])}</h1>`+
         reg('r-vote', `<div class="vote">${G.pl.map(p=>`<button class="${myV===p.id?'on':''}" data-act="ans" data-v="${esc(p.id)}">${avatarSVG(p.av,34)}<span>${esc(p.n)}</span></button>`).join('')}</div>`)+`</section>`;
     }
     const need = needed(G);
     const done = (local && !voting) ? G.pl.slice(0,S.localIdx).map(p=>p.id) : (G.ac||[]);
-    const status = (local && voting) ? '' : `<section class="box"><p class="muted">${need.filter(p=>done.includes(p.id)).length} von ${need.length} ${local?'sind durch':'sind fertig'}</p><div class="dots">${need.map(p=>`<span class="dot ${done.includes(p.id)?'done':'wait'}" title="${esc(p.n)}">${avatarSVG(p.av,38)}</span>`).join('')}</div>`+
+    const status = ((local && voting) || G.gt==='ttt' || (G.gt==='hol' && G.sub!=='guess')) ? '' : `<section class="box"><p class="muted">${need.filter(p=>done.includes(p.id)).length} von ${need.length} ${local?'sind durch':'sind fertig'}</p><div class="dots">${need.map(p=>`<span class="dot ${done.includes(p.id)?'done':'wait'}" title="${esc(p.n)}">${avatarSVG(p.av,38)}</span>`).join('')}</div>`+
       (S.mode==='host' ? `<button class="btn ghost small" data-act="skip" ${done.length?'':'disabled'}>Nicht warten, weiter</button>` : '')+`</section>`;
-    const akey = local ? S.localIdx+'/'+S.localReady+G.sub+G.vi : JSON.stringify(myV===undefined?null:myV)+S.miniRunning;
+    const akey = local ? S.localIdx+'/'+S.localReady+G.sub+G.vi : JSON.stringify(myV===undefined?null:myV)+S.miniRunning+G.sub+(G.gt==='hol'?G.alive.length:'');
     return {key:'play'+G.rk+akey, regions:R, html:`${topbar()}${roundBar}${timerHTML(game.c)}${body}${reg('r-status', status)}${reg('r-err', err)}`};
   }
 
@@ -1317,8 +1800,15 @@ function view(){
     const Q = QS[G.qi] || QS[0];
     head = `<p class="eyebrow">Auflösung</p><h1 class="q">${esc(Q.q)}</h1><div class="truth"><span class="eyebrow">Richtige Antwort</span><b>${fmt(Q.a,Q)} ${esc(Q.u||'')}</b></div>`;
   } else if(G.gt==='hol'){
-    const t = G.hd==='h'?'Höher!':G.hd==='t'?'Tiefer!':'Gleich!';
-    head = `<p class="eyebrow">Auflösung</p><div class="cards">${cardHTML(G.prev||{v:7,s:0})}<span class="arrow">→</span>${cardHTML(G.card||{v:7,s:0})}</div><h1 class="q center">${t}</h1>`;
+    const w = (G.res||[]).filter(r=>r.w).map(r=>esc(plById(r.id).n));
+    const chain = (G.hchain||[]).slice(0, G.hi+2);
+    head = `<p class="eyebrow">Ergebnis · ${G.hi+1} ${G.hi===0?'Paar':'Paare'} gespielt</p><h1 class="q">Mehr oder Weniger</h1>`+(w.length?`<p class="ex">${w.join(' und ')} ${w.length>1?'kommen':'kommt'} am weitesten!</p>`:'')+
+      `<ul class="res">${chain.map(x=>`<li><span class="who"><b>${esc(x.n)}</b></span><span class="val">${fmtViews(x.v)}</span></li>`).join('')}</ul><p class="src">Seitenaufrufe der deutschen Wikipedia 2025</p>`;
+  } else if(G.gt==='ttt'){
+    const w = (G.res||[]).filter(r=>r.w).map(r=>esc(plById(r.id).n));
+    const nm = id => id==='bot' ? 'Bot' : plById(id).n;
+    head = `<p class="eyebrow">Ergebnis</p><h1 class="q">Tic-Tac-Toe</h1>`+(w.length?`<p class="ex">${w.join(' und ')} ${w.length>1?'gewinnen':'gewinnt'}!</p>`:`<p class="ex">Keiner hat gewonnen.</p>`)+
+      `<div class="matches">${(G.ttt||[]).map(m=>`<div class="match">${miniBoard(m)}<small>${esc(nm(m.a))} vs ${esc(nm(m.b))}</small><small class="muted">${m.w==='d'||!m.w?'Unentschieden':esc(nm(m[m.w]))+' gewinnt'}</small></div>`).join('')}</div>`;
   } else if(G.gt==='wwe'){
     const tops = (G.top||[]).map(id=>esc(plById(id).n));
     head = `<p class="eyebrow">Wer würde eher …</p><h1 class="q">${esc(WWE[G.qi]||WWE[0])}</h1>`+(tops.length?`<p class="ex">${tops.join(' und ')} ${tops.length>1?'würden':'würde'} es wohl tun.</p>`:`<p class="ex">Niemand hat abgestimmt.</p>`);
@@ -1339,6 +1829,71 @@ function view(){
   return {key:'rev'+G.r+G.rk, regions:R, html:`${topbar()}${roundBar}${timerHTML(game.c)}<section class="box stage" style="--c:${game.c}">${head}${gal}${reg('r-res', res)}</section>${ctrl}${reg('r-score', barsHTML())}${reg('r-err', err)}`};
 }
 
+const roleHTML = (c,l,id) => `<div class="role" style="--c:${c}">${avatarSVG(plById(id).av,40)}<div><small>${l}</small><b>${esc(plById(id).n)}</b></div></div>`;
+function busView(R, reg){
+  const G = S.G, b = G.b, local = S.mode==='local', me = S.myId, nm = id => plById(id).n;
+  if(!b) return {key:'busx', regions:R, html:`${topbar()}<section class="box wait-big"><div class="spinner"></div></section>`};
+  const ord = b.ord, active = (b.st==='ask' || b.st==='show') ? ord[b.turn] : null;
+  const curTop = b.st==='pyr' && b.flip>0 ? b.pyr[b.flip-1] : null;
+  const showHands = ['ask','show','pyr','king'].includes(b.st);
+  const hands = !showHands ? '' : `<section class="box"><h2>Karten</h2><div class="hands">${ord.map(id=>{
+      const h = b.hands[id]||[], canLay = curTop && (local || id===me);
+      const cs = h.map(c=> canLay ? `<button class="laybtn" data-act="blay" data-who="${esc(id)}" data-c="${c}" ${c[1]===curTop[1]?'':'disabled'} aria-label="${cardName(c)} ablegen">${bcard(c,{size:'sm'})}</button>` : bcard(c,{size:'sm'})).join('') || '<small class="muted">keine Karten</small>';
+      return `<div class="hand${id===active?' on':''}">${avatarSVG(plById(id).av,36)}<span class="who"><b>${esc(nm(id))}${id===me&&!local?' (du)':''}</b><small>${b.drank[id]||0} getrunken · ${b.gave[id]||0} verteilt</small></span><span class="cs">${cs}</span></div>`;
+    }).join('')}</div></section>`;
+  let give = '';
+  const givers = local ? ord.filter(id=>b.cred[id]>0) : (b.cred[me]>0 ? [me] : []);
+  if(givers.length && b.st!=='end'){
+    const from = local ? (givers.includes(S.bFrom) ? S.bFrom : givers[0]) : me;
+    give = `<section class="box give"><p class="eyebrow">${local ? esc(nm(from))+' darf verteilen' : 'Du darfst verteilen'}</p><h2>Noch ${sipTxt(b.cred[from])}</h2>
+      ${local && givers.length>1 ? `<div class="chips">${givers.map(id=>`<button class="${id===from?'on':''}" data-act="bfrom" data-id="${esc(id)}">${avatarSVG(plById(id).av,26)}${esc(nm(id))}</button>`).join('')}</div><p>An wen? Jeder Tipp ist ein Schluck.</p>` : '<p>Tipp auf jemanden. Jeder Tipp ist ein Schluck.</p>'}
+      <div class="chips">${ord.filter(id=>id!==from).map(id=>`<button data-act="bgive" data-from="${esc(from)}" data-to="${esc(id)}">${avatarSVG(plById(id).av,26)}${esc(nm(id))}</button>`).join('')}</div></section>`;
+  }
+  const myV = S.myAns && S.myAns.k===G.rk ? S.myAns.v : null;
+  let main = '';
+  if(b.st==='ask' || b.st==='show'){
+    const q = BQ[b.round], h = b.hands[active]||[], mine = local || active===me;
+    const ref = b.round===1 ? '' : `<div class="cards">${h.slice(0, b.round-1).map(c=>bcard(c)).join('')}</div>`;
+    let lower;
+    if(b.st==='show' && b.last){ const L=b.last; lower = `<div class="cards">${bcard(L.c,{size:'lg'})}</div><p class="ex">${esc(nm(L.id))} ${L.ok ? 'liegt richtig und verteilt '+sipTxt(L.n)+'!' : 'liegt falsch und trinkt '+sipTxt(L.n)+'.'}</p>`; }
+    else if(mine) lower = `<div class="duo">${q.o.map(([v,l])=>`<button class="btn${myV===v?' on':''}" data-act="bg" data-v="${v}">${l}</button>`).join('')}</div>`;
+    else lower = `<p class="center muted">${esc(nm(active))} überlegt noch …</p>`;
+    main = `<section class="box stage" style="--c:var(--orange)"><p class="eyebrow">Runde ${b.round} von 3 · ${esc(nm(active))} ist dran</p><h1 class="q">${q.q}</h1><p class="muted">${q.hint}</p>${ref}${lower}</section>`;
+  }
+  if(b.st==='pyr'){
+    const rows = [[0,1,2,3],[4,5,6],[7,8],[9]].map(r=>r.filter(i=>i<b.pyr.length));
+    main = `<section class="box stage" style="--c:var(--orange)"><p class="eyebrow">Pyramide · Karte ${b.flip} von ${b.pyr.length}</p>
+      <h2>${curTop ? `${cardName(curTop)} liegt offen. Ablegen bringt ${2*PROW(b.flip-1)} Schlucke.` : 'Gleich wird aufgedeckt …'}</h2>
+      <div class="pyr">${rows.map((r,ri)=>`<div class="prow"><small>Reihe ${ri+1}<br>${2*(ri+1)} Schl.</small>${r.map(i=>`<div class="pslot">${bcard(b.pyr[i],{back:i>=b.flip, hl:i===b.flip-1, size:'sm'})}${(b.laid[i]||[]).length?`<span class="cnt">${b.laid[i].length}</span>`:''}</div>`).join('')}</div>`).join('')}</div>
+      <p class="muted center">Hast du eine Karte mit gleicher Zahl oder gleichem Bild, tipp sie in deiner Hand an.</p></section>`;
+  }
+  if(b.st==='king'){
+    const k = b.king;
+    main = `<section class="box stage" style="--c:var(--orange)"><p class="eyebrow">Auskönigen</p><h2>${k ? (k.role==='driver'?'Wer wird Busfahrer?':'Wer wird Beifahrer?') : 'Die Karten werden gezählt …'}</h2>`+
+      (k ? `<p class="muted">Gleichstand zwischen ${k.cands.map(id=>esc(nm(id))).join(', ')}. Wer den Herz-König zieht, ${k.role==='driver'?'fährt Bus':'wird Beifahrer'}.</p><div class="deals">${k.deals.slice(-12).reverse().map(([id,c])=>`<div>${bcard(c,{size:'sm',hl:c==='HK'})}${esc(nm(id))}${c==='HK'?' · Herz-König!':''}</div>`).join('')}</div>` : '')
+      + `<div class="roles">${b.driver?roleHTML('var(--orange)','Busfahrer',b.driver):''}${b.co?roleHTML('var(--lemon)','Beifahrer',b.co):''}</div></section>`;
+  }
+  if(b.st==='ride' && b.ride){
+    const r = b.ride, drv = b.driver, mine = local || drv===me;
+    const slots = r.tb.map((c,i)=>`<div class="slot${i===r.pos && r.sub==='ask'?' cur':''}">${bcard(c,{back:!r.up[i]})}<small>Karte ${i+1}</small></div>`).join('');
+    let lower;
+    if(r.sub==='show' && r.last){ const L=r.last; lower = `<div class="cards">${bcard(L.base)}<span class="arrow">→</span>${bcard(L.d,{size:'lg'})}</div><p class="ex">${L.ok ? (r.pos>=5 ? 'Der Bus ist angekommen!' : 'Richtig! Weiter zu Karte '+(r.pos+1)+'.') : 'Bus-Crash! '+sipTxt(L.pos+1)+' für Busfahrer und Beifahrer. Zurück zum Anfang.'}</p>`; }
+    else if(mine) lower = `<p class="center">Ist die nächste Karte drunter oder drüber als Karte ${r.pos+1}?${!r.up[r.pos]?' Die ist noch verdeckt!':''}</p><div class="duo"><button class="btn${myV==='u'?' on':''}" data-act="bg" data-v="u">Drunter</button><button class="btn${myV==='o'?' on':''}" data-act="bg" data-v="o">Drüber</button></div>`;
+    else lower = `<p class="center muted">${esc(nm(drv))} tippt …</p>`;
+    main = `<section class="box stage" style="--c:var(--orange)"><p class="eyebrow">Busfahrt · ${r.fails} ${r.fails===1?'Crash':'Crashes'} bisher</p>
+      <div class="roles">${roleHTML('var(--orange)','Busfahrer',drv)}${b.co?roleHTML('var(--lemon)','Beifahrer',b.co):''}</div>
+      <div class="ride">${slots}</div>${lower}</section>`;
+  }
+  if(b.st==='end'){
+    const rows = ord.map(id=>({id, d:b.drank[id]||0, g:b.gave[id]||0})).sort((x,y)=>y.d-x.d);
+    const fails = b.ride ? b.ride.fails : 0;
+    main = `<section class="hero"><p class="eyebrow">Endstation</p><h1>Der Bus ist angekommen!</h1><p class="muted">Nach ${fails} ${fails===1?'Crash':'Crashes'}. Zusammen ${rows.reduce((a,r)=>a+r.d,0)} Schlucke getrunken.</p></section>
+      <div class="roles">${b.driver?roleHTML('var(--orange)','Busfahrer',b.driver):''}${b.co?roleHTML('var(--lemon)','Beifahrer',b.co):''}</div>
+      <section class="box"><h2>Alle Stats</h2><div class="tablewrap"><table><thead><tr><th>Spieler</th><th>Getrunken</th><th>Verteilt</th></tr></thead><tbody>${rows.map(r=>`<tr><td><span class="pn">${avatarSVG(plById(r.id).av,28)}${esc(nm(r.id))}</span></td><td>${r.d}</td><td>${r.g}</td></tr>`).join('')}</tbody></table></div></section>
+      <div class="btnrow">${isHost()?'<button class="btn coral" data-act="bagain">Nochmal fahren</button>':''}<button class="btn ghost" data-act="leave">${isHost()?'Beenden':'Raum verlassen'}</button></div>`;
+  }
+  return {key:'bus'+Date.now(), regions:R, html:`${topbar()}${b.st!=='end'?timerHTML('var(--orange)'):''}${main}${give}${hands}`};
+}
 function endView(R, reg){
   const G=S.G;
   const rows = G.pl.map(p=>({p, s:0, w:0, d:0, n:0, ...(G.st[p.id]||{})})).sort((a,b)=>b.s-a.s || a.w-b.w);
@@ -1367,7 +1922,7 @@ function render(){
   const v = view();
   if(v.key!==lastKey){ $app.innerHTML = v.html; lastKey = v.key; const g=document.getElementById('guess'); if(g && !S.miniRunning) g.focus({preventScroll:true}); tick(); }
   else for(const id in v.regions){ const el=document.getElementById(id); if(el) el.innerHTML = v.regions[id]; }
-  autoStart(); maybePop();
+  autoStart(); maybePop(); busToasts();
 }
 // Countdown-Balken
 function tick(){
@@ -1385,8 +1940,14 @@ function act(a, d){
   if(a==='av'){ const t=S.me.av.split(''); t[+d.f]=String(+d.v); S.me.av=t.join(''); saveProfile(); render(); return; }
   if(a==='rand-av'){ S.me.av=randAv(); saveProfile(); render(); return; }
   if(a==='create') return createRoom();
+  if(a==='createbus') return createRoom('bus');
   if(a==='join') return joinRoom();
   if(a==='local') return startLocal();
+  if(a==='localbus') return startLocal('bus');
+  if(a==='bg'){ busGuess(d.v); return; }
+  if(a==='blay'){ busDo({t:'lay', c:d.c, who:S.mode==='local'?d.who:undefined}); return; }
+  if(a==='bgive'){ busDo({t:'give', to:d.to, who:S.mode==='local'?d.from:undefined}); return; }
+  if(a==='bfrom'){ S.bFrom=d.id; render(); return; }
   if(a==='leave'){ S.err=''; return leaveRoom(); }
   if(a==='copy'){
     const link = location.origin + location.pathname + '?code=' + S.code;
@@ -1415,7 +1976,19 @@ function act(a, d){
   }
   if(a==='unans'){ S.myAns=null; if(S.mode==='player') S.nr.presence({ans:null}); if(S.mode==='host') hostSync(); render(); return; }
   if(a==='ans'){ submitAnswer(/^[0-2]$/.test(d.v) && G.gt==='draw' ? +d.v : d.v); return; }
+  if(a==='tcell'){
+    const i = +d.i; if(!G || G.gt!=='ttt' || G.ph!=='play') return;
+    if(S.mode==='local'){ const m=(G.ttt||[]).find(x=>!x.w); if(m && m[m.t]!=='bot' && tttMove(m, m.t, i)) afterTtt(); return; }
+    const m = (G.ttt||[]).find(x=>x.a===S.myId || x.b===S.myId); if(!m) return;
+    const side = m.a===S.myId ? 'a' : 'b'; if(m.w || m.t!==side || m.bd[i]!=='.') return;
+    const prev = (S.myAns && S.myAns.k===G.rk && S.myAns.v && S.myAns.v.mv) || [];
+    if(prev.includes(i)) return;
+    submitAnswer({mv:[...prev, i]}); return;
+  }
   if(!isHost()) return;
+  if(a==='spicy'){ G.spicy = d.v==='1'; pushG(); return; }
+  if(a==='bstart'){ if(G.pl.length>=2) startBus(); return; }
+  if(a==='bagain'){ clearSchedule(); G.ph='lobby'; G.b=null; S.evSeen=null; pushG(); return; }
   if(a==='mode'){ G.mode=d.m; pushG(); return; }
   if(a==='len'){ G.len=+d.n; pushG(); return; }
   if(a==='tile'){
