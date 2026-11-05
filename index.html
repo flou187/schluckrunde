@@ -261,7 +261,31 @@ footer{text-align:center;font-size:.82rem;color:var(--muted);padding-top:4px}
 .myhand button:disabled{cursor:default}
 .myhand button:not(:disabled) .bc{box-shadow:0 0 0 3px var(--mint),0 0 16px var(--mint);animation:wig 1s ease-in-out infinite}
 .status-line{text-align:center;font-weight:700}
-@media (max-width:380px){.seat{width:76px}.btable{aspect-ratio:1/1.2}}
+/* größerer Tisch: Karten auf dem Tisch gut lesbar */
+body.bus #app{max-width:820px}
+.btable{aspect-ratio:1/1.28;margin:64px auto 64px;max-width:820px}
+.felt{inset:13% 8% 14%;padding:6% 7%;border-width:12px}
+.center{gap:8px}
+.center .cq{font-size:clamp(1rem,4.6vw,1.5rem)}
+.center .cs{font-size:clamp(.75rem,3vw,.95rem)}
+.center .ok,.center .bad{font-size:clamp(.95rem,4.2vw,1.3rem)}
+.center .bc.md{width:clamp(84px,24vw,140px)}
+.pyr-t{gap:5px}.pyr-t .prow{gap:5px}
+.pyr-t .bc{width:clamp(40px,10.5vw,72px)}
+.pyr-t .cnt{font-size:.7rem;padding:0 5px}
+.ride-t{gap:5px}
+.ride-t .bc{width:clamp(42px,11vw,78px)}
+.ride-t .slot small{font-size:.7rem}
+.seat{width:clamp(96px,26vw,150px);gap:4px}
+.seat .av{width:clamp(46px,12vw,64px);height:auto}
+.seat .nm{font-size:clamp(.72rem,3vw,.9rem)}
+.seat .mc{padding-left:14px}
+.seat .mc .bc,.seat .mc button{margin-left:-14px}
+.seat .mc .bc{width:clamp(36px,9.5vw,58px)}
+.seat .mc button .bc{margin-left:0}
+.seat .sub{font-size:.66rem}
+.myhand .bc.md{width:clamp(72px,20vw,100px)}
+@media (max-width:380px){.btable{aspect-ratio:1/1.36}.felt{inset:14% 6% 15%}}
 .hands{display:flex;flex-direction:column;gap:10px}
 .hand{display:flex;align-items:center;gap:10px;background:var(--field);border:2px solid var(--line);border-radius:14px;padding:8px 10px;min-width:0}
 .hand.on{border-color:var(--lemon)}
@@ -1921,14 +1945,15 @@ function busView(R, reg){
   const start = local ? 0 : Math.max(0, ord.indexOf(me));
   const seats = ord.map((id,i)=>{
     const k = (i - start + n) % n, a = Math.PI/2 + k*2*Math.PI/n;
-    const x = 50 + 41*Math.cos(a), y = 50 + 40*Math.sin(a);
-    const h = b.hands[id] || [], lay = curTop && local;
-    const cs = h.map(c => lay
-      ? `<button data-act="blay" data-who="${esc(id)}" data-c="${c}" ${c[1]===curTop[1]?'':'disabled'} aria-label="${esc(nm(id))}: ${cardName(c)} ablegen">${bcard(c,{size:'xs'})}</button>`
-      : bcard(c,{size:'xs'})).join('');
+    const x = 50 + 41*Math.cos(a), y = 50 + 41.5*Math.sin(a);
+    const dx = (Math.cos(a)*22).toFixed(0), dy = (Math.sin(a)*30).toFixed(0);
+    const h = b.hands[id] || [];
+    // Während Pyramide, Auskönigen und Busfahrt braucht die Tischmitte Platz: dann nur die Anzahl
+    const cs = ['ask','show'].includes(b.st) ? h.map(c=>bcard(c,{size:'xs'})).join('')
+      : (b.st==='end' ? '' : `<span class="tag">${h.length} ${h.length===1?'Karte':'Karten'}</span>`);
     const role = id===b.driver ? '<span class="rl">Busfahrer</span>' : id===b.co ? '<span class="rl co">Beifahrer</span>' : '';
     const cls = (id===active?' turn':'') + (cands.includes(id)?' cand':'') + (id===me && !local?' me':'');
-    return `<div class="seat${cls}" style="left:${x.toFixed(1)}%;top:${y.toFixed(1)}%">${avatarSVG(plById(id).av,40)}<span class="nm">${esc(nm(id))}${id===me && !local?' (du)':''}</span>${role}<span class="mc">${cs}</span><span class="sub">${b.drank[id]||0} getrunken</span></div>`;
+    return `<div class="seat${cls}" style="left:${x.toFixed(1)}%;top:${y.toFixed(1)}%;transform:translate(calc(-50% + ${dx}%),calc(-50% + ${dy}%))">${avatarSVG(plById(id).av,40)}<span class="nm">${esc(nm(id))}${id===me && !local?' (du)':''}</span>${role}<span class="mc">${cs}</span><span class="sub">${b.drank[id]||0} getrunken</span></div>`;
   }).join('');
 
   let center = '', below = '';
@@ -1949,8 +1974,7 @@ function busView(R, reg){
   }
   if(b.st==='pyr'){
     const rows = [[0,1,2,3],[4,5,6],[7,8],[9]].map(r=>r.filter(i=>i<b.pyr.length));
-    center = `<span class="cs">Pyramide · ${b.flip} von ${b.pyr.length}</span><div class="pyr-t">${rows.map(r=>`<div class="prow">${r.map(i=>`<div class="pslot">${bcard(b.pyr[i],{back:i>=b.flip, hl:i===b.flip-1, size:'xs'})}${(b.laid[i]||[]).length?`<span class="cnt">${b.laid[i].length}</span>`:''}</div>`).join('')}</div>`).join('')}</div>`
-      + (curTop ? `<span class="cs">Ablegen bringt ${2*PROW(b.flip-1)} Schlucke</span>` : '');
+    center = `<span class="cs">Pyramide · ${b.flip} von ${b.pyr.length}${curTop ? ' · Ablegen bringt '+2*PROW(b.flip-1) : ''}</span><div class="pyr-t">${rows.map(r=>`<div class="prow">${r.map(i=>`<div class="pslot">${bcard(b.pyr[i],{back:i>=b.flip, hl:i===b.flip-1, size:'xs'})}${(b.laid[i]||[]).length?`<span class="cnt">${b.laid[i].length}</span>`:''}</div>`).join('')}</div>`).join('')}</div>`;
     const offen = curTop ? `${esc(cardName(curTop))} liegt offen` : 'Gleich wird aufgedeckt';
     if(local){
       const opts = curTop ? ord.flatMap(id=>(b.hands[id]||[]).filter(c=>c[1]===curTop[1]).map(c=>`<button data-act="blay" data-who="${esc(id)}" data-c="${c}">${bcard(c,{size:'md'})}${esc(nm(id))}</button>`)) : [];
@@ -2026,6 +2050,7 @@ function render(){
   const v = view();
   if(v.key!==lastKey){ $app.innerHTML = v.html; lastKey = v.key; const g=document.getElementById('guess'); if(g && !S.miniRunning) g.focus({preventScroll:true}); tick(); }
   else for(const id in v.regions){ const el=document.getElementById(id); if(el) el.innerHTML = v.regions[id]; }
+  document.body.classList.toggle('bus', !!(S.G && S.G.kind==='bus' && S.G.ph!=='lobby'));
   autoStart(); maybePop(); busToasts();
 }
 // Countdown-Balken
